@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>엑셀 단축키 퀴즈</title>
+
+<style>
+  :root{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#ffffff;
+    --muted:#cbd5e1;
+    --opt:#334155;
+    --opt-hover:#475569;
+    --ok:#16a34a;
+    --bad:#dc2626;
+    --shadow:0 20px 40px rgba(0,0,0,.4);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Noto Sans KR", sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:18px;
+  }
+  .quiz-box{
+    position:relative;
+    background:var(--card);
+    width:100%;
+    max-width:460px;
+    border-radius:var(--radius);
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+  h1{
+    text-align:center;
+    font-size:1.25rem;
+    margin:0 0 16px 0;
+    letter-spacing:-0.2px;
+  }
+  .meta{
+    text-align:center;
+    font-size:.95rem;
+    color:var(--muted);
+    margin-bottom:14px;
+  }
+  .question{
+    font-size:1.1rem;
+    margin:14px 0 14px 0;
+    line-height:1.4;
+  }
+  .answers{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:6px;
+  }
+  .answer{
+    background:var(--opt);
+    padding:14px 12px;
+    border-radius:14px;
+    text-align:center;
+    cursor:pointer;
+    transition:transform .12s ease, background .12s ease;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .answer:active{ transform:scale(.99) }
+  .answer:hover{ background:var(--opt-hover) }
+  .correct{ background:var(--ok) !important; }
+  .wrong{ background:var(--bad) !important; }
+  #result{
+    margin-top:14px;
+    text-align:center;
+    font-weight:700;
+    min-height:1.4em;
+  }
+  .note{
+    margin-top:10px;
+    text-align:center;
+    font-size:.92rem;
+    color:var(--muted);
+    line-height:1.35;
+  }
+  .progress{
+    margin-top:14px;
+    height:8px;
+    background:rgba(255,255,255,.12);
+    border-radius:999px;
+    overflow:hidden;
+  }
+  .bar{
+    height:100%;
+    width:0%;
+    background:rgba(255,255,255,.55);
+    transition:width .25s ease;
+  }
+  .done{
+    text-align:center;
+    padding:18px 6px 6px 6px;
+  }
+  .done h2{
+    margin:0 0 8px 0;
+    font-size:1.35rem;
+  }
+  .btn{
+    display:inline-block;
+    margin-top:12px;
+    background:rgba(255,255,255,.12);
+    color:var(--text);
+    padding:10px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:hover{ background:rgba(255,255,255,.18) }
+
+  .closeAllBtn{
+    position:absolute;
+    top:14px;
+    right:14px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);
+    color:var(--text);
+    padding:8px 10px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+    font-size:13px;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .closeAllBtn:hover{ background:rgba(255,255,255,.14); }
+
+</style>
+</head>
+
+<body>
+  <div class="quiz-box" id="app" aria-live="polite">
+    <button class="closeAllBtn" id="closeAllBtn" type="button" aria-label="닫기">닫기</button>
+    <h1>📌 엑셀 단축키 퀴즈</h1>
+    <div class="meta" id="meta">터치(또는 클릭)해서 정답을 선택하세요</div>
+
+    <div class="question" id="question"></div>
+    <div class="answers" id="answers"></div>
+
+    <div id="result"></div>
+    <div class="note" id="note"></div>
+
+    <div class="progress" aria-hidden="true">
+      <div class="bar" id="bar"></div>
+    </div>
+  </div>
+
+<script>
+
+  // =========================
+  // 연결된 창(팝업) 전체 닫기
+  // - munje.html 과 BroadcastChannel 로 통신
+  // =========================
+  const CHANNEL_NAME = "quiz_close_all_v1";
+  const bc = ("BroadcastChannel" in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
+
+  function requestCloseAll(){
+    if(bc){
+      try{ bc.postMessage({ type: "closeAll" }); }catch(e){}
+    }
+    // 나 자신도 닫기 시도 (스크립트로 열린 창이면 정상 동작)
+    try{
+      window.close();
+    }catch(e){}
+    // 탭으로 열렸거나 브라우저 정책상 닫기 불가한 경우 안내
+    setTimeout(() => {
+      if(!window.closed){
+        alert("브라우저 정책상 자동으로 탭을 닫을 수 없습니다.\n이 탭(창)은 직접 닫아주세요.");
+      }
+    }, 150);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const closeBtn = document.getElementById("closeAllBtn");
+    if(closeBtn) closeBtn.addEventListener("click", requestCloseAll);
+  });
+
+  if(bc){
+    bc.onmessage = (ev) => {
+      if(ev && ev.data && ev.data.type === "closeAll"){
+        try{ window.close(); }catch(e){}
+      }
+    };
+    window.addEventListener("beforeunload", () => {
+      try{ bc.close(); }catch(e){}
+    });
+  }
+
+  const quiz = [
+    {
+      q: "Q1. 새 시트를 삽입하는 단축키는?",
+      a: ["Shift + F11", "Ctrl + ;", "Ctrl + Shift + ;"],
+      c: 0,
+      note: "Shift + F11 → 시트 삽입 (최대 255개까지 추가)"
+    },
+    {
+      q: "Q2. 현재 시스템 날짜를 삽입하는 단축키는?",
+      a: ["Shift + F11", "Ctrl + ;", "Ctrl + Shift + ;"],
+      c: 1,
+      note: "Ctrl + ; → 현재 시스템 날짜 삽입"
+    },
+    {
+      q: "Q3. 현재 시스템 시간을 삽입하는 단축키는?",
+      a: ["Shift + F11", "Ctrl + ;", "Ctrl + Shift + ;"],
+      c: 2,
+      note: "Ctrl + Shift + ; → 현재 시스템 시간 삽입"
+    }
+  ];
+
+  let current = 0;
+  let score = 0;
+
+  const $q = document.getElementById("question");
+  const $answers = document.getElementById("answers");
+  const $result = document.getElementById("result");
+  const $note = document.getElementById("note");
+  const $meta = document.getElementById("meta");
+  const $bar = document.getElementById("bar");
+  const $app = document.getElementById("app");
+
+  function setProgress(){
+    const pct = Math.round((current / quiz.length) * 100);
+    $bar.style.width = pct + "%";
+  }
+
+  function loadQuiz(){
+    setProgress();
+    $result.textContent = "";
+    $note.textContent = "";
+    $meta.textContent = `문제 ${current+1} / ${quiz.length}  ·  점수 ${score}`;
+
+    $q.textContent = quiz[current].q;
+    $answers.innerHTML = "";
+
+    quiz[current].a.forEach((text, i) => {
+      const div = document.createElement("div");
+      div.className = "answer";
+      div.textContent = text;
+      div.setAttribute("role", "button");
+      div.setAttribute("tabindex", "0");
+      div.onclick = () => checkAnswer(div, i);
+      div.onkeydown = (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          checkAnswer(div, i);
+        }
+      };
+      $answers.appendChild(div);
+    });
+  }
+
+  function lockAnswers(){
+    document.querySelectorAll(".answer").forEach(a => {
+      a.onclick = null;
+      a.onkeydown = null;
+      a.style.cursor = "default";
+    });
+  }
+
+  function checkAnswer(el, i){
+    lockAnswers();
+
+    const correctIdx = quiz[current].c;
+    const answerEls = document.querySelectorAll(".answer");
+
+    if(i === correctIdx){
+      score++;
+      el.classList.add("correct");
+      $result.textContent = "정답입니다 👍";
+    }else{
+      el.classList.add("wrong");
+      answerEls[correctIdx].classList.add("correct");
+      $result.textContent = "틀렸어요 ❌";
+    }
+
+    $note.textContent = quiz[current].note;
+
+    setTimeout(() => {
+      current++;
+      if(current < quiz.length){
+        loadQuiz();
+      }else{
+        finish();
+      }
+    }, 1400);
+  }
+
+  function finish(){
+    $bar.style.width = "100%";
+    $app.innerHTML = `
+      <div class="done">
+        <h2>🎉 퀴즈 완료!</h2>
+        <div style="color:rgba(255,255,255,.85); font-size:1.05rem;">
+          최종 점수: <b>${score}</b> / <b>${quiz.length}</b>
+        </div>
+        <div class="btn" role="button" tabindex="0" id="restartBtn">다시 풀기</div>
+      </div>
+    `;
+    const btn = document.getElementById("restartBtn");
+    btn.onclick = restart;
+    btn.onkeydown = (e) => {
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        restart();
+      }
+    };
+  }
+
+  function restart(){
+    current = 0;
+    score = 0;
+    // 원래 UI 복구
+    document.getElementById("app").innerHTML = `
+      <h1>📌 엑셀 단축키 퀴즈</h1>
+      <div class="meta" id="meta">터치(또는 클릭)해서 정답을 선택하세요</div>
+
+      <div class="question" id="question"></div>
+      <div class="answers" id="answers"></div>
+
+      <div id="result"></div>
+      <div class="note" id="note"></div>
+
+      <div class="progress" aria-hidden="true">
+        <div class="bar" id="bar"></div>
+      </div>
+    `;
+
+    // DOM 참조 다시 연결
+    window.location.reload();
+  }
+
+  loadQuiz();
+</script>
+</body>
+</html>
