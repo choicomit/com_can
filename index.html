@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta name="naver-site-verification" content="82a7c7fec304bf2fedd7b8b950134a6b4504557b" />
 <title>AI 기반 국가기술자격 기출문제 학습 시스템</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
@@ -190,40 +189,39 @@ body{
   50% { opacity: 0.3; }
 }
 
-/* Title */
+/* Title - 수정된 부분 */
 .hero-title{
   margin:8px 0 24px;
 }
 
-.title-owner{
-  font-size:18px;
-  font-weight:600;
-  background: var(--accent-gradient);
+.title-main{
+  font-size:48px;
+  font-weight:900;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom:8px;
-  letter-spacing: -0.3px;
-}
-
-.title-main{
-  font-size:42px;
-  font-weight:900;
-  color:var(--text);
-  letter-spacing:-1px;
+  letter-spacing:-1.2px;
   line-height: 1.2;
   margin-bottom: 12px;
+  position: relative;
+  animation: gradient-shift 8s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 @media (max-width:768px){
-  .title-owner{font-size:16px;}
-  .title-main{font-size:32px;}
+  .title-main{font-size:32px; letter-spacing:-0.8px;}
 }
 
-/* Intro */
+/* Intro - 수정된 부분 */
 .intro{
   color:var(--muted);
-  font-size:16px;
+  font-size:15px;
   line-height: 1.7;
   margin:0 0 40px;
   max-width:70ch;
@@ -625,36 +623,78 @@ body{
 .admin-only{display:none;}
 body.admin-mode .admin-only{display:flex;}
 
-/* Wish message animation */
+/* Wish message animation - 수정된 부분 */
 .wish-wrap{
-  margin-top: 64px;
+  margin-top: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  animation: wish-move 3s ease-in-out infinite alternate;
+  gap: 20px;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(102,126,234,0.15);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.wish-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
 }
 
 .wish-text{
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
-  background: var(--accent-gradient);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.5px;
+  font-family: 'Inter', sans-serif;
+  background-size: 200% 200%;
+  animation: gradient-text 4s ease-in-out infinite;
 }
 
-.wish-img{
-  width: 42px;
-  height: 42px;
-  transform: rotate(-8deg);
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+@keyframes gradient-text {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-@keyframes wish-move{
-  from{ transform: translateX(-40px); }
-  to{ transform: translateX(40px); }
+.wish-icon{
+  font-size: 32px;
+  animation: float-icon 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(102,126,234,0.3));
+}
+
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@media (max-width:768px){
+  .wish-wrap{
+    margin-top: 60px;
+    padding: 24px;
+  }
+  .wish-text{
+    font-size: 22px;
+  }
+  .wish-icon{
+    font-size: 28px;
+  }
 }
 
 /* Home buttons */
@@ -762,6 +802,12 @@ body:not(.quiz-mode) .study-summary .preview-box{
   max-width:none !important;
   margin:0 !important;
 }
+
+@media (min-width:769px){
+  body.quiz-mode .home-float .home-text{display:none !important;}
+  body.quiz-mode .home-float{gap:0 !important; padding:14px 16px !important;}
+}
+
 </style>
 </head>
 <body>
@@ -787,12 +833,11 @@ body:not(.quiz-mode) .study-summary .preview-box{
 </div>
 
 <header aria-label="서비스 제목" class="hero-title">
-  <div class="title-owner">choi샘의</div>
-  <div class="title-main">AI 기반 국가기술자격<br>기출문제 학습 시스템</div>
+  <div class="title-main">AI 기반 국가기술자격 기출문제 학습 시스템</div>
 </header>
 
 <p class="intro">
-문제 풀이 → 자동 채점 → 오답 복습 → 유사 문제 반복 학습 흐름으로 구성하여, 시험 직전까지 필요한 문항을 중심으로 빠르게 회독할 수 있도록 설계하였습니다.
+문제 풀이 → 자동 채점 → 오답 복습 → 유사 문제 반복 학습 흐름으로, 시험 직전까지 필요한 문항을 빠르게 마스터하세요.
 </p>
 
 <section aria-label="핵심 기능" class="feature-grid">
@@ -859,20 +904,19 @@ body:not(.quiz-mode) .study-summary .preview-box{
 <div class="preview-title">오늘의 전략</div>
 </div>
 <p class="line">1) 전체 문제를 빠르게 훑어보며 출제 유형 파악</p>
-<p class="line">2) 오답 문제만 2~3회 반복 학습</p>
+<p class="line">2) 오답 문제만 2~3회 반복
+학습</p>
 <p class="line">3) 유사 문제로 약점 유형 보완</p>
 </div>
 </section>
-
+<!-- 수정된 합격 메시지 부분 -->
 <div class="wish-wrap">
-<span class="wish-text">합격을 기원합니다</span>
-<img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="합격 도장" class="wish-img" />
+  <span class="wish-text">합격을 기원합니다</span>
+  <span class="wish-icon">✨</span>
 </div>
-
 </main>
 </div>
 </section>
-
 <!-- Help Modal -->
 <div aria-label="사용 방법" aria-modal="true" class="modal" id="helpModal" role="dialog">
 <div class="modal-card">
@@ -924,6 +968,10 @@ function startApp(){
   if(landing) landing.style.display='none';
   if(content) content.style.display='block';
   document.body.classList.add('quiz-mode');
+  const fr = document.getElementById('appFrame');
+  if(fr && (!fr.getAttribute('src') || fr.getAttribute('src').trim()==='')){
+    fr.setAttribute('src','munje.html');
+  }
 }
 
 function notReady(name){
@@ -1127,5 +1175,4 @@ document.getElementById('goHomeBtnMobile')?.addEventListener('click', goHomeSmar
 })();
 </script>
 </body>
-
 </html>

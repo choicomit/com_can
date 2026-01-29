@@ -38,6 +38,108 @@
 .btn-reset{background:#e5e7eb;color:#111}
 
 
+
+
+/* === 스톱워치: 모바일 최소화 + 접기/펼치기 + 종료 흐림 === */
+#quizStopwatch .sw-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+#swToggle{
+  border:none;
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  width:36px;
+  height:30px;
+  border-radius:10px;
+  display:none; /* 모바일에서만 표시 */
+  cursor:pointer;
+  font-weight:800;
+  line-height:1;
+}
+#swToggle:active{transform:scale(.98)}
+
+#quizStopwatch.sw-collapsed{
+  padding:10px 12px;
+  border-radius:14px;
+  min-width:auto;
+}
+#quizStopwatch.sw-collapsed .sw-controls{display:none}
+#quizStopwatch.sw-collapsed #swTime{margin-bottom:0}
+
+#quizStopwatch.sw-ended{
+  opacity:.60;
+  filter:grayscale(0.2);
+}
+#quizStopwatch.sw-ended #swTime{
+  opacity:.95;
+}
+#quizStopwatch.sw-ended::after{
+  content:"시험 종료";
+  position:absolute;
+  top:-10px;
+  right:10px;
+  font-size:11px;
+  font-weight:800;
+  padding:4px 8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  color:#fff;
+  backdrop-filter: blur(6px);
+}
+
+/* 모바일: 우측 상단 고정 + 더 작게 */
+@media (max-width: 768px){
+  #quizStopwatch{
+    left:auto;
+    transform:none;
+    right:12px;
+    top:12px;
+    bottom:auto;
+    min-width:auto;
+    max-width: 140px;
+    padding:10px 12px;
+    border-radius:16px;
+  }
+  #swTime{
+    font-size:20px;
+    margin-bottom:8px;
+    letter-spacing:0.5px;
+  }
+  #swToggle{display:inline-flex;align-items:center;justify-content:center;}
+  /* 버튼들 자체도 조금 축소 */
+  .sw-controls button{
+    padding:8px 0;
+    font-size:12px;
+    border-radius:9px;
+  }
+  /* 접힘 상태는 더 작게 */
+  #quizStopwatch.sw-collapsed{
+    max-width: 110px;
+    padding:8px 10px;
+  }
+  #quizStopwatch.sw-collapsed #swTime{
+    font-size:18px;
+  }
+}
+
+/* 초소형 기기: 더 작게 */
+@media (max-width: 480px){
+  #quizStopwatch{
+    right:10px;
+    top:10px;
+    max-width: 125px;
+    padding:9px 10px;
+  }
+  #swTime{font-size:18px}
+  #quizStopwatch.sw-collapsed{max-width: 98px}
+  #quizStopwatch.sw-collapsed #swTime{font-size:16px}
+}
+
 :root{
   /* Base */
   --bg:#f6f7fb;
@@ -545,11 +647,190 @@ h1{margin:0;font-size:22px}
 
 
 .btn-start{background:#22c55e;color:#022c22}
+
+/* =========================
+   시작페이지(홈) 아이콘 - iframe에서도 항상 보이게
+   ========================= */
+#goHomeInQuiz{
+  position:fixed;
+  top:18px;
+  left:18px;
+  width:48px;
+  height:48px;
+  border-radius:999px;
+  border:none;
+  background:#ffffff;
+  color:#0f172a;
+  box-shadow:0 12px 28px rgba(0,0,0,0.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:10000;
+}
+#goHomeInQuiz:hover{transform:translateY(-2px)}
+#goHomeInQuiz:active{transform:translateY(0)}
+#goHomeInQuiz svg{width:24px;height:24px;display:block}
+
+/* 모바일에서는 하단 우측으로(스톱워치: 우상단) */
+@media (max-width: 768px){
+  #goHomeInQuiz{
+    top:auto;
+    left:auto;
+    right:16px;
+    bottom:18px;
+    width:56px;
+    height:56px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color:#fff;
+    box-shadow:0 16px 36px rgba(0,0,0,0.22);
+  }
+  #goHomeInQuiz svg{width:26px;height:26px}
+}
+
+
+/* =========================
+   QUIZ 메뉴 버튼 + 퀴즈 모달
+========================= */
+.quizMenuBtn{
+  border:1px solid rgba(29,78,216,.35);
+  background: rgba(29,78,216,.10);
+  color: var(--primary);
+  font-weight: 900;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor:pointer;
+  box-shadow: 0 10px 24px rgba(2,6,23,.10);
+}
+.quizMenuBtn:hover{
+  background: rgba(29,78,216,.16);
+  border-color: rgba(29,78,216,.55);
+}
+.quizMenuBtn:active{ transform: translateY(1px); }
+
+#quizOverlay{
+  position:fixed; inset:0;
+  background: rgba(2,6,23,.58);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index: 10001;
+}
+#quizOverlay.show{display:flex;}
+#quizCard{
+  width: min(520px, 100%);
+  background: #0f172a;
+  color:#fff;
+  border-radius: 22px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.10);
+  overflow:hidden;
+}
+#quizHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+#quizHead h3{
+  margin:0;
+  font-size:15px;
+  font-weight:900;
+}
+#quizHead .sub{
+  margin-top:4px;
+  font-size:12px;
+  color: rgba(255,255,255,.75);
+  line-height:1.35;
+}
+#quizClose{
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color:#fff;
+  border-radius: 14px;
+  padding:10px 12px;
+  cursor:pointer;
+  font-weight:900;
+}
+#quizClose:hover{ background: rgba(255,255,255,.10); }
+
+#quizBody{
+  padding:16px;
+}
+#quizQ{
+  font-size:18px;
+  font-weight:900;
+  margin: 2px 0 12px;
+  line-height:1.35;
+}
+#quizOpts{ display:grid; gap:10px; margin-top:10px; }
+.quizOpt{
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  padding: 12px 12px;
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+}
+.quizOpt:hover{ background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.20); }
+.quizOpt:active{ transform: scale(.99); }
+.quizOpt.correct{ background: rgba(22,163,74,.25); border-color: rgba(22,163,74,.55); }
+.quizOpt.wrong{ background: rgba(220,38,38,.22); border-color: rgba(220,38,38,.55); }
+
+#quizResult{
+  margin-top:12px;
+  font-weight:900;
+  min-height:1.4em;
+}
+#quizNote{
+  margin-top:8px;
+  font-size:13px;
+  color: rgba(255,255,255,.78);
+  white-space: pre-line;
+  line-height:1.45;
+}
+#quizFooter{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.10);
+}
+#quizMeta{
+  font-size:12px;
+  color: rgba(255,255,255,.75);
+}
+#quizNext{
+  border:none;
+  background: rgba(255,255,255,.12);
+  color:#fff;
+  border-radius: 14px;
+  padding: 10px 12px;
+  cursor:pointer;
+  font-weight:900;
+}
+#quizNext:hover{ background: rgba(255,255,255,.18); }
+#quizNext:disabled{ opacity:.55; cursor:not-allowed; }
+
 </style>
 
 </head>
 
 <body>
+
+<button id="goHomeInQuiz" type="button" aria-label="시작페이지로 돌아가기" title="시작페이지로 돌아가기">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"></path>
+  </svg>
+</button>
+
 <div class="wrap">
   <header>
     <div>
@@ -559,7 +840,10 @@ h1{margin:0;font-size:22px}
         정답 확인 후 번호 색상: 정답(초록) / 오답(빨강). 미응답만 보기 체크 가능.
       </div>
     </div>
-    <div class="pill" id="progress">진행 0 / 0</div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button id="quizMenuBtn" type="button" class="quizMenuBtn" aria-label="QUIZ 열기" title="QUIZ">QUIZ</button>
+      <div class="pill" id="progress">진행 0 / 0</div>
+    </div>
   </header>
 
   <div class="layout">
@@ -5393,6 +5677,22 @@ function render(){
     return;
   }
 
+
+
+function applyCollapsed(){
+  if(!btnToggle) return;
+  swBox.classList.toggle('sw-collapsed', !!collapsed);
+  // 아이콘 방향
+  btnToggle.textContent = collapsed ? '▸' : '▾';
+  btnToggle.setAttribute('aria-pressed', collapsed ? 'true' : 'false');
+  safeSet('swCollapsed', collapsed ? '1' : '0');
+}
+
+function applyEnded(isEnded){
+  swBox.classList.toggle('sw-ended', !!isEnded);
+}
+
+
   ensureCurrentVisible();
 
   const visible = getVisibleQuestions();
@@ -6364,9 +6664,12 @@ ensureCurrentVisible();
 render();
 </script>
 
-<!-- 하단 고정 스톱워치 (문제 화면 전용) -->
+<!-- 하단/상단 고정 스톱워치 (문제 화면 전용) -->
 <div id="quizStopwatch">
-  <span id="swTime">00:00</span>
+  <div class="sw-top">
+    <button id="swToggle" type="button" aria-label="스톱워치 접기/펼치기" title="접기/펼치기">▾</button>
+    <span id="swTime">00:00</span>
+  </div>
   <div class="sw-controls">
     <button class="btn-start" id="swStart" type="button">시작</button>
     <button class="btn-stop" id="swStop" type="button">정지</button>
@@ -6376,12 +6679,12 @@ render();
 
 <script>
 /* =========================================================
-   ✅ 스톱워치(충돌 방지 / 3버튼: 시작·정지·초기화)
-   - 시작: 1초씩 증가
-   - 정지: 타이머만 정지(숨김 없음)
-   - 초기화: 00:00으로 초기화 + "멈춤" 상태 유지(시작 버튼 눌러야 재개)
-   - 전체 채점(gradeBtn) 클릭 시: 정지 + 완료 처리
-   - localStorage 차단 환경에서도 동작(저장만 실패)
+   ✅ 스톱워치 (모바일 작게 / 접기·펼치기 / 40분 종료 시 흐림)
+   - 시작: 경과 시간 증가(초)
+   - 정지: 타이머만 정지
+   - 초기화: 00:00 + 멈춤 상태
+   - 40분(2400초) 도달 시 자동 정지 + 흐림 처리(문제는 계속 풀이 가능)
+   - localStorage 사용 불가 환경에서도 동작(저장만 실패)
 ========================================================= */
 (function(){
   function safeGet(key){
@@ -6394,22 +6697,30 @@ render();
     try { localStorage.removeItem(key); } catch(e){}
   }
 
-  var timeEl  = document.getElementById('swTime');
-  var btnStart = document.getElementById('swStart');
-  var btnStop  = document.getElementById('swStop');
-  var btnReset = document.getElementById('swReset');
+  var swBox     = document.getElementById('quizStopwatch');
+  var timeEl    = document.getElementById('swTime');
+  var btnStart  = document.getElementById('swStart');
+  var btnStop   = document.getElementById('swStop');
+  var btnReset  = document.getElementById('swReset');
+  var btnToggle = document.getElementById('swToggle');
 
-  if(!timeEl || !btnStart || !btnStop || !btnReset) return;
+  if(!swBox || !timeEl || !btnStart || !btnStop || !btnReset) return;
 
-  // 상태(초 단위) 복원
+  var LIMIT_SECONDS = 40 * 60;
+
+  // 상태 복원
   var swSeconds = parseInt(safeGet('swSeconds') || '0', 10);
   if(!Number.isFinite(swSeconds) || swSeconds < 0) swSeconds = 0;
 
-  // 실행 상태(페이지 새로고침 시에도 이어가기용)
   var swRunning = (safeGet('swRunning') === '1');
   var completed = (safeGet('quizCompleted') === '1');
 
-  var timerId = null;
+  var collapsed = (safeGet('swCollapsed') === '1');
+
+  // requestAnimationFrame 기반(모바일/백그라운드에서도 더 안정적)
+  var rafId = null;
+  var lastTs = 0;          // ms
+  var accMs  = 0;          // 누적 ms
 
   function render(){
     var m = String(Math.floor(swSeconds / 60)).padStart(2,'0');
@@ -6417,69 +6728,279 @@ render();
     timeEl.textContent = m + ':' + s;
   }
 
-  function tickStart(){
-    if(timerId) return;
-    timerId = setInterval(function(){
-      swSeconds += 1;
-      safeSet('swSeconds', swSeconds);
-      render();
-    }, 1000);
+  function applyEnded(on){
+    swBox.classList.toggle('sw-ended', !!on);
   }
 
-  function tickStop(){
-    if(timerId){
-      clearInterval(timerId);
-      timerId = null;
+  function applyCollapsed(){
+    swBox.classList.toggle('sw-collapsed', !!collapsed);
+    if(btnToggle){
+      btnToggle.textContent = collapsed ? '▸' : '▾';
+      btnToggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    }
+    safeSet('swCollapsed', collapsed ? '1' : '0');
+  }
+
+  function stopLoop(){
+    if(rafId){
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    lastTs = 0;
+    accMs = 0;
+  }
+
+  function endExam(){
+    swSeconds = LIMIT_SECONDS;
+    safeSet('swSeconds', swSeconds);
+    safeSet('swRunning', '0');
+    safeSet('quizCompleted','1');
+    swRunning = false;
+    completed = true;
+    render();
+    applyEnded(true);
+    stopLoop();
+  }
+
+  function loop(ts){
+    if(!swRunning) { stopLoop(); return; }
+    if(!lastTs) lastTs = ts;
+
+    var dt = ts - lastTs;
+    lastTs = ts;
+
+    // 탭 전환/프레임 드랍 대비
+    if(dt > 2000) dt = 2000;
+
+    accMs += dt;
+
+    // 1초 단위로 반영
+    while(accMs >= 1000){
+      accMs -= 1000;
+      swSeconds += 1;
+
+      if(swSeconds >= LIMIT_SECONDS){
+        endExam();
+        return;
+      }
+    }
+
+    safeSet('swSeconds', swSeconds);
+    render();
+    rafId = requestAnimationFrame(loop);
+  }
+
+  function start(){
+    // 종료 상태 해제(사용자가 다시 시작을 눌렀을 때)
+    completed = false;
+    safeRemove('quizCompleted');
+
+    swRunning = true;
+    safeSet('swRunning','1');
+
+    applyEnded(false);
+    // 루프 1개만
+    if(!rafId){
+      lastTs = 0;
+      accMs = 0;
+      rafId = requestAnimationFrame(loop);
     }
   }
 
-  // 초기 표시
-  render();
-
-  // 시작
-  btnStart.addEventListener('click', function(){
-    completed = false;
-    safeRemove('quizCompleted');
-    safeSet('swRunning','1');
-
-    // 혹시 남아있는 타이머가 있으면 정리 후 1개만 실행
-    tickStop();
-    tickStart();
-  });
-
-  // 정지(멈춤만)
-  btnStop.addEventListener('click', function(){
+  function stop(){
+    swRunning = false;
     safeSet('swRunning','0');
-    tickStop();
-  });
+    stopLoop();
+  }
 
-  // 초기화(00:00 + 멈춤 상태 유지)
-  btnReset.addEventListener('click', function(){
-    safeSet('swRunning','0');
-    tickStop();
+  function reset(){
+    stop();
     swSeconds = 0;
     safeSet('swSeconds','0');
     safeRemove('quizCompleted');
+    completed = false;
+    applyEnded(false);
     render();
-  });
+  }
+
+  // 초기 표시/상태
+  if(swSeconds >= LIMIT_SECONDS){
+    endExam();
+  }else{
+    render();
+    applyEnded(completed);
+  }
+  applyCollapsed();
+
+  if(btnToggle){
+    btnToggle.addEventListener('click', function(){
+      collapsed = !collapsed;
+      applyCollapsed();
+    });
+  }
+
+  // 모바일 터치 반응 개선(일부 브라우저에서 click 지연/누락 방지)
+  function bindPress(el, fn){
+    el.addEventListener('click', fn);
+    el.addEventListener('touchstart', function(e){ fn(); }, {passive:true});
+  }
+
+  bindPress(btnStart, start);
+  bindPress(btnStop, stop);
+  bindPress(btnReset, reset);
 
   // 전체 채점 클릭 시: 정지 + 완료 처리
   var gradeBtn = document.getElementById('gradeBtn');
   if(gradeBtn){
     gradeBtn.addEventListener('click', function(){
-      safeSet('swRunning','0');
-      tickStop();
+      stop();
       safeSet('quizCompleted','1');
       completed = true;
+      applyEnded(true);
     });
   }
 
-  // 페이지 로드시: 이전에 '실행 중'이었다면 이어서 진행(완료 상태면 제외)
+  // 새로고침 시 "실행 중"이었다면 자동 재개(종료 상태면 제외)
   if(swRunning && !completed){
-    tickStart();
+    // 상태 변수 재정렬
+    swRunning = true;
+    applyEnded(false);
+    rafId = requestAnimationFrame(loop);
   }
 })();
+
+/* =========================
+   홈(시작페이지) 이동 - index.html이 부모일 때는 부모 함수 호출
+   ========================= */
+(function(){
+  const btn = document.getElementById('goHomeInQuiz');
+  if(!btn) return;
+
+  function goHome(){
+    try{
+      if(window.parent && window.parent !== window){
+        // 부모(index)가 goHomeSmart를 가지고 있으면 직접 호출
+        if(typeof window.parent.goHomeSmart === 'function'){
+          window.parent.goHomeSmart();
+          return;
+        }
+      }
+    }catch(e){}
+    // 부모 함수 호출이 불가하면 index.html로 이동(같은 폴더 기준)
+    location.href = 'index.html';
+  }
+
+  btn.addEventListener('click', goHome);
+})();
+
+
+/* =========================
+   QUIZ 메뉴: 별도 창(팝업)으로 실행 + 닫기 시 연결된 창 닫기
+   - QUIZ 버튼: excel_shortcut_quiz.html 을 새 창으로 열기
+   - 퀴즈 창(닫기 버튼): BroadcastChannel 로 "closeAll" 신호 전송
+   - 이 페이지: 신호를 받으면 열려있는 팝업들을 모두 닫기
+========================= */
+(() => {
+  const CHANNEL_NAME = "quiz_close_all_v1";
+  const bc = ("BroadcastChannel" in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
+
+  let quizWin = null;
+
+  function openQuizPopup(){
+    // 이미 열려있으면 포커스만
+    if(quizWin && !quizWin.closed){
+      try{ quizWin.focus(); }catch(e){}
+      return;
+    }
+
+    // 같은 폴더 기준 파일명
+    const url = "excel_shortcut_quiz.html";
+
+    // 팝업 옵션 (모바일에서는 새 탭으로 열릴 수 있음)
+    const features = [
+      "popup=yes",
+      "width=560",
+      "height=840",
+      "left=120",
+      "top=80",
+      "resizable=yes",
+      "scrollbars=yes"
+    ].join(",");
+
+    quizWin = window.open(url, "excelShortcutQuiz", features);
+
+    // 팝업 차단 시 안내
+    if(!quizWin){
+      alert("팝업이 차단되어 QUIZ 창을 열 수 없습니다.\n브라우저에서 팝업 허용 후 다시 시도해 주세요.");
+      return;
+    }
+    try{ quizWin.focus(); }catch(e){}
+  }
+
+  function closeAllLinkedWindows(){
+    // 1) 팝업 닫기
+    if(quizWin && !quizWin.closed){
+      try{ quizWin.close(); }catch(e){}
+    }
+
+    // 2) 이 창도 닫기 시도 (스크립트로 열린 창일 때만 가능)
+    try{ window.close(); }catch(e){}
+  }
+
+  // 퀴즈 창에서 "닫기" 누르면 이 신호를 보냄
+  if(bc){
+    bc.onmessage = (ev) => {
+      if(ev && ev.data && ev.data.type === "closeAll"){
+        closeAllLinkedWindows();
+      }
+    };
+  }
+
+  // 페이지를 떠날 때 열려있는 팝업 정리
+  window.addEventListener("beforeunload", () => {
+    if(quizWin && !quizWin.closed){
+      try{ quizWin.close(); }catch(e){}
+    }
+    if(bc){ try{ bc.close(); }catch(e){} }
+  });
+
+  // QUIZ 버튼 클릭 → 팝업 열기
+  window.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("quizMenuBtn");
+    if(!btn) return;
+    btn.addEventListener("click", openQuizPopup);
+  });
+})();
+
+
 </script>
+
+
+<!-- =========================
+     QUIZ 오버레이(같은 파일 안에서 퀴즈 풀기)
+========================= -->
+<div id="quizOverlay" aria-hidden="true">
+  <div id="quizCard" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+    <div id="quizHead">
+      <div>
+        <h3 id="quizTitle">QUIZ</h3>
+        <div class="sub">터치(또는 클릭)해서 정답을 선택하세요</div>
+      </div>
+      <button id="quizClose" type="button">닫기</button>
+    </div>
+    <div id="quizBody">
+      <div id="quizQ"></div>
+      <div id="quizOpts"></div>
+      <div id="quizResult"></div>
+      <div id="quizNote"></div>
+
+      <div id="quizFooter">
+        <div id="quizMeta"></div>
+        <button id="quizNext" type="button" disabled>다음</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
