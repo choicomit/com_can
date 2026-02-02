@@ -123,15 +123,71 @@
   const bc = ("BroadcastChannel" in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
 
   function requestCloseAll(){
+    // 1) munje.html(부모/다른 탭)에게 "닫기" 신호
     if(bc){
       try{ bc.postMessage({ type: "closeAll" }); }catch(e){}
     }
+
+    // 2) 같은 출처의 부모(iframe/오버레이)에게도 닫기 신호(모바일/웹뷰 대비)
+    try{ window.parent && window.parent.postMessage({ type: "closeQuizOverlay" }, "*"); }catch(e){}
+    try{ window.opener && window.opener.postMessage({ type: "closeQuizOverlay" }, "*"); }catch(e){}
+
+    // 3) 팝업으로 열린 경우엔 close 시도
     try{ window.close(); }catch(e){}
+
+    // 4) 모바일/브라우저 정책으로 window.close가 막히면:
+    //    - 뒤로가기 가능하면 history.back()
+    //    - 아니면 munje.html로 이동
     setTimeout(() => {
       if(!window.closed){
-        alert("브라우저 정책상 자동으로 탭을 닫을 수 없습니다.\n이 탭(창)은 직접 닫아주세요.");
+        // 알림 대신 안내 패널 + 이동 버튼 제공
+        try{
+          const hint = document.createElement("div");
+          hint.style.position = "fixed";
+          hint.style.left = "16px";
+          hint.style.right = "16px";
+          hint.style.bottom = "16px";
+          hint.style.background = "rgba(15,23,42,.92)";
+          hint.style.border = "1px solid rgba(255,255,255,.18)";
+          hint.style.borderRadius = "16px";
+          hint.style.padding = "14px 14px";
+          hint.style.zIndex = "99999";
+          hint.style.boxShadow = "0 18px 50px rgba(0,0,0,.35)";
+          hint.innerHTML = `
+            <div style="font-weight:900; margin-bottom:6px;">브라우저 정책으로 탭을 자동으로 닫을 수 없어요.</div>
+            <div style="font-size:13px; line-height:1.45; color:rgba(255,255,255,.82); margin-bottom:10px;">
+              아래 버튼으로 이동하거나, 상단 탭 닫기(X)를 눌러주세요.
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button id="__goBackBtn" style="flex:1; min-width:120px; border:none; border-radius:999px; padding:10px 12px; font-weight:900; cursor:pointer; background:rgba(255,255,255,.14); color:#fff;">뒤로가기</button>
+              <button id="__goMunjeBtn" style="flex:1; min-width:120px; border:none; border-radius:999px; padding:10px 12px; font-weight:900; cursor:pointer; background:rgba(59,130,246,.22); color:#fff;">문제풀이로</button>
+            </div>
+          `;
+          document.body.appendChild(hint);
+
+          const goBack = () => {
+            try{
+              if(history.length > 1) history.back();
+              else location.replace("munje.html");
+            }catch(e){
+              try{ location.replace("munje.html"); }catch(e2){}
+            }
+          };
+          const goMunje = () => {
+            try{ location.replace("munje.html"); }catch(e){}
+          };
+
+          document.getElementById("__goBackBtn")?.addEventListener("click", goBack);
+          document.getElementById("__goMunjeBtn")?.addEventListener("click", goMunje);
+        }catch(e){}
+
+        // 자동 복귀도 한 번 시도
+        try{
+          if(history.length > 1) history.back();
+          else location.replace("munje.html");
+        }catch(e){}
       }
-    }, 150);
+    }, 250);
   }
 
   if(bc){
