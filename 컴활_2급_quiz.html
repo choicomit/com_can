@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>컴활 2급 퀴즈</title>
+<style>
+  :root{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#ffffff;
+    --muted:#cbd5e1;
+    --opt:#334155;
+    --opt-hover:#475569;
+    --ok:#16a34a;
+    --bad:#dc2626;
+    --shadow:0 20px 40px rgba(0,0,0,.4);
+    --radius:20px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Noto Sans KR", sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:18px;
+  }
+  .quiz-box{
+    position:relative;
+    background:var(--card);
+    width:100%;
+    max-width:460px;
+    border-radius:var(--radius);
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+  h1{ text-align:center; font-size:1.25rem; margin:0 0 16px 0; letter-spacing:-0.2px; }
+  .meta{ text-align:center; font-size:.95rem; color:var(--muted); margin-bottom:14px; }
+  .question{ font-size:1.1rem; margin:14px 0; line-height:1.4; }
+  .answers{ display:flex; flex-direction:column; gap:10px; margin-top:6px; }
+  .answer{
+    background:var(--opt);
+    padding:14px 12px;
+    border-radius:14px;
+    text-align:center;
+    cursor:pointer;
+    transition:transform .12s ease, background .12s ease;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .answer:active{ transform:scale(.99) }
+  .answer:hover{ background:var(--opt-hover) }
+  .correct{ background:var(--ok) !important; }
+  .wrong{ background:var(--bad) !important; }
+  #result{ margin-top:14px; text-align:center; font-weight:800; min-height:1.4em; }
+  .note{
+    margin-top:10px;
+    text-align:center;
+    font-size:.92rem;
+    color:var(--muted);
+    line-height:1.35;
+    white-space:pre-line;
+  }
+  .progress{
+    margin-top:14px;
+    height:8px;
+    background:rgba(255,255,255,.12);
+    border-radius:999px;
+    overflow:hidden;
+  }
+  .bar{ height:100%; width:0%; background:rgba(255,255,255,.55); transition:width .25s ease; }
+
+  .done{ text-align:center; padding:18px 6px 6px; }
+  .done h2{ margin:0 0 8px; font-size:1.35rem; }
+  .btn{
+    display:inline-block;
+    margin-top:12px;
+    background:rgba(59,130,246,.18);
+    border:1px solid rgba(59,130,246,.30);
+    color:var(--text);
+    padding:10px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+    font-weight:900;
+    font-size:13px;
+  }
+  .btn:hover{ background:rgba(59,130,246,.24) }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .hint{ margin-top:10px; color:rgba(255,255,255,.72); font-size:12px; line-height:1.4; }
+
+  .closeAllBtn{
+    position:absolute;
+    top:14px;
+    right:14px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);
+    color:var(--text);
+    padding:8px 10px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:900;
+    font-size:13px;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .closeAllBtn:hover{ background:rgba(255,255,255,.14); }
+</style>
+</head>
+<body>
+  <div class="quiz-box" id="app" aria-live="polite"></div>
+
+<script>
+  // =========================
+  // 연결된 창(팝업) 전체 닫기 (munje.html과 연동)
+  // =========================
+  const CHANNEL_NAME = "quiz_close_all_v1";
+  const bc = ("BroadcastChannel" in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
+
+  function requestCloseAll(){
+    if(bc){
+      try{ bc.postMessage({ type: "closeAll" }); }catch(e){}
+    }
+    try{ window.close(); }catch(e){}
+    setTimeout(() => {
+      if(!window.closed){
+        alert("브라우저 정책상 자동으로 탭을 닫을 수 없습니다.\n이 탭(창)은 직접 닫아주세요.");
+      }
+    }, 150);
+  }
+
+  if(bc){
+    bc.onmessage = (ev) => {
+      if(ev && ev.data && ev.data.type === "closeAll"){
+        try{ window.close(); }catch(e){}
+      }
+    };
+    window.addEventListener("beforeunload", () => {
+      try{ bc.close(); }catch(e){}
+    });
+  }
+
+  // =========================
+  // 랜덤 유틸
+  // =========================
+  function shuffleArray(arr){
+    for(let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // 보기 순서 섞고 정답 인덱스 재계산
+  function prepareQuiz(raw){
+    return raw.map((item) => {
+      const opts = item.a.map((t, i) => ({ t, i }));
+      shuffleArray(opts);
+      const newC = opts.findIndex(o => o.i === item.c);
+      return { ...item, a: opts.map(o => o.t), c: newC };
+    });
+  }
+
+  // =========================
+  // 문제 데이터 (원본)
+  // =========================
+  const quizRaw = [
+    { id:"q1", q:"Q1. 새 시트를 삽입하는 단축키는?", a:["Shift + F11","Ctrl + ;","Ctrl + Shift + ;"], c:0, note:"Shift + F11 → 시트 삽입 (최대 255개까지 추가)" },
+    { id:"q2", q:"Q2. 현재 시스템 날짜를 삽입하는 단축키는?", a:["Shift + F11","Ctrl + ;","Ctrl + Shift + ;"], c:1, note:"Ctrl + ; → 현재 시스템 날짜 삽입" },
+    { id:"q3", q:"Q3. 현재 시스템 시간을 삽입하는 단축키는?", a:["Shift + F11","Ctrl + ;","Ctrl + Shift + ;"], c:2, note:"Ctrl + Shift + ; → 현재 시스템 시간 삽입" },
+    { id:"q4", q:"Q4. 한 셀에 두 줄 이상 입력하는 단축키는?", a:["Shift + Enter","Ctrl + Enter","Alt + Enter"], c:2, note:"Alt + Enter → 한 셀에 줄바꿈 입력" },
+    { id:"q5", q:"Q5. 2026년 02월 03일 표시 형식으로 적절한 것은?", a:["yyyy년 mm월 dd일 (aaaa)","yyyy년 m월 d일(bbb)","yyyy년 mm월 dd일(aaaa)","yyyy년 mm월 dd일(aaa)"], c:3, note:"yyyy년 mm월 dd일(aaa) → 년 4자리, 월 2자리, 일 2자리, 요일 약식(aaa)" },
+    {
+      id:"q6",
+      q:"Q6. 다음 중 날짜 데이터 입력에 대한 설명으로 옳은 것은?",
+      a:[
+        "날짜는 1900년 1월 1일을 1로 시작하는 일련번호로 저장된다.",
+        "날짜 데이터는 슬래시(/)나 점(.) 또는 하이픈(-)으로 연, 월, 일을 구분하여 입력한다.",
+        "수식에서 날짜 데이터를 직접 입력할 때에는 작은따옴표(')로 묶어서 입력한다.",
+        "단축키 Ctrl+Alt+; 을 누르면 오늘 날짜가 입력된다."
+      ],
+      c:0,
+      note:"날짜는 / . - 등으로 구분해 입력할 수 있다.\n(참고) 수식에 날짜를 직접 입력할 땐 보통 큰따옴표로 묶는다."
+    }
+  ];
+
+  // =========================
+  // UI 마운트/DOM 레퍼런스(중요)
+  // - 완료 화면에서 app.innerHTML이 바뀌기 때문에
+  //   다시 퀴즈 화면으로 돌아올 때 DOM을 재생성 & 재연결해야 함
+  // =========================
+  const $app = document.getElementById("app");
+  let $q, $answers, $result, $note, $meta, $bar;
+
+  function mountQuizUI(){
+    $app.innerHTML = `
+      <button class="closeAllBtn" id="closeAllBtn" type="button" aria-label="닫기">닫기</button>
+      <h1>📌 컴활 2급 퀴즈</h1>
+      <div class="meta" id="meta">터치(또는 클릭)해서 정답을 선택하세요</div>
+
+      <div class="question" id="question"></div>
+      <div class="answers" id="answers"></div>
+
+      <div id="result"></div>
+      <div class="note" id="note"></div>
+
+      <div class="progress" aria-hidden="true">
+        <div class="bar" id="bar"></div>
+      </div>
+    `;
+
+    const closeBtn = document.getElementById("closeAllBtn");
+    if(closeBtn) closeBtn.addEventListener("click", requestCloseAll);
+
+    // DOM 참조 재연결
+    $q = document.getElementById("question");
+    $answers = document.getElementById("answers");
+    $result = document.getElementById("result");
+    $note = document.getElementById("note");
+    $meta = document.getElementById("meta");
+    $bar = document.getElementById("bar");
+  }
+
+  // =========================
+  // 상태
+  // =========================
+  let quiz = [];
+  let current = 0;
+  let score = 0;
+  let mode = "all"; // "all" | "wrong"
+  let wrongIdSet = new Set();
+
+  function setProgress(){
+    const pct = Math.round((current / quiz.length) * 100);
+    if($bar) $bar.style.width = pct + "%";
+  }
+
+  function loadQuiz(){
+    setProgress();
+    $result.textContent = "";
+    $note.textContent = "";
+
+    const modeLabel = (mode === "wrong") ? "오답 다시풀기" : "랜덤 퀴즈";
+    $meta.textContent = `${modeLabel} · 문제 ${current+1} / ${quiz.length}  ·  점수 ${score}`;
+
+    $q.textContent = quiz[current].q;
+    $answers.innerHTML = "";
+
+    quiz[current].a.forEach((text, i) => {
+      const div = document.createElement("div");
+      div.className = "answer";
+      div.textContent = text;
+      div.setAttribute("role", "button");
+      div.setAttribute("tabindex", "0");
+      div.onclick = () => checkAnswer(div, i);
+      div.onkeydown = (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          checkAnswer(div, i);
+        }
+      };
+      $answers.appendChild(div);
+    });
+  }
+
+  function lockAnswers(){
+    document.querySelectorAll(".answer").forEach(a => {
+      a.onclick = null;
+      a.onkeydown = null;
+      a.style.cursor = "default";
+    });
+  }
+
+  function checkAnswer(el, i){
+    lockAnswers();
+
+    const correctIdx = quiz[current].c;
+    const answerEls = document.querySelectorAll(".answer");
+
+    if(i === correctIdx){
+      score++;
+      el.classList.add("correct");
+      $result.textContent = "정답입니다 👍";
+    }else{
+      if(quiz[current].id) wrongIdSet.add(quiz[current].id);
+      el.classList.add("wrong");
+      if(answerEls[correctIdx]) answerEls[correctIdx].classList.add("correct");
+      $result.textContent = "틀렸어요 ❌";
+    }
+
+    $note.textContent = quiz[current].note;
+
+    setTimeout(() => {
+      current++;
+      if(current < quiz.length){
+        loadQuiz();
+      }else{
+        finish();
+      }
+    }, 1200);
+  }
+
+  function startAll(){
+    mode = "all";
+    current = 0;
+    score = 0;
+    wrongIdSet = new Set();
+
+    mountQuizUI();
+
+    quiz = prepareQuiz(quizRaw.slice());
+    shuffleArray(quiz);
+
+    loadQuiz();
+  }
+
+  function startWrongOnly(){
+    mode = "wrong";
+    current = 0;
+    score = 0;
+
+    const wrongIds = Array.from(wrongIdSet);
+    const wrongRaw = quizRaw.filter(q => wrongIds.includes(q.id));
+
+    mountQuizUI();
+
+    quiz = prepareQuiz(wrongRaw.slice());
+    shuffleArray(quiz);
+
+    loadQuiz();
+  }
+
+  function finish(){
+    if($bar) $bar.style.width = "100%";
+
+    const wrongCount = wrongIdSet.size;
+    const totalCount = (mode === "wrong") ? quiz.length : quizRaw.length;
+
+    // all-mode: 틀린 문제가 있을 때만 오답 다시풀기 제공
+    const canWrongRetry = (mode === "all" && wrongCount > 0);
+
+    // all-mode: 한 문제도 틀리지 않았으면(만점) 닫기 버튼 표시
+    const canCloseAfterAllPerfect = (mode === "all" && wrongCount === 0 && totalCount > 0);
+
+    // wrong-mode: 오답 세트를 만점으로 완료하면 닫기 버튼 표시
+    const canCloseAfterWrongPerfect = (mode === "wrong" && totalCount > 0 && score === totalCount);
+
+    // wrong-mode: 아직 만점이 아니면(오답 세트에서 또 틀림) 다시 오답세트 재도전 버튼 제공
+    const canRetryWrongAgain = (mode === "wrong" && totalCount > 0 && score < totalCount);
+
+    const showClose = canCloseAfterAllPerfect || canCloseAfterWrongPerfect;
+
+    $app.innerHTML = `
+      <div class="done">
+        <h2>🎉 퀴즈 완료!</h2>
+        <div style="color:rgba(255,255,255,.88); font-size:1.05rem; line-height:1.45;">
+          최종 점수: <b>${score}</b> / <b>${totalCount}</b><br>
+          ${mode === "all" ? `틀린 문제: <b>${wrongCount}</b>개` : ""}
+        </div>
+
+        ${canWrongRetry ? `
+          <button class="btn" id="retryWrongBtn">틀린 문제만 다시 풀기</button>
+        ` : ""}
+
+        ${canRetryWrongAgain ? `
+          <button class="btn" id="retryWrongAgainBtn">틀린 문제 다시 풀기</button>
+        ` : ""}
+
+        ${showClose ? `
+          <button class="btn" id="closeQuizBtn">닫기</button>
+        ` : ""}
+
+        <div class="hint">
+          ${mode === "all" && wrongCount > 0 ? `· “틀린 문제만 다시 풀기”로 오답만 다시 연습할 수 있어요.<br>` : ""}
+          ${mode === "all" && wrongCount === 0 ? `· 전부 맞췄어요! “닫기”를 눌러 창을 닫을 수 있어요.` : ""}
+          ${mode === "wrong" && score === totalCount ? `· 오답을 모두 맞췄어요! “닫기”를 눌러 창을 닫을 수 있어요.` : ""}
+          ${mode === "wrong" && score < totalCount ? `· 오답 세트에서 틀린 문제가 있어요. “틀린 문제 다시 풀기”로 다시 도전하세요.` : ""}
+        </div>
+      </div>
+    `;
+
+    if(canWrongRetry){
+      const retryWrongBtn = document.getElementById("retryWrongBtn");
+      retryWrongBtn.addEventListener("click", startWrongOnly);
+    }
+
+    if(canRetryWrongAgain){
+      const retryWrongAgainBtn = document.getElementById("retryWrongAgainBtn");
+      retryWrongAgainBtn.addEventListener("click", startWrongOnly);
+    }
+
+    if(showClose){
+      const closeQuizBtn = document.getElementById("closeQuizBtn");
+      closeQuizBtn.addEventListener("click", requestCloseAll);
+    }
+  }
+  // 시작
+  startAll();
+</script>
+</body>
+</html>
