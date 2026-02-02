@@ -110,6 +110,11 @@
     -webkit-tap-highlight-color: transparent;
   }
   .closeAllBtn:hover{ background:rgba(255,255,255,.14); }
+
+  /* 모바일에서는 닫기 버튼 미제공 */
+  @media (max-width: 768px){
+    .closeAllBtn{ display:none !important; }
+  }
 </style>
 </head>
 <body>
@@ -121,6 +126,9 @@
   // =========================
   const CHANNEL_NAME = "quiz_close_all_v1";
   const bc = ("BroadcastChannel" in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
+
+  // 모바일(스마트폰)에서는 브라우저 정책상 창/탭 닫기가 불가하므로 "닫기" 버튼을 제공하지 않습니다.
+  const IS_MOBILE = (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   function requestCloseAll(){
     // 1) munje.html(부모/다른 탭)에게 "닫기" 신호
@@ -409,7 +417,7 @@
     // wrong-mode: 아직 만점이 아니면(오답 세트에서 또 틀림) 다시 오답세트 재도전 버튼 제공
     const canRetryWrongAgain = (mode === "wrong" && totalCount > 0 && score < totalCount);
 
-    const showClose = canCloseAfterAllPerfect || canCloseAfterWrongPerfect;
+    const showClose = (!IS_MOBILE) && (canCloseAfterAllPerfect || canCloseAfterWrongPerfect);
 
     $app.innerHTML = `
       <div class="done">
