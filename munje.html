@@ -872,7 +872,7 @@ h1{margin:0;font-size:22px}
 <div id="singleScreen">
       <div class="row">
         <div class="meta">
-          <select class="tag tagSelect" id="numTag" aria-label="연도·회차별 문제 선택"></select>
+          <select class="tag tagSelect" id="numTag" aria-label="연도·회차 선택"></select>
           <select class="tag tagSelect" id="subjectTag" aria-label="과목 선택">
             <option value="GENERAL">컴퓨터 일반</option>
             <option value="SHEET">스프레드시트 일반</option>
@@ -5977,11 +5977,11 @@ function applyEnded(isEnded){
 
   progressEl.textContent = `진행 ${(pos >= 0 ? pos + 1 : 1)} / ${visible.length}`;
 
-  updateQuestionPicker(q);
+  updateQuestionPicker();
   subjectTag.value = activeTab;
 
   qTitle.textContent = q.title || "";
-  qDesc.textContent = q.desc || "";
+  qDesc.textContent = `${q.no}. ${q.desc || ""}`;
   showDuplicateQuestions(q);
 
   imgBox.replaceChildren();
@@ -6801,30 +6801,28 @@ resetBtn.addEventListener("click", ()=>{
   render();
 });
 
-function updateQuestionPicker(current){
+function updateQuestionPicker(){
   numTag.replaceChildren();
-  let group = null;
-  let previousRound = "";
-  for(const question of questions.filter(inTabQ)){
-    if(question.yearLabel !== previousRound){
-      group = document.createElement("optgroup");
-      group.label = question.yearLabel;
-      numTag.appendChild(group);
-      previousRound = question.yearLabel;
-    }
+  const all = document.createElement("option");
+  all.value = "__ALL__";
+  all.textContent = "전체 회차";
+  numTag.appendChild(all);
+  const labels = [...new Set(questions.filter(inTabQ).map(q => q.yearLabel))];
+  labels.sort((a,b)=>yearRoundSortKey(a)-yearRoundSortKey(b));
+  for(const label of labels){
     const option = document.createElement("option");
-    option.value = question.id;
-    option.textContent = `${question.yearLabel} · ${question.no}번`;
-    group.appendChild(option);
+    option.value = label;
+    option.textContent = label;
+    numTag.appendChild(option);
   }
-  numTag.value = current.id;
+  numTag.value = activeYearRound;
 }
 numTag.addEventListener("change", ()=>{
-  const selected = getQuestionById(numTag.value);
-  if(!selected) return;
+  const round = numTag.value;
   onlyUnanswered.checked = false;
-  setYearRound(selected.yearLabel);
-  goToId(selected.id);
+  setYearRound(round);
+  const first = getVisibleQuestions()[0];
+  if(first) goToId(first.id);
 });
 
 function showAllSubject(subject){
