@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261008-media-15">
+<link rel="stylesheet" href="design.css?v=20261008-windows-16">
 </head>
 
 <body class="study-theme">
@@ -6330,7 +6330,7 @@ function renderSimilarBatch(baseQ, scored){
     return;
   }
 
-  scored.forEach(({q, sim, shared, registerMatch, multimediaMatch}, order) => {
+  scored.forEach(({q, sim, shared, registerMatch, multimediaMatch, windows10Match}, order) => {
     if(!similarBatchState.items[q.id]){
       similarBatchState.items[q.id] = { selected: null, checked: false, correct: null };
     }
@@ -6362,7 +6362,7 @@ function renderSimilarBatch(baseQ, scored){
 
     const b2 = document.createElement("span");
     b2.className = "sim-badge";
-    b2.textContent = `${[registerMatch ? "레지스터 공통 주제" : "", multimediaMatch ? "멀티미디어 공통 주제" : ""].filter(Boolean).join(" / ")}${registerMatch || multimediaMatch ? " · " : ""}단어 일치율 ${(sim*100).toFixed(1)}%`;
+    b2.textContent = `${[registerMatch ? "레지스터 공통 주제" : "", multimediaMatch ? "멀티미디어 공통 주제" : "", windows10Match ? "Windows 10 공통 주제" : ""].filter(Boolean).join(" / ")}${registerMatch || multimediaMatch || windows10Match ? " · " : ""}단어 일치율 ${(sim*100).toFixed(1)}%`;
 
     const b3 = document.createElement("span");
     b3.className = "sim-badge";
@@ -6811,8 +6811,14 @@ function multimediaKeywords(q){
   const formats = text.match(/(?:^|[^a-z0-9])(wav|avi|mp3|mpeg|jpeg|jpg|gif|png|wmv|ai|wmf|cdr|bmp|mp4|mov|mid|midi)(?=$|[^a-z0-9])/g) || [];
   return [...new Set([...found, ...formats.map(word => word.replace(/^[^a-z0-9]+/, ""))])];
 }
+function hasWindows10Word(q){
+  const text = [q.title || "", q.desc || "", ...(q.options || [])]
+    .map(value => getImageReference(value)?.label ?? value).join(" ")
+    .normalize("NFC").replace(/[\u200B-\u200D\uFEFF]/g, "");
+  return /(?:^|[^a-z0-9])windows\s*10(?![0-9])/i.test(text);
+}
 function similarityTopicLabels(q){
-  return [hasRegisterWord(q) ? "레지스터" : "", multimediaKeywords(q).length ? "1과목 멀티미디어·파일·그래픽" : ""].filter(Boolean);
+  return [hasRegisterWord(q) ? "레지스터" : "", hasWindows10Word(q) ? "Windows 10" : "", multimediaKeywords(q).length ? "1과목 멀티미디어·파일·그래픽" : ""].filter(Boolean);
 }
 function findSimilarQuestions(baseQ, candidates = questions){
   if(!baseQ) return [];
@@ -6826,8 +6832,8 @@ function findSimilarQuestions(baseQ, candidates = questions){
     const total = Math.max(baseWords.size, candidateWords.size);
     const sim = total ? shared.length / total : 0;
     const coreOverlap = shared.filter(word => DOMAIN_BOOST.has(word)).length;
-    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q), multimediaMatch: multimediaKeywords(baseQ).length > 0 && multimediaKeywords(q).length > 0};
-  }).filter(item => item.registerMatch || item.multimediaMatch || item.shared.length * 10 >= item.total * 5)
+    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q), multimediaMatch: multimediaKeywords(baseQ).length > 0 && multimediaKeywords(q).length > 0, windows10Match: hasWindows10Word(baseQ) && hasWindows10Word(q)};
+  }).filter(item => item.registerMatch || item.multimediaMatch || item.windows10Match || item.shared.length * 10 >= item.total * 5)
     .sort((a,b) => b.sim - a.sim || b.coreOverlap - a.coreOverlap || a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
 }
 similarFromCurrentBtn.addEventListener("click", ()=>{
