@@ -878,10 +878,6 @@ h1{margin:0;font-size:22px}
             <option value="SHEET">스프레드시트 일반</option>
           </select>
 
-          <!-- 연도/회차 드롭다운 -->
-          <select class="tag tagSelect" id="yearRoundSelectTop" aria-label="연도/회차 선택">
-            <option value="__ALL__">전체</option>
-          </select>
         </div>
         <div class="meta">
           <span class="tag">컴퓨터활용능력 2급 필기</span>
@@ -5023,7 +5019,6 @@ const simDoneMsg = document.getElementById("simDoneMsg");
 
 const scoreBox = document.getElementById("scoreBox");
 
-const yearRoundSelectTop = document.getElementById("yearRoundSelectTop");
 
 /* =========================
    유틸
@@ -5819,7 +5814,6 @@ function ensureCurrentVisible(){
   if(!visible.length){
     if(activeYearRound !== "__ALL__"){
       activeYearRound = "__ALL__";
-      yearRoundSelectTop.value = "__ALL__";
     }
     return;
   }
@@ -5832,22 +5826,8 @@ function ensureCurrentVisible(){
 /* =========================
    드롭다운 구성
 ========================= */
-function buildYearRoundDropdown(){
-  const labels = [...new Set(questions.map(q => q.yearLabel).filter(Boolean))];
-  labels.sort((a,b)=>yearRoundSortKey(a)-yearRoundSortKey(b));
-
-  yearRoundSelectTop.innerHTML = `<option value="__ALL__">전체</option>`;
-  for(const label of labels){
-    const opt = document.createElement("option");
-    opt.value = label;
-    opt.textContent = label;
-    yearRoundSelectTop.appendChild(opt);
-  }
-  yearRoundSelectTop.value = activeYearRound;
-}
 function setYearRound(value){
   activeYearRound = value;
-  yearRoundSelectTop.value = value;
   scoreBox.style.display = "none";
 
   // 필터 변경 시 추천모드 끔(혼동 방지)
@@ -6794,7 +6774,6 @@ resetBtn.addEventListener("click", ()=>{
   onlyUnanswered.checked = false;
 
   activeYearRound = "__ALL__";
-  yearRoundSelectTop.value = "__ALL__";
 
   scoreBox.style.display = "none";
   buildNav();
@@ -6828,7 +6807,6 @@ numTag.addEventListener("change", ()=>{
 function showAllSubject(subject){
   activeTab = subject;
   activeYearRound = "__ALL__";
-  yearRoundSelectTop.value = "__ALL__";
   onlyUnanswered.checked = false;
   similarMode = false;
   toggleSimilarBtn.textContent = "유사문제 모드 켜기";
@@ -6983,9 +6961,7 @@ similarFromCurrentBtn.addEventListener("click", ()=>{
 });
 
 
-yearRoundSelectTop.addEventListener("change", ()=>{
-  setYearRound(yearRoundSelectTop.value);
-});
+
 
 /* =========================
    초기 로드
@@ -7006,7 +6982,6 @@ for(const q of questions){
 }
 console.log("[PARSE] byRound:", byRound);
 
-buildYearRoundDropdown();
 updateTabUI();
 ensureCurrentVisible();
 render();
