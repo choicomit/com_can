@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261008-windows-16">
+<link rel="stylesheet" href="design.css?v=20261008-windows-17">
 </head>
 
 <body class="study-theme">
@@ -6811,7 +6811,9 @@ function multimediaKeywords(q){
   const formats = text.match(/(?:^|[^a-z0-9])(wav|avi|mp3|mpeg|jpeg|jpg|gif|png|wmv|ai|wmf|cdr|bmp|mp4|mov|mid|midi)(?=$|[^a-z0-9])/g) || [];
   return [...new Set([...found, ...formats.map(word => word.replace(/^[^a-z0-9]+/, ""))])];
 }
+const WINDOWS10_EXCLUDED_IDS = new Set(["2023-3-17-컴퓨터 일반"]);
 function hasWindows10Word(q){
+  if(WINDOWS10_EXCLUDED_IDS.has(q.id)) return false;
   const text = [q.title || "", q.desc || "", ...(q.options || [])]
     .map(value => getImageReference(value)?.label ?? value).join(" ")
     .normalize("NFC").replace(/[\u200B-\u200D\uFEFF]/g, "");
@@ -6825,7 +6827,8 @@ function findSimilarQuestions(baseQ, candidates = questions){
   const baseWords = questionWords(baseQ);
   if(!baseWords.size) return [];
   return candidates.filter(q => q.id !== baseQ.id &&
-    (!multimediaKeywords(baseQ).length || q.subject === "컴퓨터 일반")
+    (!multimediaKeywords(baseQ).length || q.subject === "컴퓨터 일반") &&
+    (!(hasWindows10Word(baseQ) && !multimediaKeywords(baseQ).length) || !WINDOWS10_EXCLUDED_IDS.has(q.id))
   ).map(q => {
     const candidateWords = questionWords(q);
     const shared = [...baseWords].filter(word => candidateWords.has(word));
