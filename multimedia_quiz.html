@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>컴퓨터활용능력 멀티미디어 기출 평가</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #020617;
+      --text-sub: #334155;
+      --primary: #0f172a;
+      --accent: #1d4ed8;
+      --accent-light: #eff6ff;
+      --border-color: #cbd5e1;
+      --correct-bg: #f0fdf4;
+      --correct-border: #15803d;
+      --correct-text: #14532d;
+      --wrong-bg: #fef2f2;
+      --wrong-border: #b91c1c;
+      --wrong-text: #7f1d1d;
+      --frequent-bg: #fef3c7;
+      --frequent-text: #78350f;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.8;
+      font-size: 20px; /* 노안 대응: 기본 폰트 확대 */
+      padding: 48px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 40px 44px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--border-color);
+      border-top: 8px solid var(--primary);
+    }
+
+    .header-card h1 {
+      font-size: 2em; /* 40px */
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .header-card p {
+      color: var(--text-sub);
+      font-size: 1.15em; /* 23px */
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-size: 1.4em; /* 28px */
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 52px 0 28px 0;
+      padding-left: 16px;
+      border-left: 6px solid var(--accent);
+      letter-spacing: -0.01em;
+    }
+
+    .q-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      border: 2px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+
+    .meta-tags {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.9em; /* 18px */
+      font-weight: 700;
+    }
+
+    .badge-2nd {
+      background-color: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .badge-1st {
+      background-color: #f1f5f9;
+      color: #020617;
+      border: 1px solid #94a3b8;
+    }
+
+    .badge-frequent {
+      background-color: var(--frequent-bg);
+      color: var(--frequent-text);
+      border: 2px solid #fde68a;
+      line-height: 1.5;
+    }
+
+    .q-title {
+      font-size: 1.2em; /* 24px */
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    .options {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .options label {
+      display: flex;
+      align-items: center;
+      padding: 18px 24px;
+      background-color: #ffffff;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.05em; /* 21px */
+      color: var(--text-main);
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .options label:hover {
+      background-color: var(--accent-light);
+      border-color: var(--accent);
+    }
+
+    .options input[type="radio"] {
+      appearance: none;
+      width: 26px; /* 더 큰 라디오 버튼 */
+      height: 26px;
+      border: 3px solid #64748b;
+      border-radius: 50%;
+      margin-right: 18px;
+      outline: none;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .options input[type="radio"]:checked {
+      border-color: var(--accent);
+      border-width: 8px;
+      background-color: #ffffff;
+    }
+
+    .options label:has(input[type="radio"]:checked) {
+      background-color: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .exp-box {
+      margin-top: 22px;
+      padding: 20px 24px;
+      border-radius: 12px;
+      font-size: 1em; /* 20px */
+      display: none;
+      line-height: 1.7;
+    }
+
+    .exp-box.correct {
+      background-color: var(--correct-bg);
+      border: 2px solid var(--correct-border);
+      color: var(--correct-text);
+      font-weight: 700;
+    }
+
+    .exp-box.wrong {
+      background-color: var(--wrong-bg);
+      border: 2px solid var(--wrong-border);
+      color: var(--wrong-text);
+      font-weight: 700;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 24px;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      font-size: 1.25em; /* 25px */
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 40px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+      transition: background-color 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #020617;
+    }
+
+    .result-banner {
+      margin-top: 40px;
+      padding: 36px;
+      border-radius: 18px;
+      background: var(--card-bg);
+      display: none;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .result-banner.perfect {
+      border: 3px solid var(--correct-border);
+      background-color: var(--correct-bg);
+    }
+
+    .result-banner.imperfect {
+      border: 3px solid var(--wrong-border);
+      background-color: var(--wrong-bg);
+    }
+
+    .result-title {
+      font-size: 1.5em; /* 30px */
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .result-banner.perfect .result-title { color: var(--correct-text); }
+    .result-banner.imperfect .result-title { color: var(--wrong-text); }
+
+    .wrong-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0 28px 0;
+    }
+
+    .chip {
+      background: #fee2e2;
+      border: 2px solid var(--wrong-border);
+      color: var(--wrong-text);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    .reset-btn {
+      padding: 16px 32px;
+      background-color: #ffffff;
+      border: 2px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 10px;
+      font-size: 1.05em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background-color: #f8fafc;
+    }
+
+    .note-card {
+      margin-top: 56px;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 40px;
+      border: 2px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+
+    .note-card h2 {
+      font-size: 1.5em; /* 30px */
+      color: var(--text-main);
+      border-bottom: 3px solid var(--border-color);
+      padding-bottom: 16px;
+      margin-bottom: 28px;
+    }
+
+    .note-item {
+      margin-bottom: 32px;
+    }
+
+    .note-item h3 {
+      font-size: 1.2em; /* 24px */
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .note-item p, .note-item ul {
+      font-size: 1.05em; /* 21px */
+      color: var(--text-sub);
+      line-height: 1.8;
+    }
+
+    .note-item ul {
+      padding-left: 24px;
+      margin-top: 10px;
+    }
+
+    .note-item li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-card">
+    <h1>컴퓨터활용능력 멀티미디어 기출 평가</h1>
+    <p>제출 문서 및 2021~2024년 컴활 1·2급 멀티미디어 핵심 기출 문제집 (총 23문항)</p>
+  </div>
+
+  <form id="quizForm">
+
+    <div class="section-title">01. 컴퓨터활용능력 2급 기출 모음 (1~18번)</div>
+
+    <!-- 1번 -->
+    <div class="q-card" id="card-q4">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2021년 1회 11번, 2023년 2회 14번, 2024년 1회 11번 (총 3회 출제)</span>
+      </div>
+      <div class="q-title">1. (PDF 4번) 다음 중 그래픽 데이터의 압축 및 렌더링 과정에서, 계단 현상이 일어나 테두리가 거칠게 표현된 비트맵 이미지의 경계면 픽셀들을 주변 색상과 부드럽게 동화시켜 주는 보정 기술은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q4" value="1"> ① 디더링</label></li>
+        <li><label><input type="radio" name="q4" value="2"> ② 모핑</label></li>
+        <li><label><input type="radio" name="q4" value="3"> ③ 렌더링</label></li>
+        <li><label><input type="radio" name="q4" value="4"> ④ 안티앨리어싱</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q4"></div>
+    </div>
+
+    <!-- 2번 -->
+    <div class="q-card" id="card-q6">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2022년 2회 15번, 2023년 1회 16번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">2. (PDF 6번) 다음 중 컴퓨터의 문자 표현 코드 체계에 대한 설명으로 가장 옳은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q6" value="1"> ① ASCII 코드는 7비트를 사용하여 총 256개의 문자를 표현한다.</label></li>
+        <li><label><input type="radio" name="q6" value="2"> ② EBCDIC 코드는 PC에서 널리 쓰이는 8비트 코드이다.</label></li>
+        <li><label><input type="radio" name="q6" value="3"> ③ 유니코드(Unicode)는 전 세계 모든 언어를 2바이트(16비트)의 통일된 크기로 표현하는 국제 표준 코드이다.</label></li>
+        <li><label><input type="radio" name="q6" value="4"> ④ BCD 코드는 영문 소문자를 완벽하게 표현한다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q6"></div>
+    </div>
+
+    <!-- 3번 -->
+    <div class="q-card" id="card-q7">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2021년 2회 14번, 2023년 3회 12번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">3. (PDF 7번) 다음 중 하나의 케이블을 통해 압축되지 않은 고해상도 비디오 영상과 오디오 신호를 동시에 원스톱 전송할 수 있는 단자는?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q7" value="1"> ① DVI 단자</label></li>
+        <li><label><input type="radio" name="q7" value="2"> ② HDMI 단자</label></li>
+        <li><label><input type="radio" name="q7" value="3"> ③ D-Sub (VGA) 단자</label></li>
+        <li><label><input type="radio" name="q7" value="4"> ④ S-Video 단자</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q7"></div>
+    </div>
+
+    <!-- 4번 -->
+    <div class="q-card" id="card-q8">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2022년 1회 13번, 2023년 1회 12번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">4. (PDF 8번) 다음 중 멀티미디어 그래픽 데이터 형식에 대한 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q8" value="1"> ① JPEG: 무손실 동영상 압축 기법을 사용하여 화질 저하가 없다.</label></li>
+        <li><label><input type="radio" name="q8" value="2"> ② GIF: 256색 제한이 있지만 움직이는 이미지를 만들 수 있다.</label></li>
+        <li><label><input type="radio" name="q8" value="3"> ③ PNG: GIF를 대체하기 위해 개발되었으며 투명 배경을 지원한다.</label></li>
+        <li><label><input type="radio" name="q8" value="4"> ④ BMP: 압축하지 않는 비트맵 방식으로 파일 크기가 크다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q8"></div>
+    </div>
+
+    <!-- 5번 -->
+    <div class="q-card" id="card-q9">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+      </div>
+      <div class="q-title">5. (PDF 9번) 다음 중 가상 현실(VR)과 증강 현실(AR)을 구현하기 위한 주요 기반 기술로 가장 거리가 먼 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q9" value="1"> ① 렌더링(Rendering)</label></li>
+        <li><label><input type="radio" name="q9" value="2"> ② 트래킹(Tracking)</label></li>
+        <li><label><input type="radio" name="q9" value="3"> ③ 스트리밍(Streaming)</label></li>
+        <li><label><input type="radio" name="q9" value="4"> ④ 인터랙션(Interaction)</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q9"></div>
+    </div>
+
+    <!-- 6번 -->
+    <div class="q-card" id="card-q10_pdf">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2021년 1회 13번, 2024년 1회 11번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">6. (PDF 10번) 다음 중 컴퓨터 그래픽 기법에 대한 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q10_pdf" value="1"> ① 렌더링: 물체 모형에 명암과 색상을 입혀 사실감을 더해주는 작업이다.</label></li>
+        <li><label><input type="radio" name="q10_pdf" value="2"> ② 모핑: 두 사물이 부드럽게 연결되며 서서히 변화하는 기법이다.</label></li>
+        <li><label><input type="radio" name="q10_pdf" value="3"> ③ 안티앨리어싱: 이미지를 출력할 때 화면 해상도를 인위적으로 낮추는 기법이다.</label></li>
+        <li><label><input type="radio" name="q10_pdf" value="4"> ④ 모델링: 3차원 객체의 뼈대 형태를 구성하는 작업이다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q10_pdf"></div>
+    </div>
+
+    <!-- 7번 -->
+    <div class="q-card" id="card-q11_pdf">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2022년 2회 12번, 2023년 3회 11번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">7. (PDF 11번) 다음 중 경계면 픽셀을 배경색과 혼합해서 경계를 부드럽게 보이도록 하는 기법은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q11_pdf" value="1"> ① 디더링</label></li>
+        <li><label><input type="radio" name="q11_pdf" value="2"> ② 안티 앨리어싱</label></li>
+        <li><label><input type="radio" name="q11_pdf" value="3"> ③ 렌더링</label></li>
+        <li><label><input type="radio" name="q11_pdf" value="4"> ④ 모델링</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q11_pdf"></div>
+    </div>
+
+    <!-- 8번 -->
+    <div class="q-card" id="card-q12_pdf">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+      </div>
+      <div class="q-title">8. (PDF 12번) 인터넷 기능을 결합하여 다양한 앱 활용 및 웹 서핑이 가능한 다기능 TV 용어는?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q12_pdf" value="1"> ① HDTV</label></li>
+        <li><label><input type="radio" name="q12_pdf" value="2"> ② Cable TV</label></li>
+        <li><label><input type="radio" name="q12_pdf" value="3"> ③ IPTV</label></li>
+        <li><label><input type="radio" name="q12_pdf" value="4"> ④ Smart TV</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q12_pdf"></div>
+    </div>
+
+    <!-- 9번 -->
+    <div class="q-card" id="card-q13_pdf">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+      </div>
+      <div class="q-title">9. (PDF 13번) 다음 중 멀티미디어 정보의 특징에 관한 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q13_pdf" value="1"> ① 선형성을 가지고 데이터가 일정한 방향으로 순차 처리된다.</label></li>
+        <li><label><input type="radio" name="q13_pdf" value="2"> ② 아날로그 데이터를 디지털 데이터로 변환하며 통합 처리한다.</label></li>
+        <li><label><input type="radio" name="q13_pdf" value="3"> ③ 사용자 간 상호 작용이 쌍방향성으로 전달된다.</label></li>
+        <li><label><input type="radio" name="q13_pdf" value="4"> ④ 여러 미디어를 통합 처리한다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q13_pdf"></div>
+    </div>
+
+    <!-- 10번 -->
+    <div class="q-card" id="card-q_add1">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2021년 1회 13번, 2022년 1회 11번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">10. (2021년 1회 13번) 다음 중 그래픽 비트맵(Bitmap) 방식 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add1" value="1"> ① 점(Pixel)으로 이미지를 표현한다.</label></li>
+        <li><label><input type="radio" name="q_add1" value="2"> ② 이미지 확대 시 테두리에 계단 현상이 발생한다.</label></li>
+        <li><label><input type="radio" name="q_add1" value="3"> ③ 벡터 방식에 비해 고해상도 표현에 적합하다.</label></li>
+        <li><label><input type="radio" name="q_add1" value="4"> ④ 파일 확장자로 .ai, .svg 등을 주로 사용한다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add1"></div>
+    </div>
+
+    <!-- 11번 -->
+    <div class="q-card" id="card-q_add2">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2022년 2회 15번, 2023년 2회 16번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">11. (2022년 2회 15번) 다음 중 유니코드(Unicode)에 대한 설명으로 옳은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add2" value="1"> ① 영문 1바이트, 한글은 2바이트로 표현한다.</label></li>
+        <li><label><input type="radio" name="q_add2" value="2"> ② 모든 문자를 2바이트(16비트)의 동일 크기로 표현하는 국제 표준이다.</label></li>
+        <li><label><input type="radio" name="q_add2" value="3"> ③ 7비트로 구성되어 128개 문자를 표현한다.</label></li>
+        <li><label><input type="radio" name="q_add2" value="4"> ④ 대형 컴퓨터용 8비트 코드 체계이다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add2"></div>
+    </div>
+
+    <!-- 12번 -->
+    <div class="q-card" id="card-q_add3">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+      </div>
+      <div class="q-title">12. (2023년 1회 12번) JPEG 포맷에 대한 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add3" value="1"> ① 정지 영상을 압축하기 위해 만들어진 표준이다.</label></li>
+        <li><label><input type="radio" name="q_add3" value="2"> ② 손실 및 무손실 압축 방식을 모두 지원한다.</label></li>
+        <li><label><input type="radio" name="q_add3" value="3"> ③ GIF에 비해 표현 가능한 색상 수가 적다.</label></li>
+        <li><label><input type="radio" name="q_add3" value="4"> ④ 압축률을 임의로 지정 조절할 수 있다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add3"></div>
+    </div>
+
+    <!-- 13번 -->
+    <div class="q-card" id="card-q_add4">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2021년 2회 12번, 2023년 2회 14번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">13. (2023년 2회 14번) 모델링 후 명암과 색상, 질감을 입히는 작업은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add4" value="1"> ① 안티앨리어싱</label></li>
+        <li><label><input type="radio" name="q_add4" value="2"> ② 디더링</label></li>
+        <li><label><input type="radio" name="q_add4" value="3"> ③ 렌더링</label></li>
+        <li><label><input type="radio" name="q_add4" value="4"> ④ 모핑</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add4"></div>
+    </div>
+
+    <!-- 14번 -->
+    <div class="q-card" id="card-q_add5">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2022년 3회 14번, 2024년 1회 11번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">14. (2024년 1회 11번) 컴퓨터 그래픽 기법 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add5" value="1"> ① 디더링: 제한된 색 조합으로 새로운 색 효과를 만든다.</label></li>
+        <li><label><input type="radio" name="q_add5" value="2"> ② 모핑: 서로 다른 이미지가 부드럽게 변화하는 과정이다.</label></li>
+        <li><label><input type="radio" name="q_add5" value="3"> ③ 안티앨리어싱: 가장자리 계단 현상을 부드럽게 보정한다.</label></li>
+        <li><label><input type="radio" name="q_add5" value="4"> ④ 렌더링: 해상도를 강제로 낮추어 속도를 높이는 기술이다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add5"></div>
+    </div>
+
+    <!-- 15번 -->
+    <div class="q-card" id="card-q_add6">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+      </div>
+      <div class="q-title">15. (2021년 2회 13번) 디지털 오디오 데이터 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add6" value="1"> ① WAV: 무압축 원음 저장 방식으로 용량이 크다.</label></li>
+        <li><label><input type="radio" name="q_add6" value="2"> ② MP3: 고음질 유지 손실 압축 포맷이다.</label></li>
+        <li><label><input type="radio" name="q_add6" value="3"> ③ MIDI: 실제 목소리와 자연음 데이터 자체를 저장한다.</label></li>
+        <li><label><input type="radio" name="q_add6" value="4"> ④ FLAC: 무손실 오디오 압축 코덱이다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add6"></div>
+    </div>
+
+    <!-- 16번 -->
+    <div class="q-card" id="card-q_add7">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2022년 1회 14번, 2023년 3회 15번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">16. (2022년 1회 14번) 벡터(Vector) 방식 설명으로 옳은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add7" value="1"> ① 점(Pixel)의 집합으로 이미지를 표현한다.</label></li>
+        <li><label><input type="radio" name="q_add7" value="2"> ② 확대 및 축소 시 계단 현상이 없다.</label></li>
+        <li><label><input type="radio" name="q_add7" value="3"> ③ 대표 확장자로 .jpg, .png 등이 있다.</label></li>
+        <li><label><input type="radio" name="q_add7" value="4"> ④ 사실적인 사진 표현에 가장 적합하다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add7"></div>
+    </div>
+
+    <!-- 17번 -->
+    <div class="q-card" id="card-q_add8">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+        <span class="badge badge-frequent">2021년 3회 12번, 2023년 3회 11번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">17. (2023년 3회 11번) '디더링(Dithering)' 설명으로 옳은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add8" value="1"> ① 제한된 색을 조합·배열하여 새로운 색 효과를 준다.</label></li>
+        <li><label><input type="radio" name="q_add8" value="2"> ② 3차원 표면에 명암과 그림자를 넣어 입체감을 준다.</label></li>
+        <li><label><input type="radio" name="q_add8" value="3"> ③ 계단 현상을 부드럽게 완화해 준다.</label></li>
+        <li><label><input type="radio" name="q_add8" value="4"> ④ 물체의 뼈대 구조를 입체적으로 만든다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add8"></div>
+    </div>
+
+    <!-- 18번 -->
+    <div class="q-card" id="card-q_add9">
+      <div class="meta-tags">
+        <span class="badge badge-2nd">2급</span>
+      </div>
+      <div class="q-title">18. (2024년 2회 15번) 동영상 관련 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_add9" value="1"> ① MPEG: 비디오/오디오 압축 국제 표준이다.</label></li>
+        <li><label><input type="radio" name="q_add9" value="2"> ② AVI: 윈도우 표준 포맷으로 용량이 크다.</label></li>
+        <li><label><input type="radio" name="q_add9" value="3"> ③ MP4: 스트리밍과 모바일 표준 비디오 포맷이다.</label></li>
+        <li><label><input type="radio" name="q_add9" value="4"> ④ MOV: 윈도우 환경에서는 절대 재생할 수 없다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_add9"></div>
+    </div>
+
+    <div class="section-title">02. 컴퓨터활용능력 1급 유사 기출 모음 (19~23번)</div>
+
+    <!-- 19번 -->
+    <div class="q-card" id="card-q_1st_1">
+      <div class="meta-tags">
+        <span class="badge badge-1st">1급 기출</span>
+      </div>
+      <div class="q-title">19. (2021년 2회 13번) 음성 신호의 PCM 변환 순서로 옳은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_1st_1" value="1"> ① 양자화 → 표본화 → 부호화</label></li>
+        <li><label><input type="radio" name="q_1st_1" value="2"> ② 표본화 → 양자화 → 부호화</label></li>
+        <li><label><input type="radio" name="q_1st_1" value="3"> ③ 부호화 → 표본화 → 양자화</label></li>
+        <li><label><input type="radio" name="q_1st_1" value="4"> ④ 표본화 → 부호화 → 양자화</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_1st_1"></div>
+    </div>
+
+    <!-- 20번 -->
+    <div class="q-card" id="card-q_1st_2">
+      <div class="meta-tags">
+        <span class="badge badge-1st">1급 기출</span>
+        <span class="badge badge-frequent">2021년 1회 13번, 2022년 1회 11번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">20. (2022년 1회 11번) 벡터 및 비트맵 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_1st_2" value="1"> ① 비트맵은 픽셀 단위로 구성되어 섬세 표현에 적합하다.</label></li>
+        <li><label><input type="radio" name="q_1st_2" value="2"> ② 벡터는 수식 방식이므로 확대 시 깨짐이 없다.</label></li>
+        <li><label><input type="radio" name="q_1st_2" value="3"> ③ 비트맵 방식은 파일 확장자로 .ai, .svg 등을 사용한다.</label></li>
+        <li><label><input type="radio" name="q_1st_2" value="4"> ④ 벡터 방식은 복잡한 이미지 연산 시간이 길어질 수 있다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_1st_2"></div>
+    </div>
+
+    <!-- 21번 -->
+    <div class="q-card" id="card-q_1st_3">
+      <div class="meta-tags">
+        <span class="badge badge-1st">1급 기출</span>
+      </div>
+      <div class="q-title">21. (2022년 3회 15번) MPEG 규격 설명 중 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_1st_3" value="1"> ① MPEG-1: 초기 CD-ROM 저장 매체용 규격이다.</label></li>
+        <li><label><input type="radio" name="q_1st_3" value="2"> ② MPEG-2: HDTV 및 DVD용 고화질 규격이다.</label></li>
+        <li><label><input type="radio" name="q_1st_3" value="3"> ③ MPEG-4: 모바일 및 인터넷 스트리밍 적합 규격이다.</label></li>
+        <li><label><input type="radio" name="q_1st_3" value="4"> ④ MPEG-7: 대용량 블루레이 4K 고비율 압축 기술이다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_1st_3"></div>
+    </div>
+
+    <!-- 22번 -->
+    <div class="q-card" id="card-q_1st_4">
+      <div class="meta-tags">
+        <span class="badge badge-1st">1급 기출</span>
+        <span class="badge badge-frequent">2022년 3회 14번, 2023년 2회 12번 (총 2회 출제)</span>
+      </div>
+      <div class="q-title">22. (2023년 2회 12번) 그래픽 처리 기법 설명으로 옳지 않은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_1st_4" value="1"> ① 디더링: 제한된 색 조합으로 새로운 색 효과를 유도한다.</label></li>
+        <li><label><input type="radio" name="q_1st_4" value="2"> ② 모핑: 형상이 매끄럽게 변화하는 기법이다.</label></li>
+        <li><label><input type="radio" name="q_1st_4" value="3"> ③ 앤티앨리어싱: 표면에 빛, 질감, 명암을 입히는 기법이다.</label></li>
+        <li><label><input type="radio" name="q_1st_4" value="4"> ④ 텍스처 매핑: 겉면에 이미지를 입혀 질감을 표현한다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_1st_4"></div>
+    </div>
+
+    <!-- 23번 -->
+    <div class="q-card" id="card-q_1st_5">
+      <div class="meta-tags">
+        <span class="badge badge-1st">1급 기출</span>
+      </div>
+      <div class="q-title">23. (2024년 1회 14번) 사운드 데이터 설명으로 옳은 것은?</div>
+      <ul class="options">
+        <li><label><input type="radio" name="q_1st_5" value="1"> ① WAVE 파일은 순수 무압축 PCM 데이터로 파일이 크다.</label></li>
+        <li><label><input type="radio" name="q_1st_5" value="2"> ② MIDI 파일은 음성 신호를 직접 녹음하여 용량이 크다.</label></li>
+        <li><label><input type="radio" name="q_1st_5" value="3"> ③ MP3 파일은 오디오 무손실 압축 포맷이다.</label></li>
+        <li><label><input type="radio" name="q_1st_5" value="4"> ④ FLAC 포맷은 일부 음역대를 삭제하는 손실 포맷이다.</label></li>
+      </ul>
+      <div class="exp-box" id="exp-q_1st_5"></div>
+    </div>
+
+    <button type="button" class="submit-btn" onclick="checkAnswers()">제출 및 자동 채점하기</button>
+  </form>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <!-- 출제자 의도 & 합격 가이드 섹션 -->
+  <div class="note-card">
+    <h2>[출제자 의도 & 합격 가이드]</h2>
+    
+    <div class="note-item">
+      <h3>1. 그래픽 기법 및 이미지 표현 방식 [1·2급 공통] (1, 6, 7, 10, 13, 14, 16, 17, 20, 22번)</h3>
+      <p>출제 목적: 수험생이 안티앨리어싱, 렌더링, 디더링, 모핑, 모델링 등 주요 그래픽 기법 용어를 혼동 없이 명확히 구분할 수 있는지 평가합니다.</p>
+      <ul>
+        <li><strong>[2급 핵심]</strong> 비트맵(점, 확대 시 계단 현상, .jpg/.png)과 벡터(수식, 확대 시 안 깨짐, .ai/.svg)의 구별 문제는 단골 출제 유형입니다.</li>
+        <li><strong>[1급 전용]</strong> 안티앨리어싱을 "해상도를 낮추는 기술이다"로 표현하는 식의 왜곡 지문이 트랩으로 출제됩니다.</li>
+      </ul>
+    </div>
+
+    <div class="note-item">
+      <h3>2. 데이터 포맷 및 압축 기술 [1·2급 공통] (4, 12, 15, 21, 23번)</h3>
+      <p>출제 목적: 파일 확장자별 압축 포맷의 핵심 특징(손실/무손실, 투명 배경 지원 여부, 색상 범위)을 점검합니다.</p>
+      <ul>
+        <li><strong>[2급 핵심]</strong> JPEG는 정지 영상 손실 압축 규격으로 "동영상 압축 기법이다"라는 지문은 자주 등장하는 오답 선택지입니다.</li>
+        <li><strong>[1·2급 공통]</strong> MIDI는 실제 목소리/자연음 저장이 불가능하며, 악기 연주 신호(명령어)만 저장되어 파일 용량이 작습니다.</li>
+      </ul>
+    </div>
+
+    <div class="note-item">
+      <h3>3. 디스플레이 인터페이스 및 비디오 포맷 [1·2급 구분] (3, 18, 19, 21, 23번)</h3>
+      <p>출제 목적: 디지털 변환 원리(PCM)와 신호 전송 규격 이해도를 평가합니다.</p>
+      <ul>
+        <li><strong>[2급 핵심]</strong> HDMI 단자는 단일 케이블로 비디오(영상)와 오디오(음향) 신호를 동시 전송한다는 점이 집중 출제됩니다.</li>
+        <li><strong>[1급 전용]</strong> 음성 신호의 PCM 변환 순서 [표본화 → 양자화 → 부호화] 및 MPEG-7(메타데이터) 규격 문제는 1급 대표 난이도 문항입니다.</li>
+      </ul>
+    </div>
+
+    <div class="note-item">
+      <h3>4. 단기 합격을 위한 과목별 학습 전략 [1·2급 공통]</h3>
+      <p>단순 암기보다는 핵심 키워드의 쌍(Pair)을 이루어 기억하는 전략이 효율적입니다.</p>
+      <ul>
+        <li><strong>[2급 전략]</strong> 계단 현상 완화 = 안티앨리어싱 / 뼈대 구축 = 모델링 / 질감·색상 입히기 = 렌더링 / 256색 제한 = GIF</li>
+        <li><strong>[1급 전략]</strong> 전 세계 문자 2바이트 = 유니코드 / 영상+음향 원스톱 전송 = HDMI / 사용자 중심 무작위 재생 = 비선형성</li>
+        <li><strong>[공통 팁]</strong> "절대로 ~할 수 없다", "순차적으로만 동작한다" 등 극단적 표현이 들어간 지문은 오답 확률이 매우 높습니다.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const answers = {
+    q4: { num: 1, ans: "4", exp: "정답: ④ 안티앨리어싱 / 계단 현상을 부드럽게 보정하는 기술입니다." },
+    q6: { num: 2, ans: "3", exp: "정답: ③ 유니코드 / 전 세계 모든 언어를 2바이트(16비트)의 통일된 크기로 표현하는 국제 표준입니다." },
+    q7: { num: 3, ans: "2", exp: "정답: ② HDMI / 영상과 오디오 신호를 하나의 케이블로 원스톱 전송합니다." },
+    q8: { num: 4, ans: "1", exp: "정답: ① JPEG / JPEG는 대표적인 정지 영상(이미지) 손실 압축 표준입니다." },
+    q9: { num: 5, ans: "3", exp: "정답: ③ 스트리밍 / 인터넷 데이터 전송 방식이며 시각 구현 핵심기술이 아닙니다." },
+    q10_pdf: { num: 6, ans: "3", exp: "정답: ③ 안티앨리어싱 / 경계면 완화 보정 기법입니다." },
+    q11_pdf: { num: 7, ans: "2", exp: "정답: ② 안티 앨리어싱 / 색상을 혼합하여 경계면을 부드럽게 처리합니다." },
+    q12_pdf: { num: 8, ans: "4", exp: "정답: ④ Smart TV / 앱 설치 및 웹서핑이 가능한 다기능 TV입니다." },
+    q13_pdf: { num: 9, ans: "1", exp: "정답: ① / 멀티미디어는 순차적 선형성이 아닌 비선형성을 갖습니다." },
+    q_add1: { num: 10, ans: "4", exp: "정답: ④ / .ai, .svg는 벡터 방식 확장자입니다." },
+    q_add2: { num: 11, ans: "2", exp: "정답: ② / 유니코드는 모든 문자를 통일되게 2바이트로 다룹니다." },
+    q_add3: { num: 12, ans: "3", exp: "정답: ③ / JPEG는 약 1,670만 색을 표현할 수 있어 GIF보다 지원 색상이 많습니다." },
+    q_add4: { num: 13, ans: "3", exp: "정답: ③ 렌더링 / 모델링 후 입체감과 질감을 입히는 작업입니다." },
+    q_add5: { num: 14, ans: "4", exp: "정답: ④ 렌더링 / 명암과 색상을 가미해 입체감을 표현하는 기술입니다." },
+    q_add6: { num: 15, ans: "3", exp: "정답: ③ MIDI / 실제 목소리가 아닌 연주 명령어 정보만 저장합니다." },
+    q_add7: { num: 16, ans: "2", exp: "정답: ② 벡터 방식 / 수식 계산 방식이므로 확대 시 깨짐이 없습니다." },
+    q_add8: { num: 17, ans: "1", exp: "정답: ① 디더링 / 제한된 색을 조합 배치하여 착시 효과를 주는 기법입니다." },
+    q_add9: { num: 18, ans: "4", exp: "정답: ④ / MOV는 윈도우 환경에서도 플레이어나 코덱 설치 시 재생 가능합니다." },
+    q_1st_1: { num: 19, ans: "2", exp: "정답: ② / PCM 변환 순서는 [표본화 → 양자화 → 부호화] 입니다." },
+    q_1st_2: { num: 20, ans: "3", exp: "정답: ③ / .ai, .svg는 벡터 방식 확장자입니다." },
+    q_1st_3: { num: 21, ans: "4", exp: "정답: ④ / MPEG-7은 멀티미디어 정보 검색용 메타데이터 표준 규격입니다." },
+    q_1st_4: { num: 22, ans: "3", exp: "정답: ③ / 빛, 질감, 명암을 입히는 기법은 렌더링/쉐이딩입니다." },
+    q_1st_5: { num: 23, ans: "1", exp: "정답: ① / WAVE는 무압축 PCM 포맷으로 원음 보존되나 용량이 큽니다." }
+  };
+
+  function checkAnswers() {
+    let score = 0;
+    const wrongNums = [];
+    const total = Object.keys(answers).length;
+
+    for (let key in answers) {
+      const selected = document.querySelector(`input[name="${key}"]:checked`);
+      const expDiv = document.getElementById(`exp-${key}`);
+      expDiv.style.display = "block";
+
+      if (selected && selected.value === answers[key].ans) {
+        score++;
+        expDiv.className = "exp-box correct";
+        expDiv.innerHTML = "O " + answers[key].exp;
+      } else {
+        wrongNums.push(answers[key].num);
+        expDiv.className = "exp-box wrong";
+        expDiv.innerHTML = "X " + answers[key].exp;
+      }
+    }
+
+    const banner = document.getElementById("resultBanner");
+    banner.style.display = "block";
+
+    if (score === total) {
+      banner.className = "result-banner perfect";
+      banner.innerHTML = `
+        <div class="result-title">멀티미디어 문제는 당신이 전문가입니다. 모두 맞췄습니다!</div>
+        <p style="color: var(--text-sub);">23문항 전체를 완벽하게 작성하셨습니다.</p>
+      `;
+    } else {
+      banner.className = "result-banner imperfect";
+      const chipsHtml = wrongNums.map(n => `<span class="chip">${n}번</span>`).join("");
+      banner.innerHTML = `
+        <div class="result-title">아쉽습니다! 틀린 문제가 있습니다.</div>
+        <p style="color: var(--text-sub);">틀린 문제 번호를 확인하시고 다시 도전해 보세요.</p>
+        <div class="wrong-chips">${chipsHtml}</div>
+        <button type="button" class="reset-btn" onclick="resetForm()">다시 풀기 (재도전)</button>
+      `;
+    }
+
+    banner.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    document.getElementById("quizForm").reset();
+    document.querySelectorAll('.exp-box').forEach(el => el.style.display = 'none');
+    document.getElementById("resultBanner").style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

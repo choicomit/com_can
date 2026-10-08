@@ -869,11 +869,12 @@ body:not(.quiz-mode) .study-summary .preview-box{
     <option value="" selected>자격증을 선택하세요</option>
     <option value="컴퓨터활용능력 1급">컴퓨터활용능력 1급</option>
     <option value="컴퓨터활용능력 2급">컴퓨터활용능력 2급</option>
+    <option value="멀티미디어 기출문제">멀티미디어 기출문제</option>
     <option value="정보처리기사">정보처리기사</option>
     <option value="정보처리산업기사">정보처리산업기사</option>
     <option value="사무자동화산업기사">사무자동화산업기사</option>
   </select>
-  <div class="cert-select-hint" id="certSelectHint">현재는 <b>컴퓨터활용능력 2급</b>만 이용할 수 있습니다.</div>
+  <div class="cert-select-hint" id="certSelectHint">현재는 <b>컴퓨터활용능력 2급</b>과 <b>멀티미디어 기출문제</b>를 이용할 수 있습니다.</div>
 </div>
 
 <div class="admin-row admin-only">
@@ -962,20 +963,20 @@ function applyCertTheme(cert){
   else document.documentElement.removeAttribute('data-cert');
 }
 
-function startApp(){
+function startApp(cert){
   const landing = document.getElementById('landing');
   const content = document.getElementById('content');
   if(landing) landing.style.display='none';
   if(content) content.style.display='block';
   document.body.classList.add('quiz-mode');
 
-  // 항상 munje.html을 로드 (자격증 선택 시 munje.html이 열리도록 고정)
+  // 선택한 학습 콘텐츠를 문제 화면에 표시
   const fr = document.getElementById('appFrame');
-  if(fr) fr.setAttribute('src','munje.html');
+  if(fr) fr.setAttribute('src', cert === '멀티미디어 기출문제' ? 'multimedia_quiz.html' : 'munje.html');
 }
 
 function notReady(name){
-  alert(name + '는 준비 중입니다. 현재는 컴퓨터활용능력 2급만 이용할 수 있습니다.');
+  alert(name + '는 준비 중입니다. 현재는 컴퓨터활용능력 2급과 멀티미디어 기출문제를 이용할 수 있습니다.');
 }
 
 function openHelp(){
@@ -1034,7 +1035,7 @@ function applyLocksFromStorage(){
 }
 
 function actionForCert(cert){
-  if(cert === '컴퓨터활용능력 2급') return 'startApp';
+  if(cert === '컴퓨터활용능력 2급' || cert === '멀티미디어 기출문제') return 'startApp';
   return 'notReady';
 }
 
@@ -1067,7 +1068,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const action = actionForCert(cert);
       if(action === 'startApp'){
-        startApp();
+        startApp(cert);
       }else if(cert){
         notReady(cert);
       }
