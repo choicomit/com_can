@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261008-readable-10">
+<link rel="stylesheet" href="design.css?v=20261008-similar-11">
 </head>
 
 <body class="study-theme">
@@ -958,20 +958,6 @@ h1{margin:0;font-size:22px}
           </div>
 
           <div class="mode">
-           <button class="btn ghost hasTip" id="makeRecommendBtn"
-  data-tip="기능: 오답(채점된 오답)만 모아서 ‘추천셋’을 만듭니다.
-사용법: ① 정답 확인/전체 채점 → ② 이 버튼 클릭 → ③ ‘유사문제 모드 켜기’로 추천셋만 풀기">
-  오답기반 추천 만들기
-</button>
-
-<button class="btn ghost hasTip" id="toggleSimilarBtn"
-  data-tip="기능: 오답기반 추천셋만 화면에 표시하는 모드입니다.
-
-사용법:
-① 먼저 ‘오답기반 추천 만들기’를 실행
-② 이 버튼을 눌러 유사문제 모드를 켜거나 끕니다">
-  유사문제 모드 켜기
-</button>
 <button class="btn ghost" id="similarFromCurrentBtn">현재문제 유사문제 풀기</button>
 <button class="btn ghost" id="statsBtn">출제 빈도 통계</button>
 
@@ -4950,8 +4936,6 @@ let similarBatchState = null; // { baseId, items: { [qid]: { selected, checked, 
 const userAnswers = {};    // { [id]: 선택Index }
 const checkResults = {};   // { [id]: true/false }
 
-let recommendedSet = [];   // (기능 유지용)
-let similarMode = false;
 
 let activeTab = "GENERAL";           // GENERAL / SHEET
 let activeYearRound = "__ALL__";     // "__ALL__" or "2023년 1회"
@@ -4988,8 +4972,6 @@ const badgeAnswered = document.getElementById("badgeAnswered");
 const badgeTotal = document.getElementById("badgeTotal");
 const badgeChecked = document.getElementById("badgeChecked");
 
-const makeRecommendBtn = document.getElementById("makeRecommendBtn");
-const toggleSimilarBtn = document.getElementById("toggleSimilarBtn");
 
 const similarFromCurrentBtn = document.getElementById("similarFromCurrentBtn");
 const statsBtn = document.getElementById("statsBtn");
@@ -5778,10 +5760,6 @@ function parseText(text){
 function getVisibleQuestions(){
   let list = questions.filter(q => inTabQ(q)).filter(q => inYearRoundFilter(q));
 
-  if(similarMode && recommendedSet.length){
-    const set = new Set(recommendedSet);
-    list = list.filter(q => set.has(q.id));
-  }
   if(onlyUnanswered.checked){
     list = list.filter(q => userAnswers[q.id] == null);
   }
@@ -5833,9 +5811,6 @@ function setYearRound(value){
   scoreBox.style.display = "none";
 
   // 필터 변경 시 추천모드 끔(혼동 방지)
-  recommendedSet = [];
-  similarMode = false;
-  toggleSimilarBtn.textContent = "유사문제 모드 OFF";
 
   ensureCurrentVisible();
   buildNav();
@@ -6321,7 +6296,7 @@ function openSimilarBatch(baseQ, scored){
   simDoneMsg.style.display = "none";
 
   simTitle.textContent = "유사문제 한 화면 풀이";
-  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) / 유사문제 ${scored.length}개`;
+  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) · 전체 회차 검색 · 단어 일치율 70% 이상 · ${scored.length}문제`;
 
   // 렌더
   renderSimilarBatch(baseQ, scored);
@@ -6350,12 +6325,12 @@ function renderSimilarBatch(baseQ, scored){
     const empty = document.createElement("div");
     empty.className = "small";
     empty.style.padding = "10px";
-    empty.textContent = "유사한 문제가 없습니다. (공통 키워드가 부족하거나 데이터가 적을 수 있어요)";
+    empty.textContent = "전체 회차에서 지문·보기 단어가 70% 이상 일치하는 문제가 없습니다.";
     similarBatchList.appendChild(empty);
     return;
   }
 
-  scored.forEach(({q, sim}, order) => {
+  scored.forEach(({q, sim, shared}, order) => {
     if(!similarBatchState.items[q.id]){
       similarBatchState.items[q.id] = { selected: null, checked: false, correct: null };
     }
@@ -6387,12 +6362,12 @@ function renderSimilarBatch(baseQ, scored){
 
     const b2 = document.createElement("span");
     b2.className = "sim-badge";
-    b2.textContent = `유사도 ${(sim*100).toFixed(1)}%`;
+    b2.textContent = `단어 일치율 ${(sim*100).toFixed(1)}%`;
 
     const b3 = document.createElement("span");
     b3.className = "sim-badge";
-    const kws = topKeywordsForQuestion(q, 6);
-    b3.textContent = `키워드: ${kws.join(", ") || "-"}`;
+    const kws = shared || [...questionWords(baseQ)].filter(word => questionWords(q).has(word));
+    b3.textContent = `공통 단어: ${kws.slice(0, 8).join(", ") || "-"}`;
 
     badges.appendChild(b1);
     badges.appendChild(b2);
@@ -6408,6 +6383,8 @@ function renderSimilarBatch(baseQ, scored){
       // 한 화면 풀이를 유지하지 않고, 원래 화면으로 나가 해당 문제로 이동
       const targetId = q.id;
       closeSimilarBatch();
+      showAllSubject(q.subject === "컴퓨터 일반" ? "GENERAL" : "SHEET");
+      setYearRound(q.yearLabel);
       goToId(targetId);
     });
 
@@ -6556,61 +6533,10 @@ function checkAllSimilarAnswers(){
     st.correct = (st.selected === q.answerIndex);
   });
 
-  // 다시 렌더해서 결과 표시
-  const baseQ = questions.find(x => x.id === (similarBatchState.baseId));
-  // baseQ는 있어야 함
-  if(baseQ){
-    // scored를 다시 계산(정렬 유지용)
-    // - CPU_MEM 그룹: 같은 과목 + 키워드 겹침 기반(너무 광범위해지지 않게)
-    // - 그 외: TF-IDF 기반 엄격 추천
-    if(baseQ && (baseQ.cpuHits || []).length > 0){
-      const scope = questions
-        .filter(q => inYearRoundFilter(q))
-        .filter(q => q.subject === baseQ.subject);
-
-      const baseHits = new Set(baseQ.keywordsHit || []);
-      const picked = scope
-        .filter(q => q.id !== baseQ.id && q.tags && q.tags.isCpuSimilarCandidate === true)
-        .map(q => {
-          const hits = new Set(q.keywordsHit || []);
-          let inter = 0;
-          for(const k of baseHits){ if(hits.has(k)) inter += 1; }
-          const cos = cosineSimById(baseQ.id, q.id);
-          const sim = (baseHits.size ? (inter / baseHits.size) : 0) * 0.55 + cos * 0.45;
-          return { q, sim, inter, cos };
-        })
-        .filter(x => (x.inter || 0) >= 1)
-        .sort((a,b)=> b.sim - a.sim)
-        .slice(0, 18);
-
-      renderSimilarBatch(baseQ, picked);
-    }else if(baseQ && (baseQ.mediaHits || []).length > 0){
-      const scope = questions
-        .filter(q => inYearRoundFilter(q))
-        .filter(q => q.subject === baseQ.subject);
-
-      const baseHits = new Set(baseQ.mediaHits || []);
-      const picked = scope
-        .filter(q => q.id !== baseQ.id && q.tags && q.tags.isMediaSimilarCandidate === true)
-        .map(q => {
-          const hits = new Set(q.mediaHits || []);
-          let inter = 0;
-          for(const k of baseHits){ if(hits.has(k)) inter += 1; }
-          const cos = cosineSimById(baseQ.id, q.id);
-          const sim = (baseHits.size ? (inter / baseHits.size) : 0) * 0.55 + cos * 0.45;
-          return { q, sim, inter, cos };
-        })
-        .filter(x => (x.inter || 0) >= 1)
-        .sort((a,b)=> b.sim - a.sim)
-        .slice(0, 18);
-
-      renderSimilarBatch(baseQ, picked);
-    }else{
-      const scored = getSimilarQuestionsTopKWeighted(baseQ, 12, true);
-      renderSimilarBatch(baseQ, scored);
-    }
-  }
+  const baseQ = getQuestionById(similarBatchState.baseId);
+  if(baseQ) renderSimilarBatch(baseQ, findSimilarQuestions(baseQ));
 }
+
 function closeSimilarModal(){
   similarModal.classList.remove("show");
   similarModal.setAttribute("aria-hidden", "true");
@@ -6770,9 +6696,6 @@ resetBtn.addEventListener("click", ()=>{
   for(const k in userAnswers) delete userAnswers[k];
   for(const k in checkResults) delete checkResults[k];
 
-  recommendedSet = [];
-  similarMode = false;
-  toggleSimilarBtn.textContent = "유사문제 모드 OFF";
   onlyUnanswered.checked = false;
 
   activeYearRound = "__ALL__";
@@ -6810,8 +6733,6 @@ function showAllSubject(subject){
   activeTab = subject;
   activeYearRound = "__ALL__";
   onlyUnanswered.checked = false;
-  similarMode = false;
-  toggleSimilarBtn.textContent = "유사문제 모드 켜기";
   updateTabUI();
   render();
 }
@@ -6865,105 +6786,37 @@ jumpInput.addEventListener("keydown", (e)=>{
   if(e.key === "Enter") jumpBtn.click();
 });
 
-makeRecommendBtn.addEventListener("click", ()=>{
-  alert("현재 버전은 필터/파서 안정화에 초점을 둔 상태입니다. 추천 로직을 다시 붙이려면 말씀해주세요.");
-});
-
-toggleSimilarBtn.addEventListener("click", ()=>{
-  similarMode = !similarMode;
-  toggleSimilarBtn.textContent = similarMode
-  ? "유사문제 모드 끄기"
-  : "유사문제 모드 켜기";
-
-  buildNav();
-  render();
-});
-
-
+// Compare meaningful words from the prompt and choices only, across all uploaded sessions.
+function questionWords(q){
+  const content = [q.title || "", q.desc || "", ...(q.options || [])]
+    .map(text => getImageReference(text)?.label ?? text).join(" ");
+  const words = normalizeText(content).split(" ").map(word => {
+    if(/[가-힣]/.test(word)){
+      const stem = word.replace(/(?:에서는|으로는|에서|에게|으로|에는|은|는|을|를|이|가|의|와|과|에|도|로)$/, "");
+      if(stem.length >= 2) return stem;
+    }
+    return word;
+  }).filter(word => word.length > 0 && !STOP_WORDS.has(word));
+  return new Set(words);
+}
+function findSimilarQuestions(baseQ, candidates = questions){
+  if(!baseQ) return [];
+  const baseWords = questionWords(baseQ);
+  if(!baseWords.size) return [];
+  return candidates.filter(q => q.id !== baseQ.id).map(q => {
+    const candidateWords = questionWords(q);
+    const shared = [...baseWords].filter(word => candidateWords.has(word));
+    const total = Math.max(baseWords.size, candidateWords.size);
+    const sim = total ? shared.length / total : 0;
+    const coreOverlap = shared.filter(word => DOMAIN_BOOST.has(word)).length;
+    return {q, sim, shared, total, coreOverlap};
+  }).filter(item => item.shared.length * 10 >= item.total * 7)
+    .sort((a,b) => b.sim - a.sim || b.coreOverlap - a.coreOverlap || a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
+}
 similarFromCurrentBtn.addEventListener("click", ()=>{
   const baseQ = currentQ();
-  const applyYearFilter = true;
-
-  // ✅ CPU/기억장치(하드웨어) 유사문제: 운영체제/Windows 포함 문제는 제외
-  // - 같은 과목만
-  // - 기준문제와 표준키(ACC/IR/PC/RAM...)가 실제로 겹치는 문제만
-  if(baseQ && (baseQ.cpuHits || []).length > 0){
-    const scope = (applyYearFilter ? questions.filter(q => inYearRoundFilter(q)) : questions)
-      .filter(q => q.subject === baseQ.subject)
-      .filter(q => q.tags && q.tags.isCpuSimilarCandidate === true);
-
-    const baseHits = new Set(baseQ.cpuHits || []);
-
-    // ✅ 레지스터 계열(ACC/IR/PC)이 포함된 기준문제면 해당 키워드 겹침을 더 강하게 요구
-    const regKeys = ["ACC","IR","PC","REGISTER"];
-    const baseReg = (baseQ.cpuHits||[]).filter(k => regKeys.includes(k));
-    const minOverlap = baseReg.length ? 1 : 1; // 필요시 2로 올리면 더 엄격
-
-    const picked = scope
-      .filter(q => q.id !== baseQ.id && q.tags && q.tags.isCpuSimilarCandidate === true)
-      .map(q => {
-        const hits = new Set(q.cpuHits || []);
-        let inter = 0;
-        for(const k of baseHits){ if(hits.has(k)) inter += 1; }
-
-        // 기준문제가 레지스터 계열이면, 그 키워드가 실제로 겹치는지도 별도로 체크
-        let regInter = 0;
-        if(baseReg.length){
-          for(const rk of baseReg){ if(hits.has(rk)) regInter += 1; }
-        }
-
-        const cos = cosineSimById(baseQ.id, q.id);
-        const kwScore = (baseHits.size ? (inter / baseHits.size) : 0);
-        const regBoost = baseReg.length ? (regInter > 0 ? 0.10 : -0.10) : 0;
-        const sim = kwScore * 0.60 + cos * 0.40 + regBoost;
-        return { q, sim, inter, regInter, cos };
-      })
-      .filter(x => (x.inter || 0) >= minOverlap)
-      .filter(x => (baseReg.length ? (x.regInter || 0) >= 1 : true))
-      .sort((a,b)=> b.sim - a.sim)
-      .slice(0, 18);
-
-    openSimilarBatch(baseQ, picked);
-    return;
-  }
-
-  
-
-  // ✅ 멀티미디어/파일형식 유사문제: 같은 과목 + 멀티미디어 키워드 겹침 기반
-  // - 유사문제 후보에서 인터넷/사이트/url/코드 등 제외키워드가 포함된 문제는 제외(전역 제외 규칙)
-  if(baseQ && (baseQ.mediaHits || []).length > 0){
-    const scope = (applyYearFilter ? questions.filter(q => inYearRoundFilter(q)) : questions)
-      .filter(q => q.subject === baseQ.subject)
-      .filter(q => q.tags && q.tags.isMediaSimilarCandidate === true);
-
-    const baseHits = new Set(baseQ.mediaHits || []);
-
-    const picked = scope
-      .filter(q => q.id !== baseQ.id && q.tags && q.tags.isMediaSimilarCandidate === true)
-      .map(q => {
-        const hits = new Set(q.mediaHits || []);
-        let inter = 0;
-        for(const k of baseHits){ if(hits.has(k)) inter += 1; }
-        const cos = cosineSimById(baseQ.id, q.id);
-        const kwScore = (baseHits.size ? (inter / baseHits.size) : 0);
-        const sim = kwScore * 0.60 + cos * 0.40;
-        return { q, sim, inter, cos };
-      })
-      .filter(x => (x.inter || 0) >= 1)
-      .sort((a,b)=> b.sim - a.sim)
-      .slice(0, 18);
-
-    openSimilarBatch(baseQ, picked);
-    return;
-  }
-
-// ✅ 일반 유사문제 추천(TF-IDF) — 항상 같은 과목 후보로만 이미 제한됨
-  const scored = getSimilarQuestionsTopKWeighted(baseQ, 12, applyYearFilter);
-  openSimilarBatch(baseQ, scored);
+  if(baseQ) openSimilarBatch(baseQ, findSimilarQuestions(baseQ));
 });
-
-
-
 
 /* =========================
    초기 로드
