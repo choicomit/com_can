@@ -852,7 +852,7 @@ h1{margin:0;font-size:22px}
     <div>
       <h1>컴퓨터활용능력 2급 기출문제 풀이</h1>
       <div class="small">
-        우측 탭(컴퓨터 일반 / 스프레드시트)에서 번호 클릭 또는 “번호 입력 이동”으로 자유 이동합니다.
+        왼쪽 과목 선택에서 컴퓨터 일반 / 스프레드시트 일반을 선택하고, 오른쪽 번호 클릭 또는 “번호 입력 이동”으로 자유 이동합니다.
         정답 확인 후 번호 색상: 정답(초록) / 오답(빨강). 미응답만 보기 체크 가능.
       </div>
     </div>
@@ -869,7 +869,10 @@ h1{margin:0;font-size:22px}
       <div class="row">
         <div class="meta">
           <span class="tag" id="numTag">-</span>
-          <span class="tag" id="subjectTag">-</span>
+          <select class="tag tagSelect" id="subjectTag" aria-label="과목 선택">
+            <option value="GENERAL">컴퓨터 일반</option>
+            <option value="SHEET">스프레드시트 일반</option>
+          </select>
 
           <!-- 연도/회차 드롭다운 -->
           <select class="tag tagSelect" id="yearRoundSelectTop" aria-label="연도/회차 선택">
@@ -934,11 +937,6 @@ h1{margin:0;font-size:22px}
     <aside class="side">
       <div class="card">
         <div class="side-title">문제 이동</div>
-
-        <div class="tabs">
-          <button class="tab active" id="tabGeneral">컴퓨터 일반</button>
-          <button class="tab" id="tabSheet">스프레드시트</button>
-        </div>
 
         <div class="tools">
           <div class="toolsRow">
@@ -4978,8 +4976,6 @@ const onlyUnanswered = document.getElementById("onlyUnanswered");
 const jumpInput = document.getElementById("jumpInput");
 const jumpBtn = document.getElementById("jumpBtn");
 
-const tabGeneral = document.getElementById("tabGeneral");
-const tabSheet = document.getElementById("tabSheet");
 
 const badgeAnswered = document.getElementById("badgeAnswered");
 const badgeTotal = document.getElementById("badgeTotal");
@@ -5859,8 +5855,7 @@ function setYearRound(value){
    네비/탭 UI
 ========================= */
 function updateTabUI(){
-  tabGeneral.classList.toggle("active", activeTab === "GENERAL");
-  tabSheet.classList.toggle("active", activeTab === "SHEET");
+  subjectTag.value = activeTab;
   buildNav();
 }
 function navStatusClass(q){
@@ -5922,7 +5917,7 @@ function render(){
   if(!questions.length){
     progressEl.textContent = "진행 0 / 0";
     numTag.textContent = "-";
-    subjectTag.textContent = "-";
+    subjectTag.value = activeTab;
     qTitle.textContent = "문제가 없습니다.";
     qDesc.textContent = "PRELOADED_TEXT에 문제를 넣고 저장하세요.";
     optionsEl.innerHTML = "";
@@ -5961,7 +5956,7 @@ function applyEnded(isEnded){
   progressEl.textContent = `진행 ${(pos >= 0 ? pos + 1 : 1)} / ${visible.length}`;
 
   numTag.textContent = `${q.yearLabel} · ${q.no}번`;
-  subjectTag.textContent = `${q.subject}`;
+  subjectTag.value = activeTab;
 
   qTitle.textContent = q.title || "";
   qDesc.textContent = q.desc || "";
@@ -6783,13 +6778,8 @@ resetBtn.addEventListener("click", ()=>{
   render();
 });
 
-tabGeneral.addEventListener("click", ()=>{
-  activeTab = "GENERAL";
-  updateTabUI();
-  render();
-});
-tabSheet.addEventListener("click", ()=>{
-  activeTab = "SHEET";
+subjectTag.addEventListener("change", ()=>{
+  activeTab = subjectTag.value;
   updateTabUI();
   render();
 });
