@@ -156,6 +156,10 @@
   #quizStopwatch.sw-collapsed{max-width:80px;padding:5px;}
 }
 
+.nav-round{grid-column:1 / -1;font-size:13px;font-weight:800;padding:10px 0 4px;color:var(--muted);}
+.duplicate-questions{margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#eff6ff;font-size:13px;}
+.duplicate-questions button{border:0;background:transparent;color:#1d4ed8;text-decoration:underline;cursor:pointer;padding:4px;font:inherit;}
+
 :root{
   /* Base */
   --bg:#f6f7fb;
@@ -886,6 +890,7 @@ h1{margin:0;font-size:22px}
 
       <div class="qtitle" id="qTitle"></div>
       <p class="qdesc" id="qDesc"></p>
+      <div id="duplicateQuestions" class="duplicate-questions" hidden></div>
 
       <div id="imgBox" class="qimg-wrap" style="display:none;">
         <img id="qImg" class="qimg" alt="문제 이미지" />
@@ -977,6 +982,10 @@ h1{margin:0;font-size:22px}
 
         <div class="sep"></div>
 
+        <div class="tabs" aria-label="과목별 전체 기출문제">
+          <button class="tab" id="subjectGeneralAll" type="button">1과목 기출문제</button>
+          <button class="tab" id="subjectSheetAll" type="button">2과목 기출문제</button>
+        </div>
         <div class="nav-grid" id="navGrid"></div>
 
         <div class="legend">
@@ -5581,7 +5590,7 @@ function resetFeedback(){
   explainText.textContent = "";
 }
 function inTabQ(q){
-  return activeTab === "GENERAL" ? (q.subject === "컴퓨터 일반") : (q.subject === "스프레드시트");
+  return activeTab === "GENERAL" ? (q.subject === "컴퓨터 일반" && q.no >= 1 && q.no <= 20) : (q.subject === "스프레드시트" && q.no >= 21 && q.no <= 40);
 }
 function inYearRoundFilter(q){
   if(activeYearRound === "__ALL__") return true;
@@ -5868,7 +5877,7 @@ function navStatusClass(q){
   return "";
 }
 function refreshBadges(){
-  const scope = (activeYearRound === "__ALL__") ? questions : questions.filter(q => q.yearLabel === activeYearRound);
+  const scope = questions.filter(q => inTabQ(q) && inYearRoundFilter(q));
   const total = scope.length;
   const answeredCount = scope.filter(q => userAnswers[q.id] != null).length;
   const checkedCount = scope.filter(q => checkResults[q.id] === true || checkResults[q.id] === false).length;
@@ -5883,10 +5892,23 @@ function buildNav(){
   navGrid.innerHTML = "";
   const visible = getVisibleQuestions();
 
+  document.getElementById("subjectGeneralAll").classList.toggle("active", activeTab === "GENERAL");
+  document.getElementById("subjectSheetAll").classList.toggle("active", activeTab === "SHEET");
+  document.getElementById("subjectGeneralAll").setAttribute("aria-pressed", String(activeTab === "GENERAL"));
+  document.getElementById("subjectSheetAll").setAttribute("aria-pressed", String(activeTab === "SHEET"));
+  let previousRound = "";
   visible.forEach(q=>{
+    if(q.yearLabel !== previousRound){
+      const heading = document.createElement("div");
+      heading.className = "nav-round";
+      heading.textContent = q.yearLabel;
+      navGrid.appendChild(heading);
+      previousRound = q.yearLabel;
+    }
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "nav-btn";
+    btn.setAttribute("aria-label", `${q.yearLabel} ${q.subject} ${q.no}번`);
 
     const cls = navStatusClass(q).split(" ").filter(Boolean);
     if(cls.length) btn.classList.add(...cls);
@@ -5960,6 +5982,7 @@ function applyEnded(isEnded){
 
   qTitle.textContent = q.title || "";
   qDesc.textContent = q.desc || "";
+  showDuplicateQuestions(q);
 
   imgBox.replaceChildren();
   imgBox.style.display = q.image ? "block" : "none";
@@ -6777,6 +6800,43 @@ resetBtn.addEventListener("click", ()=>{
   buildNav();
   render();
 });
+
+function showAllSubject(subject){
+  activeTab = subject;
+  activeYearRound = "__ALL__";
+  yearRoundSelectTop.value = "__ALL__";
+  onlyUnanswered.checked = false;
+  similarMode = false;
+  toggleSimilarBtn.textContent = "유사문제 모드 켜기";
+  updateTabUI();
+  render();
+}
+document.getElementById("subjectGeneralAll").addEventListener("click", ()=>showAllSubject("GENERAL"));
+document.getElementById("subjectSheetAll").addEventListener("click", ()=>showAllSubject("SHEET"));
+
+function exactQuestionKey(q){
+  const normalize = text => String(text || "").normalize("NFC").replace(/\s+/g, "").replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
+  return JSON.stringify([q.subject, normalize(q.desc), q.image || "", q.options.map(normalize).sort()]);
+}
+function showDuplicateQuestions(q){
+  const box = document.getElementById("duplicateQuestions");
+  box.replaceChildren();
+  const key = exactQuestionKey(q);
+  const duplicates = questions.filter(other => other.id !== q.id && exactQuestionKey(other) === key);
+  box.hidden = duplicates.length === 0;
+  if(!duplicates.length) return;
+  box.appendChild(document.createTextNode("같은 문제 출제 이력: "));
+  for(const other of duplicates){
+    const link = document.createElement("button");
+    link.type = "button";
+    link.textContent = `${other.yearLabel} ${other.no}번에도 출제`;
+    link.addEventListener("click", ()=>{
+      showAllSubject(other.subject === "컴퓨터 일반" ? "GENERAL" : "SHEET");
+      goToId(other.id);
+    });
+    box.appendChild(link);
+  }
+}
 
 subjectTag.addEventListener("change", ()=>{
   activeTab = subjectTag.value;
