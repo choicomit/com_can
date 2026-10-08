@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261008-similar-11">
+<link rel="stylesheet" href="design.css?v=20261008-similar-12">
 </head>
 
 <body class="study-theme">
@@ -6296,7 +6296,7 @@ function openSimilarBatch(baseQ, scored){
   simDoneMsg.style.display = "none";
 
   simTitle.textContent = "유사문제 한 화면 풀이";
-  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) · 전체 회차 검색 · 단어 일치율 70% 이상 · ${scored.length}문제`;
+  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) · 전체 회차 검색 · 단어 일치율 50% 이상 · ${scored.length}문제`;
 
   // 렌더
   renderSimilarBatch(baseQ, scored);
@@ -6325,7 +6325,7 @@ function renderSimilarBatch(baseQ, scored){
     const empty = document.createElement("div");
     empty.className = "small";
     empty.style.padding = "10px";
-    empty.textContent = "전체 회차에서 지문·보기 단어가 70% 이상 일치하는 문제가 없습니다.";
+    empty.textContent = "전체 회차에서 지문·보기 단어가 50% 이상 일치하는 문제가 없습니다.";
     similarBatchList.appendChild(empty);
     return;
   }
@@ -6810,7 +6810,7 @@ function findSimilarQuestions(baseQ, candidates = questions){
     const sim = total ? shared.length / total : 0;
     const coreOverlap = shared.filter(word => DOMAIN_BOOST.has(word)).length;
     return {q, sim, shared, total, coreOverlap};
-  }).filter(item => item.shared.length * 10 >= item.total * 7)
+  }).filter(item => item.shared.length * 10 >= item.total * 5)
     .sort((a,b) => b.sim - a.sim || b.coreOverlap - a.coreOverlap || a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
 }
 similarFromCurrentBtn.addEventListener("click", ()=>{
