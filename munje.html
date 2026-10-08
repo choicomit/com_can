@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261008-similar-12">
+<link rel="stylesheet" href="design.css?v=20261008-register-13">
 </head>
 
 <body class="study-theme">
@@ -6296,7 +6296,7 @@ function openSimilarBatch(baseQ, scored){
   simDoneMsg.style.display = "none";
 
   simTitle.textContent = "유사문제 한 화면 풀이";
-  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) · 전체 회차 검색 · 단어 일치율 50% 이상 · ${scored.length}문제`;
+  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) · 전체 회차 검색 · ${hasRegisterWord(baseQ) ? "레지스터 문제 포함 / 그 외 단어 일치율 50% 이상" : "단어 일치율 50% 이상"} · ${scored.length}문제`;
 
   // 렌더
   renderSimilarBatch(baseQ, scored);
@@ -6330,7 +6330,7 @@ function renderSimilarBatch(baseQ, scored){
     return;
   }
 
-  scored.forEach(({q, sim, shared}, order) => {
+  scored.forEach(({q, sim, shared, registerMatch}, order) => {
     if(!similarBatchState.items[q.id]){
       similarBatchState.items[q.id] = { selected: null, checked: false, correct: null };
     }
@@ -6362,7 +6362,7 @@ function renderSimilarBatch(baseQ, scored){
 
     const b2 = document.createElement("span");
     b2.className = "sim-badge";
-    b2.textContent = `단어 일치율 ${(sim*100).toFixed(1)}%`;
+    b2.textContent = `${registerMatch ? "레지스터 공통 주제 · " : ""}단어 일치율 ${(sim*100).toFixed(1)}%`;
 
     const b3 = document.createElement("span");
     b3.className = "sim-badge";
@@ -6799,6 +6799,9 @@ function questionWords(q){
   }).filter(word => word.length > 0 && !STOP_WORDS.has(word));
   return new Set(words);
 }
+function hasRegisterWord(q){
+  return [q.title || "", q.desc || "", ...(q.options || [])].join(" ").includes("레지스터");
+}
 function findSimilarQuestions(baseQ, candidates = questions){
   if(!baseQ) return [];
   const baseWords = questionWords(baseQ);
@@ -6809,8 +6812,8 @@ function findSimilarQuestions(baseQ, candidates = questions){
     const total = Math.max(baseWords.size, candidateWords.size);
     const sim = total ? shared.length / total : 0;
     const coreOverlap = shared.filter(word => DOMAIN_BOOST.has(word)).length;
-    return {q, sim, shared, total, coreOverlap};
-  }).filter(item => item.shared.length * 10 >= item.total * 5)
+    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q)};
+  }).filter(item => item.registerMatch || item.shared.length * 10 >= item.total * 5)
     .sort((a,b) => b.sim - a.sim || b.coreOverlap - a.coreOverlap || a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
 }
 similarFromCurrentBtn.addEventListener("click", ()=>{
