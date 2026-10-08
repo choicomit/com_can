@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AI 기반 국가기술자격 기출문제 학습 시스템</title>
+<title>기출연습실 | 국가기술자격 기출문제</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
@@ -809,13 +809,15 @@ body:not(.quiz-mode) .study-summary .preview-box{
 }
 
 </style>
+<link rel="stylesheet" href="design.css?v=20261008-design-9">
 </head>
-<body>
+<body class="home-theme">
 
 <!-- Start / Landing -->
 <section aria-label="시작 페이지" id="landing">
 <div class="page-bg">
 <main class="canvas">
+<div class="home-brand">기출연습실 <span>국가기술자격 · 학습 아카이브</span></div>
 
 <!-- AI Icon Decoration -->
 <div class="ai-icon-deco">
@@ -827,13 +829,13 @@ body:not(.quiz-mode) .study-summary .preview-box{
 </div>
 
 <div aria-label="특징 요약" class="badge-row">
-<div class="badge primary"><span aria-hidden="true" class="dot"></span>AI 기반 학습 흐름</div>
+<div class="badge primary"><span aria-hidden="true" class="dot"></span>EXAM PRACTICE</div>
 <div class="badge">기출 · 오답 · 유사문제</div>
 <div class="badge">PC/모바일 지원</div>
 </div>
 
 <header aria-label="서비스 제목" class="hero-title">
-  <div class="title-main">AI 기반 국가기술자격 기출문제 학습 시스템</div>
+  <div class="title-main">기출을 풀고,<br>실력을 쌓는 시간.</div>
 </header>
 
 <p class="intro">
@@ -934,7 +936,7 @@ body:not(.quiz-mode) .study-summary .preview-box{
 </div>
 <!-- Content -->
 <div id="content">
-<iframe id="appFrame" src="munje.html?v=20261008-round-8" title="문제 풀이 화면"></iframe>
+<iframe id="appFrame" src="munje.html?v=20261008-design-9" title="문제 풀이 화면"></iframe>
 </div>
 <!-- Home buttons -->
 <button class="home-float" id="goHomeBtn" type="button" title="시작페이지로 돌아가기" aria-label="시작페이지로 돌아가기">
@@ -972,7 +974,7 @@ function startApp(cert){
 
   // 선택한 학습 콘텐츠를 문제 화면에 표시
   const fr = document.getElementById('appFrame');
-  if(fr) fr.setAttribute('src', cert === '멀티미디어 기출문제' ? 'multimedia_quiz.html?v=20261008-round-8' : 'munje.html?v=20261008-round-8');
+  if(fr) fr.setAttribute('src', cert === '멀티미디어 기출문제' ? 'multimedia_quiz.html?v=20261008-design-9' : 'munje.html?v=20261008-design-9');
 }
 
 function notReady(name){
