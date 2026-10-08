@@ -872,7 +872,7 @@ h1{margin:0;font-size:22px}
 <div id="singleScreen">
       <div class="row">
         <div class="meta">
-          <span class="tag" id="numTag">-</span>
+          <select class="tag tagSelect" id="numTag" aria-label="연도·회차별 문제 선택"></select>
           <select class="tag tagSelect" id="subjectTag" aria-label="과목 선택">
             <option value="GENERAL">컴퓨터 일반</option>
             <option value="SHEET">스프레드시트 일반</option>
@@ -5938,7 +5938,7 @@ function buildNav(){
 function render(){
   if(!questions.length){
     progressEl.textContent = "진행 0 / 0";
-    numTag.textContent = "-";
+    numTag.replaceChildren();
     subjectTag.value = activeTab;
     qTitle.textContent = "문제가 없습니다.";
     qDesc.textContent = "PRELOADED_TEXT에 문제를 넣고 저장하세요.";
@@ -5977,7 +5977,7 @@ function applyEnded(isEnded){
 
   progressEl.textContent = `진행 ${(pos >= 0 ? pos + 1 : 1)} / ${visible.length}`;
 
-  numTag.textContent = `${q.yearLabel} · ${q.no}번`;
+  updateQuestionPicker(q);
   subjectTag.value = activeTab;
 
   qTitle.textContent = q.title || "";
@@ -6799,6 +6799,32 @@ resetBtn.addEventListener("click", ()=>{
   scoreBox.style.display = "none";
   buildNav();
   render();
+});
+
+function updateQuestionPicker(current){
+  numTag.replaceChildren();
+  let group = null;
+  let previousRound = "";
+  for(const question of questions.filter(inTabQ)){
+    if(question.yearLabel !== previousRound){
+      group = document.createElement("optgroup");
+      group.label = question.yearLabel;
+      numTag.appendChild(group);
+      previousRound = question.yearLabel;
+    }
+    const option = document.createElement("option");
+    option.value = question.id;
+    option.textContent = `${question.yearLabel} · ${question.no}번`;
+    group.appendChild(option);
+  }
+  numTag.value = current.id;
+}
+numTag.addEventListener("change", ()=>{
+  const selected = getQuestionById(numTag.value);
+  if(!selected) return;
+  onlyUnanswered.checked = false;
+  setYearRound(selected.yearLabel);
+  goToId(selected.id);
 });
 
 function showAllSubject(subject){
