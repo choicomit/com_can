@@ -119,3 +119,99 @@ body.home-theme:not(.quiz-mode) .study-summary .summary-top{display:flex!importa
 .study-theme .mode .hasTip:nth-child(2)::after{left:auto;right:0}
 .study-theme .mode .hasTip:hover::after,.study-theme .mode .hasTip:focus-visible::after{transform:translateY(0)}
 .home-theme .preview-head .dots{display:none}
+/* Adult learners: brighter surfaces, stronger contrast and generous type. */
+body.home-theme,body.study-theme,body.multimedia-theme{background:#f4f8fc;color:#172b44}
+body.study-theme{--bg:#f4f8fc;--card:#fff;--text:#172b44;--muted:#495e75;--line:#cad8e6;--primary:#175da0;--primary-hover:#104a82;--primary-soft:#edf5ff;--side-bg:#fff;--side-card:#fff;--side-border:#cad8e6;--side-title:#172b44;--side-sub:#425b75;--side-accent:#175da0;--side-accent-soft:#e5f1ff;--good:#247342;--bad:#b63a32}
+.study-theme .wrap{padding-top:30px}
+.study-theme header{border-color:#cad8e6;gap:18px}
+.study-theme .study-brand{font-size:15px;color:#315e88;letter-spacing:1px}
+.study-theme h1{font-size:30px;color:#172b44}
+.study-theme header .small{font-size:15px;color:#495e75;line-height:1.8;max-width:850px}
+.study-theme main.card{border-color:#cad8e6;background:#fff;padding:30px 32px}
+.study-theme .row{border-color:#d6e1ec}
+.study-theme .tag{font-size:17px;color:#172b44;background-color:#fff;border-color:#b7cbe0;padding:12px 14px;min-height:48px}
+.study-theme .tagSelect{padding-right:34px}
+.study-theme .row>.meta:last-child .tag{font-size:14px;color:#495e75}
+.study-theme .qdesc{font-size:25px;line-height:1.9;font-weight:600;letter-spacing:0;margin-bottom:26px;color:#132b45}
+.study-theme .options{border-color:#cad8e6}
+.study-theme .opt{padding:20px 14px;border-color:#d6e1ec}
+.study-theme .opt:hover{background:#f1f7ff}
+.study-theme .opt:has(input:checked){background:#e9f3ff;box-shadow:inset 4px 0 #175da0}
+.study-theme .opt input{accent-color:#175da0;width:20px;height:20px;margin-top:9px}
+.study-theme .opt .optText{font-size:22px;line-height:1.9}
+.study-theme .opt .optText strong{font-size:19px;color:#31577d;min-width:24px;line-height:2.2}
+.study-theme .btn{font-size:16px;padding:13px 17px;min-height:48px}
+.study-theme .btn.ghost:hover{background:#edf5ff;border-color:#6997c4}
+.study-theme .btn.secondary{background:#324e6b}
+.study-theme .btn.danger{color:#a0372c;border-color:#d6aaa2;background:#fff}
+.study-theme .btn.danger:hover{background:#fff2ef}
+.study-theme .quizMenuBtn{font-size:15px;border-color:#98b7d4;background:#fff;color:#175da0;padding:12px 16px;min-height:44px}
+.study-theme .pill{font-size:15px;background:#e5f1ff;color:#245482;padding:12px 14px}
+.study-theme .layout{grid-template-columns:minmax(0,1fr) 350px;gap:24px}
+.study-theme .side .card{border-color:#cad8e6;background:#fff;padding:20px}
+.study-theme .side-title{font-size:20px;color:#172b44;border-color:#d6e1ec;letter-spacing:0}
+.study-theme .badge{font-size:15px;color:#425b75;line-height:1.6}
+.study-theme .chk{font-size:16px;color:#425b75;padding:8px 0;accent-color:#175da0}
+.study-theme .chk input{width:18px;height:18px}
+.study-theme .jump input{font-size:16px;padding:12px;min-height:46px;border-color:#b7cbe0}
+.study-theme .jump .btn{font-size:16px;padding:11px 14px}
+.study-theme .mode{gap:8px}
+.study-theme .mode .btn{font-size:14px;min-height:48px;padding:10px 6px;color:#294d70}
+.study-theme .tabs{background:#e9f1fa;padding:4px;margin:18px 0 10px}
+.study-theme .tab{font-size:16px;padding:13px 6px;color:#31577d;min-height:48px}
+.study-theme .tab.active{background:#175da0;color:#fff;box-shadow:none}
+.study-theme .nav-round{font-size:16px;color:#31577d;padding:18px 0 8px;letter-spacing:0}
+.study-theme .nav-grid{gap:7px}
+.study-theme .nav-btn{border-color:#bfd1e2;padding:12px 5px;min-height:56px}
+.study-theme .nav-btn .n{font-size:19px;font-weight:700}
+.study-theme .nav-btn .a{font-size:13px;color:#49647e;margin-top:5px}
+.study-theme .nav-btn.active{background:#175da0;border-color:#175da0}
+.study-theme .nav-btn:hover{background:#edf5ff;border-color:#5f92c4}
+.study-theme .nav-btn.active:hover{background:#104a82}
+.study-theme .nav-btn.correct{background:#eaf6ed;border-color:#80b18b}
+.study-theme .nav-btn.wrong{background:#fff0eb;border-color:#d7a291}
+.study-theme .legend{font-size:13px;color:#425b75;gap:10px;line-height:1.8}
+.study-theme .duplicate-questions{font-size:16px;background:#edf5ff;border-color:#5084b4;color:#294d70;padding:12px;line-height:1.8}
+.study-theme .duplicate-questions button{color:#175da0;font-size:16px;min-height:40px}
+.study-theme .result,.study-theme .explainText,.study-theme #explainText{font-size:20px;line-height:1.9}
+.study-theme .qimg-wrap{background:#fff;border-color:#cad8e6}
+.study-theme #quizStopwatch{background:#203e5c;border-color:#456989}
+.study-theme #swTime{font-size:22px}
+.study-theme #quizStopwatch .sw-controls button{font-size:12px;padding:7px 2px}
+.study-theme #swStart{background:#b9e0c5;color:#173c24}
+.study-theme #swStop{background:#bc5147}
+.study-theme #swReset{background:#e6eef7;color:#203e5c}
+.study-theme .mode .hasTip::after{background:#203e5c;font-size:15px}
+.study-theme #goHomeInQuiz{background:#e5f1ff;color:#175da0}
+.study-theme :focus-visible,.home-theme :focus-visible{outline:3px solid #175da0;outline-offset:3px}
+.home-theme .page-bg{background:#f4f8fc}
+.home-theme .home-brand{color:#245482;border-color:#cad8e6;font-size:16px;letter-spacing:1px}
+.home-theme .home-brand span{font-size:14px;color:#495e75}
+.home-theme .badge{color:#425b75;font-size:14px}
+.home-theme .badge.primary{color:#175da0}
+.home-theme .title-main{-webkit-text-fill-color:#172b44;color:#172b44;font-size:60px}
+.home-theme .intro{font-size:21px;color:#425b75;line-height:1.9;max-width:800px}
+.home-theme .feature-grid{border-color:#cad8e6}
+.home-theme .feature{border-color:#cad8e6}
+.home-theme .feature b{font-size:19px;color:#244e78}
+.home-theme .feature p{font-size:16px;color:#425b75;line-height:1.9}
+.home-theme .cert-title{font-size:18px;color:#245482}
+.home-theme .cert-select-wrap{max-width:740px}
+.home-theme .cert-select-wrap select{font-size:22px;padding:20px;border-color:#9ebbd6;background:#fff;color:#172b44}
+.home-theme .cert-select-hint{font-size:17px;color:#425b75;line-height:1.8}
+.home-theme .btn{background:#175da0;font-size:17px;padding:13px 18px}
+.home-theme .btn:hover{background:#104a82}
+.home-theme .mini{font-size:14px;color:#495e75}
+body.home-theme:not(.quiz-mode) .study-summary{background:#fff!important;border-color:#cad8e6!important}
+.home-theme .study-summary h2{font-size:21px;color:#244e78}
+.home-theme .summary-tabs .tab{font-size:15px;color:#425b75}
+.home-theme .preview-title{font-size:18px;color:#244e78}
+.home-theme .preview-box .line{font-size:18px;color:#425b75;line-height:1.9}
+.home-theme .wish-text{font-size:17px;color:#495e75;-webkit-text-fill-color:#495e75}
+.home-theme.quiz-mode .home-float,.home-theme .mobile-home-fab{background:#175da0;color:#fff}
+.multimedia-theme{--text-sub:#425b75;--text-main:#172b44;--primary:#203e5c;--accent:#175da0;--bg-color:#f4f8fc}
+.multimedia-theme .header-card,.multimedia-theme .q-card,.multimedia-theme .note-card{background:#fff;border-color:#cad8e6}
+.multimedia-theme .header-card{border-top-color:#175da0}
+@media(max-width:1100px){.study-theme .layout{grid-template-columns:minmax(0,1fr)}.study-theme .side{position:static}.study-theme .nav-grid{grid-template-columns:repeat(8,minmax(0,1fr))}}
+@media(max-width:600px){.study-theme h1{font-size:24px}.study-theme .study-brand{font-size:12px}.study-theme main.card{padding:22px 16px}.study-theme .qdesc{font-size:22px;line-height:1.9}.study-theme .opt .optText{font-size:20px}.study-theme .opt .optText strong{font-size:17px}.study-theme .opt{padding:18px 8px;gap:10px}.study-theme .tag{font-size:15px;min-height:44px}.study-theme .actions .btn{font-size:15px;padding:11px 13px}.study-theme header .pill{font-size:13px;padding:8px}.study-theme .quizMenuBtn{font-size:14px;padding:8px 12px}.study-theme .side .card{padding:16px}.study-theme .nav-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.study-theme .legend{font-size:13px;gap:8px}.study-theme #swTime{font-size:18px}.home-theme .home-brand{font-size:14px}.home-theme .home-brand span{font-size:12px;letter-spacing:0}.home-theme .title-main{font-size:40px}.home-theme .intro{font-size:19px}.home-theme .feature b{font-size:17px}.home-theme .feature p{font-size:15px}.home-theme .cert-select-wrap select{font-size:19px}.home-theme .cert-select-hint{font-size:16px}.home-theme .preview-box .line{font-size:17px}.home-theme .summary-tabs .tab{font-size:14px}}
+.study-theme .qdesc,.study-theme .optText,.study-theme .mode .btn,.home-theme .intro,.home-theme .feature p{word-break:keep-all;overflow-wrap:anywhere}
