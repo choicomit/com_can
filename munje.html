@@ -6858,7 +6858,7 @@ function findSimilarQuestions(baseQ, candidates = questions){
   if(!baseWords.size) return [];
   return candidates.filter(q => q.id !== baseQ.id &&
     (!malwareOnly || hasMalwareWord(q)) &&
-    (!emailKeywords(baseQ).length || !EMAIL_EXCLUDED_IDS.has(q.id)) &&
+    (malwareOnly || !emailKeywords(baseQ).length || !EMAIL_EXCLUDED_IDS.has(q.id)) &&
     (!multimediaKeywords(baseQ).length || q.subject === "컴퓨터 일반") &&
     (!(hasWindows10Word(baseQ) && !multimediaKeywords(baseQ).length) || !WINDOWS10_EXCLUDED_IDS.has(q.id))
   ).map(q => {
