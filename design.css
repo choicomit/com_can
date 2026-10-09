@@ -222,72 +222,129 @@ body.home-theme:not(.quiz-mode) .study-summary{background:#fff!important;border-
 .study-theme .sim-opt .t,.study-theme .sim-explain,.study-theme .sim-result{font-size:20px;line-height:1.9}
 .study-theme .sim-opt{border-radius:4px;padding:16px;background:#fff;border-color:#cad8e6;accent-color:#175da0}
 .study-theme #similarScreen .small{font-size:16px;line-height:1.8;color:#425b75}
-/* Soft pastel surfaces with dark, readable text. */
-body.home-theme,body.study-theme,body.multimedia-theme{background:#faf8f4;color:#303431}
-body.study-theme{--bg:#faf8f4;--card:#fffefa;--text:#303431;--muted:#535d55;--line:#d9ddd4;--primary:#48634f;--primary-hover:#354d3b;--primary-soft:#edf3e9;--side-bg:#fffefa;--side-card:#fffefa;--side-border:#d3dacd;--side-title:#303431;--side-sub:#535d55;--side-accent:#48634f;--side-accent-soft:#e6efdf;--good:#2f7145;--bad:#a14837}
-.study-theme header,.study-theme .row,.study-theme .side-title{border-color:#d9ddd4}
-.study-theme h1,.study-theme .qdesc,.study-theme .tag,.study-theme .sim-q{color:#303431}
-.study-theme .study-brand{color:#506a56;letter-spacing:.5px}
-.study-theme header .small,.study-theme .row>.meta:last-child .tag,.study-theme .badge,.study-theme .chk,.study-theme .legend{color:#535d55}
-.study-theme main.card,.study-theme .side .card,.study-theme .sim-card{background:#fffefa;border-color:#d9ddd4}
-.study-theme .tag{background-color:#fffefa;border-color:#cbd6c4}
-.study-theme .options,.study-theme .opt{border-color:#e0e3da}
-.study-theme .opt:hover,.study-theme .btn.ghost:hover{background:#f1f5ed;border-color:#9aae95}
-.study-theme .opt:has(input:checked){background:#eaf2e2;box-shadow:inset 4px 0 #526d4a}
-.study-theme .opt input,.study-theme .chk,.study-theme .sim-opt{accent-color:#48634f}
-.study-theme .opt .optText strong{color:#53644f}
-.study-theme .btn.secondary{background:#5e655b}
+/* Restrained warm neutrals and a single eucalyptus accent. */
+body.home-theme,body.study-theme,body.multimedia-theme{background:#f7f6f2;color:#292c2b}
+body.study-theme{--bg:#f7f6f2;--card:#ffffff;--text:#292c2b;--muted:#606663;--line:#e3e5e0;--primary:#3f625a;--primary-hover:#2f4c45;--primary-soft:#edf3f0;--side-bg:#ffffff;--side-card:#ffffff;--side-border:#e3e5e0;--side-title:#292c2b;--side-sub:#606663;--side-accent:#3f625a;--side-accent-soft:#edf3f0;--good:#2f7145;--bad:#a14837}
+.study-theme header,.study-theme .row,.study-theme .side-title{border-color:#e3e5e0}
+.study-theme h1,.study-theme .qdesc,.study-theme .tag,.study-theme .sim-q{color:#292c2b}
+.study-theme .study-brand{color:#3f625a;letter-spacing:.5px}
+.study-theme header .small,.study-theme .row>.meta:last-child .tag,.study-theme .badge,.study-theme .chk,.study-theme .legend{color:#606663}
+.study-theme main.card,.study-theme .side .card,.study-theme .sim-card{background:#ffffff;border-color:#e3e5e0}
+.study-theme .tag{background-color:#ffffff;border-color:#d7dcd8}
+.study-theme .options,.study-theme .opt{border-color:#e7e9e5}
+.study-theme .opt:hover,.study-theme .btn.ghost:hover{background:#f5f7f5;border-color:#a8bab1}
+.study-theme .opt:has(input:checked){background:#edf3f0;box-shadow:inset 4px 0 #3f625a}
+.study-theme .opt input,.study-theme .chk,.study-theme .sim-opt{accent-color:#3f625a}
+.study-theme .opt .optText strong{color:#646d68}
+.study-theme .btn.secondary{background:#454b48}
 .study-theme .btn.danger{color:#97533f;border-color:#ddbcad;background:#fffaf6}
 .study-theme .btn.danger:hover{background:#f8e9df}
-.study-theme .quizMenuBtn{color:#48634f;background:#fffefa;border-color:#afbea4}
-.study-theme .pill{color:#4e6146;background:#eaf0e2}
-.study-theme .jump input{background:#fffefa;border-color:#cbd6c4;color:#303431}
-.study-theme .mode .btn,.study-theme .nav-round{color:#4e6146}
-.study-theme .tabs{background:#edf0e6}
-.study-theme .tab{color:#4f5c49}
-.study-theme .tab.active{background:#dfeacc;color:#354d30;box-shadow:inset 0 0 0 1px #bdcfae}
-.study-theme .nav-btn{background:#fffefa;border-color:#d1d9ca}
-.study-theme .nav-btn .n{color:#303431}
-.study-theme .nav-btn .a{color:#586653}
-.study-theme .nav-btn.active{background:#dfeacc;border-color:#9cb389}
-.study-theme .nav-btn.active .n,.study-theme .nav-btn.active .a{color:#2e492a}
-.study-theme .nav-btn:hover,.study-theme .nav-btn.active:hover{background:#e9f0df;border-color:#9cb389}
-.study-theme .nav-btn.correct{background:#e6f0e4;border-color:#9fba99}
-.study-theme .nav-btn.wrong{background:#fae8dd;border-color:#d6a891}
-.study-theme .dot.blue{background:#dfeacc;border-color:#9cb389}
-.study-theme .duplicate-questions{background:#f2eee2;border-color:#bda875;color:#584e37}
-.study-theme .duplicate-questions button{color:#65532c}
-.study-theme .qimg-wrap{background:#fff;border-color:#d9ddd4}
-.study-theme #quizStopwatch{background:#485647;border-color:#687864}
-.study-theme #swStart{background:#d8e9ca;color:#2d4427}
-.study-theme #swStop{background:#efd0bf;color:#663d2c}
-.study-theme #swReset{background:#eeeadf;color:#494536}
-.study-theme #goHomeInQuiz{background:#edf0e6;color:#48634f}
-.study-theme .mode .hasTip::after{background:#485647}
-.study-theme .sim-badge{background:#f0eee5;color:#525b46;border-color:#d9ddd4}
-.study-theme .sim-opt{background:#fffefa;border-color:#d9ddd4}
-.study-theme #similarScreen .small{color:#535d55}
-.study-theme :focus-visible,.home-theme :focus-visible{outline-color:#58734d}
-.home-theme .page-bg{background:#faf8f4}
-.home-theme .home-brand{color:#48634f;border-color:#d9ddd4}
-.home-theme .home-brand span,.home-theme .badge,.home-theme .intro,.home-theme .feature p,.home-theme .cert-select-hint,.home-theme .mini{color:#535d55}
-.home-theme .badge.primary,.home-theme .cert-title{color:#48634f}
-.home-theme .title-main{-webkit-text-fill-color:#303431;color:#303431}
-.home-theme .feature-grid,.home-theme .feature{border-color:#d9ddd4}
-.home-theme .feature b{color:#40583e}
-.home-theme .cert-select-wrap select{color:#303431;background:#fffefa;border-color:#b1c2a6}
-.home-theme .btn{background:#48634f}
-.home-theme .btn:hover{background:#354d3b}
-body.home-theme:not(.quiz-mode) .study-summary{background:#f1f3e9!important;border-color:#d9ddd4!important}
-.home-theme .study-summary h2,.home-theme .preview-title{color:#40583e}
-.home-theme .summary-tabs .tab,.home-theme .preview-box .line{color:#535d55}
-.home-theme .wish-text{color:#59634f;-webkit-text-fill-color:#59634f}
-.home-theme.quiz-mode .home-float,.home-theme .mobile-home-fab{background:#e6eedb;color:#3f5a37}
-.multimedia-theme{--text-sub:#535d55;--text-main:#303431;--primary:#48634f;--accent:#48634f;--accent-light:#edf3e9;--bg-color:#faf8f4;--border-color:#d9ddd4}
-.multimedia-theme .header-card,.multimedia-theme .q-card,.multimedia-theme .note-card{background:#fffefa;border-color:#d9ddd4}
-.multimedia-theme .header-card{border-top-color:#bfd2af}
+.study-theme .quizMenuBtn{color:#3f625a;background:#ffffff;border-color:#c6d2cc}
+.study-theme .pill{color:#495e56;background:#eef2ef}
+.study-theme .jump input{background:#ffffff;border-color:#d7dcd8;color:#292c2b}
+.study-theme .mode .btn,.study-theme .nav-round{color:#495e56}
+.study-theme .tabs{background:#f1f3f1}
+.study-theme .tab{color:#5c6560}
+.study-theme .tab.active{background:#3f625a;color:#ffffff;box-shadow:inset 0 0 0 1px #3f625a}
+.study-theme .nav-btn{background:#ffffff;border-color:#e0e5e1}
+.study-theme .nav-btn .n{color:#292c2b}
+.study-theme .nav-btn .a{color:#737c76}
+.study-theme .nav-btn.active{background:#3f625a;border-color:#3f625a}
+.study-theme .nav-btn.active .n,.study-theme .nav-btn.active .a{color:#ffffff}
+.study-theme .nav-btn:hover,.study-theme .nav-btn.active:hover{background:#edf3f0;border-color:#3f625a}
+.study-theme .nav-btn.correct{background:#edf5ee;border-color:#b3ceb9}
+.study-theme .nav-btn.wrong{background:#fbefec;border-color:#dfb9ae}
+.study-theme .dot.blue{background:#3f625a;border-color:#3f625a}
+.study-theme .duplicate-questions{background:#f5f4ee;border-color:#d5d1bb;color:#645e47}
+.study-theme .duplicate-questions button{color:#645e47}
+.study-theme .qimg-wrap{background:#fff;border-color:#e3e5e0}
+.study-theme #quizStopwatch{background:#303b36;border-color:#46574e}
+.study-theme #swStart{background:#dbece2;color:#304b3e}
+.study-theme #swStop{background:#f0ded6;color:#6f4838}
+.study-theme #swReset{background:#eef0ed;color:#464e48}
+.study-theme #goHomeInQuiz{background:#f1f3f1;color:#3f625a}
+.study-theme .mode .hasTip::after{background:#303b36}
+.study-theme .sim-badge{background:#f1f3f0;color:#59635d;border-color:#e3e5e0}
+.study-theme .sim-opt{background:#ffffff;border-color:#e3e5e0}
+.study-theme #similarScreen .small{color:#606663}
+.study-theme :focus-visible,.home-theme :focus-visible{outline-color:#3f625a}
+.home-theme .page-bg{background:#f7f6f2}
+.home-theme .home-brand{color:#3f625a;border-color:#e3e5e0}
+.home-theme .home-brand span,.home-theme .badge,.home-theme .intro,.home-theme .feature p,.home-theme .cert-select-hint,.home-theme .mini{color:#606663}
+.home-theme .badge.primary,.home-theme .cert-title{color:#3f625a}
+.home-theme .title-main{-webkit-text-fill-color:#292c2b;color:#292c2b}
+.home-theme .feature-grid,.home-theme .feature{border-color:#e3e5e0}
+.home-theme .feature b{color:#303e37}
+.home-theme .cert-select-wrap select{color:#292c2b;background:#ffffff;border-color:#bac9c0}
+.home-theme .btn{background:#3f625a}
+.home-theme .btn:hover{background:#2f4c45}
+body.home-theme:not(.quiz-mode) .study-summary{background:#f0f3f0!important;border-color:#e3e5e0!important}
+.home-theme .study-summary h2,.home-theme .preview-title{color:#303e37}
+.home-theme .summary-tabs .tab,.home-theme .preview-box .line{color:#606663}
+.home-theme .wish-text{color:#626c65;-webkit-text-fill-color:#626c65}
+.home-theme.quiz-mode .home-float,.home-theme .mobile-home-fab{background:#edf3f0;color:#3f625a}
+.multimedia-theme{--text-sub:#606663;--text-main:#292c2b;--primary:#3f625a;--accent:#3f625a;--accent-light:#edf3f0;--bg-color:#f7f6f2;--border-color:#e3e5e0}
+.multimedia-theme .header-card,.multimedia-theme .q-card,.multimedia-theme .note-card{background:#ffffff;border-color:#e3e5e0}
+.multimedia-theme .header-card{border-top-color:#a9c1b5}
 
 /* Locally hosted Korean calligraphy for the teacher's classroom name. */
 @font-face{font-family:ChoiCalligraphy;src:url("assets/fonts/NanumBrushScript-Regular.ttf") format("truetype");font-style:normal;font-weight:400;font-display:swap}
 .study-theme .teacher-brand{font-family:ChoiCalligraphy,"Malgun Gothic",sans-serif;font-size:32px;font-weight:400;letter-spacing:0;line-height:1.3;display:inline-block;vertical-align:baseline}
 @media(max-width:600px){.study-theme .teacher-brand{font-size:27px}}
+
+/* Clear hierarchy, quiet surfaces, generous reading space. */
+.study-theme header{border-bottom:0;padding-bottom:8px;margin-bottom:28px;gap:20px}
+.study-theme .study-brand{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;font-size:14px;font-weight:400;line-height:1.6}
+.study-theme .teacher-brand{font-size:34px}
+.study-theme .brand-note{color:#707872;font-size:14px}
+.study-theme h1{font-size:30px;letter-spacing:-1px;margin-top:12px}
+.study-theme header .small{font-size:14px;color:#646d67}
+.study-theme main.card,.study-theme .side .card{border-radius:16px;box-shadow:0 6px 24px #25362b04}
+.study-theme .side .card{padding:22px}
+.study-theme .side-title{font-size:18px;letter-spacing:-.3px;font-weight:700;border:0;padding-bottom:0}
+.study-theme .tag{border-radius:9px;background:#fff;padding:12px 15px}
+.study-theme .row{margin-bottom:30px;padding-bottom:24px}
+.study-theme .qdesc{color:#292c2b;line-height:1.75;letter-spacing:-.5px}
+.study-theme .options{border-top:0;gap:10px}
+.study-theme .opt{border:1px solid #e3e7e2;border-radius:10px;padding:20px 18px;background:#fff}
+.study-theme .opt:hover{background:#f7f9f7;border-color:#b6c8bd}
+.study-theme .opt:has(input:checked){background:#eff5f1;border-color:#88a697;box-shadow:none}
+.study-theme .opt input{width:20px;height:20px}
+.study-theme .btn,.study-theme .quizMenuBtn{border-radius:8px;letter-spacing:0}
+.study-theme .mode{gap:10px;margin-top:16px}
+.study-theme .mode .btn{padding:13px 8px;font-size:15px}
+.study-theme .tabs{border-radius:9px;padding:4px;margin-top:22px}
+.study-theme .tab{border-radius:6px;font-size:15px;padding:12px 5px}
+.study-theme .tab.active{box-shadow:none}
+.study-theme .nav-grid{gap:8px}
+.study-theme .nav-btn{border-radius:8px;min-height:54px}
+.study-theme .nav-btn.active:hover{background:#2f4c45;color:white}
+.study-theme .nav-round{font-size:15px;letter-spacing:0;padding:20px 0 10px;color:#606b63}
+.study-theme .pill{background:#edf2ee;border-radius:8px;color:#455c4f}
+.study-theme .sim-card{border-radius:12px;padding:26px}
+.home-theme .page-bg{padding-top:42px}
+.home-theme .home-brand{font-size:20px;letter-spacing:-.5px;padding-bottom:24px;margin-bottom:38px}
+.home-theme .badge-row{gap:12px}
+.home-theme .badge{border:0;background:transparent;padding:0;font-size:15px}
+.home-theme .badge.primary{color:#3f625a}
+.home-theme .title-main{font-size:60px;font-weight:700;line-height:1.25;letter-spacing:-2.5px;margin-top:24px}
+.home-theme .intro{font-size:21px;line-height:1.8;max-width:730px}
+.home-theme .feature-grid{background:#fff;border:1px solid #e3e5e0;border-radius:14px;overflow:hidden}
+.home-theme .feature{padding:26px 22px!important;background:transparent!important}
+.home-theme .feature b{font-size:19px;letter-spacing:-.4px}
+.home-theme .feature p{font-size:17px;line-height:1.7}
+.home-theme .cert-select-wrap select{border-radius:10px;box-shadow:none;padding:18px 20px}
+.home-theme .btn{border-radius:8px;box-shadow:none}
+body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-shadow:none!important}
+.home-theme .wish-text{font-size:18px;font-weight:400;letter-spacing:0}
+.multimedia-theme .header-card,.multimedia-theme .q-card,.multimedia-theme .note-card{border-radius:14px;box-shadow:none}
+@media(max-width:600px){
+.study-theme .wrap{padding:24px 16px 90px}.study-theme header{flex-wrap:wrap;gap:14px}.study-theme .teacher-brand{font-size:29px}.study-theme .brand-note{font-size:13px}.study-theme h1{font-size:25px}.study-theme main.card{padding:24px 18px}.study-theme .opt{padding:18px 12px}.study-theme .tag{padding:11px 12px}.study-theme .sim-card{padding:20px}.home-theme .title-main{font-size:42px;letter-spacing:-1.5px}.home-theme .intro{font-size:19px}.home-theme .home-brand{font-size:19px}.home-theme .feature{padding:22px 16px!important}.home-theme .feature p{font-size:16px}
+}
+
+@media(max-width:600px){
+.study-theme .layout{gap:20px}.study-theme .qdesc{font-size:22px;line-height:1.75}.study-theme .opt .optText{font-size:20px;line-height:1.8}.study-theme .btn,.study-theme .tab,.study-theme .nav-btn{min-height:48px}.study-theme .actions{flex-wrap:wrap}.study-theme .row>.meta{flex-wrap:wrap;max-width:100%}.study-theme .tagSelect{max-width:100%;padding-right:34px}.study-theme .side .card{padding:18px}.study-theme .sim-desc{font-size:22px}.study-theme .sim-opt .t{font-size:20px}.study-theme .nav-btn .n{font-size:17px}.study-theme .nav-btn .a{font-size:12px}.study-theme .nav-grid{gap:7px}.home-theme .badge-row{flex-wrap:wrap}.home-theme .feature-grid{grid-template-columns:1fr}.home-theme .feature{border-right:0!important}.home-theme .btn,.home-theme select{min-height:48px}
+}
+.study-theme .side-title{color:#292c2b}
+.study-theme .tagSelect{padding-right:34px}
+@media(max-width:600px){.study-theme #quizStopwatch{min-width:140px;max-width:150px}.study-theme #quizStopwatch .sw-controls button{white-space:nowrap;font-size:12px;padding:7px 4px;min-height:32px}.study-theme #quizStopwatch #swTime{font-size:18px}.home-theme .badge-row .badge:first-child{display:none}}
