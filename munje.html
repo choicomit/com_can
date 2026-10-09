@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261009-storage-19">
+<link rel="stylesheet" href="design.css?v=20261009-email-20">
 </head>
 
 <body class="study-theme">
@@ -6330,7 +6330,7 @@ function renderSimilarBatch(baseQ, scored){
     return;
   }
 
-  scored.forEach(({q, sim, shared, registerMatch, multimediaMatch, windows10Match, wirelessMatch, storageMatch}, order) => {
+  scored.forEach(({q, sim, shared, registerMatch, multimediaMatch, windows10Match, wirelessMatch, storageMatch, emailMatch}, order) => {
     if(!similarBatchState.items[q.id]){
       similarBatchState.items[q.id] = { selected: null, checked: false, correct: null };
     }
@@ -6362,7 +6362,7 @@ function renderSimilarBatch(baseQ, scored){
 
     const b2 = document.createElement("span");
     b2.className = "sim-badge";
-    b2.textContent = `${[registerMatch ? "레지스터 공통 주제" : "", multimediaMatch ? "멀티미디어 공통 주제" : "", windows10Match ? "Windows 10 공통 주제" : "", wirelessMatch ? "무선 통신·위치·센서 공통 주제" : "", storageMatch ? "기억장치·저장장치 공통 주제" : ""].filter(Boolean).join(" / ")}${registerMatch || multimediaMatch || windows10Match || wirelessMatch || storageMatch ? " · " : ""}단어 일치율 ${(sim*100).toFixed(1)}%`;
+    b2.textContent = `${[registerMatch ? "레지스터 공통 주제" : "", multimediaMatch ? "멀티미디어 공통 주제" : "", windows10Match ? "Windows 10 공통 주제" : "", wirelessMatch ? "무선 통신·위치·센서 공통 주제" : "", storageMatch ? "기억장치·저장장치 공통 주제" : "", emailMatch ? "전자우편 공통 주제" : ""].filter(Boolean).join(" / ")}${registerMatch || multimediaMatch || windows10Match || wirelessMatch || storageMatch || emailMatch ? " · " : ""}단어 일치율 ${(sim*100).toFixed(1)}%`;
 
     const b3 = document.createElement("span");
     b3.className = "sim-badge";
@@ -6836,8 +6836,16 @@ function storageKeywords(q){
   const acronyms = text.match(/(?:^|[^a-z0-9])(hdd|ssd|bios|cd|dvd|usb|ram|rom|prom|eprom|eeprom|dram|sram)(?=$|[^a-z0-9])/g) || [];
   return [...new Set([...found, ...acronyms.map(word => word.replace(/^[^a-z0-9]+/, ""))])];
 }
+function emailKeywords(q){
+  const text = [q.title || "", q.desc || "", ...(q.options || [])]
+    .map(value => getImageReference(value)?.label ?? value).join(" ").normalize("NFC").toLowerCase();
+  const compact = text.replace(/[\s\u200B-\u200D\uFEFF]/g, "");
+  const found = ["전자우편", "이메일서비스", "이메일", "전자우편주소", "주소형식", "수신", "송신", "전자메일"].filter(word => compact.includes(word));
+  const acronyms = text.match(/(?:^|[^a-z0-9])(smtp|mime|pop3|pop|imap)(?=$|[^a-z0-9])/g) || [];
+  return [...new Set([...found, ...acronyms.map(word => word.replace(/^[^a-z0-9]+/, ""))])];
+}
 function similarityTopicLabels(q){
-  return [hasRegisterWord(q) ? "레지스터" : "", storageKeywords(q).length ? "기억장치·저장장치" : "", wirelessKeywords(q).length ? "무선 통신·위치·센서" : "", hasWindows10Word(q) ? "Windows 10" : "", multimediaKeywords(q).length ? "1과목 멀티미디어·파일·그래픽" : ""].filter(Boolean);
+  return [hasRegisterWord(q) ? "레지스터" : "", emailKeywords(q).length ? "전자우편" : "", storageKeywords(q).length ? "기억장치·저장장치" : "", wirelessKeywords(q).length ? "무선 통신·위치·센서" : "", hasWindows10Word(q) ? "Windows 10" : "", multimediaKeywords(q).length ? "1과목 멀티미디어·파일·그래픽" : ""].filter(Boolean);
 }
 function findSimilarQuestions(baseQ, candidates = questions){
   if(!baseQ) return [];
@@ -6852,8 +6860,8 @@ function findSimilarQuestions(baseQ, candidates = questions){
     const total = Math.max(baseWords.size, candidateWords.size);
     const sim = total ? shared.length / total : 0;
     const coreOverlap = shared.filter(word => DOMAIN_BOOST.has(word)).length;
-    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q), multimediaMatch: multimediaKeywords(baseQ).length > 0 && multimediaKeywords(q).length > 0, windows10Match: hasWindows10Word(baseQ) && hasWindows10Word(q), wirelessMatch: wirelessKeywords(baseQ).length > 0 && wirelessKeywords(q).length > 0, storageMatch: storageKeywords(baseQ).length > 0 && storageKeywords(q).length > 0};
-  }).filter(item => item.registerMatch || item.multimediaMatch || item.windows10Match || item.wirelessMatch || item.storageMatch || item.shared.length * 10 >= item.total * 5)
+    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q), multimediaMatch: multimediaKeywords(baseQ).length > 0 && multimediaKeywords(q).length > 0, windows10Match: hasWindows10Word(baseQ) && hasWindows10Word(q), wirelessMatch: wirelessKeywords(baseQ).length > 0 && wirelessKeywords(q).length > 0, storageMatch: storageKeywords(baseQ).length > 0 && storageKeywords(q).length > 0, emailMatch: emailKeywords(baseQ).length > 0 && emailKeywords(q).length > 0};
+  }).filter(item => item.registerMatch || item.multimediaMatch || item.windows10Match || item.wirelessMatch || item.storageMatch || item.emailMatch || item.shared.length * 10 >= item.total * 5)
     .sort((a,b) => b.sim - a.sim || b.coreOverlap - a.coreOverlap || a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
 }
 similarFromCurrentBtn.addEventListener("click", ()=>{
