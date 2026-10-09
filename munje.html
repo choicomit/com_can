@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261009-brand-28">
+<link rel="stylesheet" href="design.css?v=20261009-firmware-29">
 </head>
 
 <body class="study-theme">
@@ -6817,8 +6817,8 @@ function storageKeywords(q){
   const text = [q.title || "", q.desc || "", ...(q.options || [])]
     .map(value => getImageReference(value)?.label ?? value).join(" ").normalize("NFC").toLowerCase();
   const compact = text.replace(/[\s\u200B-\u200D\uFEFF]/g, "");
-  const found = ["하드디스크", "드라이브", "보조기억장치", "주기억장치", "자기디스크", "저장장치"].filter(word => compact.includes(word));
-  const acronyms = text.match(/(?:^|[^a-z0-9])(hdd|ssd|bios|cd|dvd|usb|ram|rom|prom|eprom|eeprom|dram|sram)(?=$|[^a-z0-9])/g) || [];
+  const found = ["하드디스크", "드라이브", "보조기억장치", "주기억장치", "자기디스크", "저장장치", "펌웨어"].filter(word => compact.includes(word));
+  const acronyms = text.match(/(?:^|[^a-z0-9])(hdd|ssd|bios|cd|dvd|usb|ram|rom|prom|eprom|eeprom|dram|sram|firmware)(?=$|[^a-z0-9])/g) || [];
   return [...new Set([...found, ...acronyms.map(word => word.replace(/^[^a-z0-9]+/, ""))])];
 }
 const EMAIL_EXCLUDED_IDS = new Set([
