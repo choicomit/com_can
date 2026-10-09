@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261009-email-22">
+<link rel="stylesheet" href="design.css?v=20261009-clean-23">
 </head>
 
 <body class="study-theme">
@@ -916,7 +916,6 @@ h1{margin:0;font-size:22px}
 <div id="similarScreen" style="display:none;">
   <div class="sim-top">
     <div class="sim-title" id="simTitle">유사문제 한 화면 풀이</div>
-    <div class="sim-sub" id="simSub"></div>
   </div>
 
   <div class="sim-actions">
@@ -4993,7 +4992,6 @@ const similarList = document.getElementById("similarList");
 const singleScreen = document.getElementById("singleScreen");
 const similarScreen = document.getElementById("similarScreen");
 const simTitle = document.getElementById("simTitle");
-const simSub = document.getElementById("simSub");
 const similarBatchList = document.getElementById("similarBatchList");
 const similarCheckAllBtn = document.getElementById("similarCheckAllBtn");
 const similarBackBtn = document.getElementById("similarBackBtn");
@@ -6296,7 +6294,6 @@ function openSimilarBatch(baseQ, scored){
   simDoneMsg.style.display = "none";
 
   simTitle.textContent = "유사문제 한 화면 풀이";
-  simSub.textContent = `기준: ${baseQ.yearLabel} ${baseQ.no}번 (${baseQ.subject}) · 전체 회차 검색 · ${similarityTopicLabels(baseQ).length ? similarityTopicLabels(baseQ).join(" / ") + " 문제 포함 / 그 외 단어 일치율 50% 이상" : "단어 일치율 50% 이상"} · ${scored.length}문제`;
 
   // 렌더
   renderSimilarBatch(baseQ, scored);
@@ -6360,18 +6357,7 @@ function renderSimilarBatch(baseQ, scored){
     b1.className = "sim-badge primary";
     b1.textContent = `${q.yearLabel} ${q.no}번`;
 
-    const b2 = document.createElement("span");
-    b2.className = "sim-badge";
-    b2.textContent = `${[registerMatch ? "레지스터 공통 주제" : "", multimediaMatch ? "멀티미디어 공통 주제" : "", windows10Match ? "Windows 10 공통 주제" : "", wirelessMatch ? "무선 통신·위치·센서 공통 주제" : "", storageMatch ? "기억장치·저장장치 공통 주제" : "", emailMatch ? "전자우편 공통 주제" : ""].filter(Boolean).join(" / ")}${registerMatch || multimediaMatch || windows10Match || wirelessMatch || storageMatch || emailMatch ? " · " : ""}단어 일치율 ${(sim*100).toFixed(1)}%`;
-
-    const b3 = document.createElement("span");
-    b3.className = "sim-badge";
-    const kws = shared || [...questionWords(baseQ)].filter(word => questionWords(q).has(word));
-    b3.textContent = `공통 단어: ${kws.slice(0, 8).join(", ") || "-"}`;
-
     badges.appendChild(b1);
-    badges.appendChild(b2);
-    badges.appendChild(b3);
 
     head.appendChild(badges);
 
