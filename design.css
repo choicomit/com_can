@@ -348,3 +348,22 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .side-title{color:#292c2b}
 .study-theme .tagSelect{padding-right:34px}
 @media(max-width:600px){.study-theme #quizStopwatch{min-width:140px;max-width:150px}.study-theme #quizStopwatch .sw-controls button{white-space:nowrap;font-size:12px;padding:7px 4px;min-height:32px}.study-theme #quizStopwatch #swTime{font-size:18px}.home-theme .badge-row .badge:first-child{display:none}}
+/* Floating timer: quiet white surface with clear, compact controls. */
+.study-theme #quizStopwatch{background:#fff;color:#293b33;border:1px solid #dce5de;border-radius:16px;box-shadow:0 8px 28px #243b2b18;min-width:186px;max-width:186px;padding:12px;}
+.study-theme #quizStopwatch .sw-top{position:relative;justify-content:center;min-height:32px;margin:0 0 10px;gap:8px;}
+.study-theme #quizStopwatch .sw-top::before{content:"";width:4px;height:16px;background:radial-gradient(circle,#a5b5ac 1px,transparent 1.5px) 0 0/4px 5px;position:absolute;left:1px;top:8px;}
+.study-theme #quizStopwatch #swTime{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:1px;line-height:1.2;color:#293b33;margin:0;}
+.study-theme #quizStopwatch #swToggle{display:inline-flex;align-items:center;justify-content:center;position:absolute;right:0;top:3px;width:26px;height:26px;background:#f3f6f3;border:0;color:#677d70;border-radius:7px;font-size:16px;}
+.study-theme #quizStopwatch .sw-controls{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:5px;}
+.study-theme #quizStopwatch .sw-controls button{font-family:inherit;font-size:13px;font-weight:600;line-height:1.2;white-space:nowrap;min-height:38px;padding:9px 4px;border-radius:8px;border:1px solid transparent;box-shadow:none;transition:background .15s;}
+.study-theme #quizStopwatch #swStart{background:#3f625a;color:#fff;}
+.study-theme #quizStopwatch #swStart:hover{background:#2f4c45;}
+.study-theme #quizStopwatch #swStop{background:#f2f5f2;color:#405749;}
+.study-theme #quizStopwatch #swReset{background:#fff;color:#69736d;border-color:#e2e8e2;}
+.study-theme #quizStopwatch #swStop:hover,.study-theme #quizStopwatch #swReset:hover{background:#e8eeea;}
+.study-theme #quizStopwatch.sw-collapsed{min-width:126px;max-width:126px;padding:9px 12px;}
+.study-theme #quizStopwatch.sw-collapsed .sw-top{margin:0;padding-right:22px;}
+.study-theme #quizStopwatch.sw-collapsed #swTime{font-size:21px;}
+.study-theme #quizStopwatch.sw-ended{border-color:#d4a99a;background:#fff7f3;}
+.study-theme #quizStopwatch.sw-ended #swTime{color:#a34c32;}
+@media(max-width:600px){.study-theme #quizStopwatch{min-width:176px;max-width:176px;padding:10px;}.study-theme #quizStopwatch #swTime{font-size:24px;}.study-theme #quizStopwatch .sw-controls button{min-height:40px;font-size:13px;}}
