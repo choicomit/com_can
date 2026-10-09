@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261009-refined-33">
+<link rel="stylesheet" href="design.css?v=20261009-port-34">
 </head>
 
 <body class="study-theme">
@@ -6851,6 +6851,12 @@ function hasMalwareWord(q){
     .normalize("NFC").replace(/[\s\u200B-\u200D\uFEFF]/g, "");
   return /바이러스|악성코드/.test(text);
 }
+function hasPortNumberWord(q){
+  const text = [q.title || "", q.desc || "", ...(q.options || [])]
+    .map(value => getImageReference(value)?.label ?? value).join(" ")
+    .normalize("NFC").replace(/[\s\u200B-\u200D\uFEFF]/g, "");
+  return text.includes("포트번호");
+}
 function findSimilarQuestions(baseQ, candidates = questions){
   if(!baseQ) return [];
   const malwareOnly = baseQ.id === "2023-1-8-컴퓨터 일반";
@@ -6867,8 +6873,8 @@ function findSimilarQuestions(baseQ, candidates = questions){
     const total = Math.max(baseWords.size, candidateWords.size);
     const sim = total ? shared.length / total : 0;
     const coreOverlap = shared.filter(word => DOMAIN_BOOST.has(word)).length;
-    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q), multimediaMatch: multimediaKeywords(baseQ).length > 0 && multimediaKeywords(q).length > 0, windows10Match: hasWindows10Word(baseQ) && hasWindows10Word(q), wirelessMatch: wirelessKeywords(baseQ).length > 0 && wirelessKeywords(q).length > 0, storageMatch: storageKeywords(baseQ).length > 0 && storageKeywords(q).length > 0, emailMatch: emailKeywords(baseQ).length > 0 && emailKeywords(q).length > 0, malwareMatch: malwareOnly && hasMalwareWord(q)};
-  }).filter(item => item.registerMatch || item.multimediaMatch || item.windows10Match || item.wirelessMatch || item.storageMatch || item.emailMatch || item.malwareMatch || item.shared.length * 10 >= item.total * 5)
+    return {q, sim, shared, total, coreOverlap, registerMatch: hasRegisterWord(baseQ) && hasRegisterWord(q), multimediaMatch: multimediaKeywords(baseQ).length > 0 && multimediaKeywords(q).length > 0, windows10Match: hasWindows10Word(baseQ) && hasWindows10Word(q), wirelessMatch: wirelessKeywords(baseQ).length > 0 && wirelessKeywords(q).length > 0, storageMatch: storageKeywords(baseQ).length > 0 && storageKeywords(q).length > 0, emailMatch: emailKeywords(baseQ).length > 0 && emailKeywords(q).length > 0, malwareMatch: malwareOnly && hasMalwareWord(q), portNumberMatch: baseQ.id === "2023-1-10-컴퓨터 일반" && hasPortNumberWord(q)};
+  }).filter(item => item.registerMatch || item.multimediaMatch || item.windows10Match || item.wirelessMatch || item.storageMatch || item.emailMatch || item.malwareMatch || item.portNumberMatch || item.shared.length * 10 >= item.total * 5)
     .sort((a,b) => b.sim - a.sim || b.coreOverlap - a.coreOverlap || a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
 }
 similarFromCurrentBtn.addEventListener("click", ()=>{
