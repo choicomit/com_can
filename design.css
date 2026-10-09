@@ -367,3 +367,10 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #quizStopwatch.sw-ended{border-color:#bc8874;background:#492e29;}
 .study-theme #quizStopwatch.sw-ended #swTime{color:#ffe2d3;}
 @media(max-width:600px){.study-theme #quizStopwatch{min-width:176px;max-width:176px;padding:10px;}.study-theme #quizStopwatch #swTime{font-size:24px;}.study-theme #quizStopwatch .sw-controls button{min-height:40px;font-size:13px;}}
+/* Distinct, solid colors for the three grading actions. */
+.study-theme #checkBtn{background:#175cd3;border:1px solid #175cd3;color:#fff;}
+.study-theme #checkBtn:hover{background:#124aa9;border-color:#124aa9;}
+.study-theme #gradeBtn{background:#6938b8;border:1px solid #6938b8;color:#fff;}
+.study-theme #gradeBtn:hover{background:#542d93;border-color:#542d93;}
+.study-theme #resetBtn{background:#c0392b;border:1px solid #c0392b;color:#fff;}
+.study-theme #resetBtn:hover{background:#9d2f23;border-color:#9d2f23;}
