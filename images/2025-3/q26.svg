@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="267" height="360" viewBox="0 0 267 360" role="img" aria-labelledby="title">
+<title id="title">부분합 대화 상자. 그룹화할 항목 직급, 함수 합계, 계산 항목 급여. 새로운 값으로 대치, 그룹 사이에서 페이지 나누기, 데이터 아래에 요약 표시가 모두 선택됨.</title>
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f1f1f1"/><stop offset="1" stop-color="#e6e6e6"/></linearGradient><g id="empty"><rect width="12" height="12" rx="2" fill="#fafafa" stroke="#777"/></g><g id="checked"><rect width="12" height="12" rx="2" fill="#454545" stroke="#454545"/><path d="M3 6l2 2 4-5" fill="none" stroke="#fff" stroke-width="1"/></g><g id="drop"><rect width="17" height="21" rx="1" fill="#fafafa" stroke="#aaa"/><path d="M4 8l4 4 4-4" fill="none" stroke="#555"/></g></defs>
+<rect x=".5" y=".5" width="266" height="359" rx="5" fill="url(#bg)" stroke="#999"/>
+<g font-family="Arial, Malgun Gothic, sans-serif" font-size="12" fill="#111">
+<text x="10" y="17">부분합</text><text x="195" y="17">?</text><path d="M239 7l9 9m0-9l-9 9" fill="none" stroke="#111"/>
+<text x="8" y="48">그룹화할 항목(A):</text><rect x="8" y="55" width="251" height="25" fill="#fff" stroke="#999"/><text x="11" y="72">직급</text><use href="#drop" x="242" y="57"/>
+<text x="8" y="96">사용할 함수(U):</text><rect x="8" y="103" width="251" height="25" fill="#fff" stroke="#999"/><text x="11" y="120">합계</text><use href="#drop" x="242" y="105"/>
+<text x="8" y="145">부분합 계산 항목(D):</text><rect x="8" y="151" width="251" height="94" fill="#fff" stroke="#888"/>
+<rect x="24" y="228" width="217" height="15" fill="#515151"/>
+<use href="#empty" x="10" y="154"/><text x="26" y="164">사원번호</text>
+<use href="#empty" x="10" y="169"/><text x="26" y="179">성명</text>
+<use href="#empty" x="10" y="184"/><text x="26" y="194">직급</text>
+<use href="#empty" x="10" y="199"/><text x="26" y="209">부서명</text>
+<use href="#checked" x="10" y="214"/><text x="26" y="224">급여</text>
+<use href="#empty" x="10" y="229"/><text x="26" y="239" fill="#fff">입사일</text>
+<rect x="242" y="153" width="16" height="90" fill="#eee"/><path d="M246 165l4-6 4 6zM246 232l4 6 4-6z" fill="#888"/>
+<use href="#checked" x="8" y="262"/><text x="24" y="272">새로운 값으로 대치(C)</text>
+<use href="#checked" x="8" y="285"/><text x="24" y="295">그룹 사이에서 페이지 나누기(P)</text><rect x="22" y="281" width="175" height="18" fill="none" stroke="#333" stroke-dasharray="1 1"/>
+<use href="#checked" x="8" y="308"/><text x="24" y="318">데이터 아래에 요약 표시(S)</text>
+<g fill="#fafafa" stroke="#aaa"><rect x="8" y="336" width="82" height="23" rx="2"/><rect x="100" y="336" width="74" height="23" rx="2"/><rect x="184" y="336" width="74" height="23" rx="2"/></g>
+<g text-anchor="middle"><text x="49" y="352">모두 제거(R)</text><text x="137" y="352">확인</text><text x="221" y="352">취소</text></g>
+</g></svg>

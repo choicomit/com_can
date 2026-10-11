@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-round3-46">
+<link rel="stylesheet" href="design.css?v=20261011-q26-47">
 </head>
 
 <body class="study-theme">
@@ -1025,9 +1025,9 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-3.js?v=20261011-round3-46"></script>
-<script src="data/textbook-references.js?v=20261011-round3-46"></script>
-<script src="scripts/textbook-reference.js?v=20261011-round3-46"></script>
+<script src="data/round-2025-3.js?v=20261011-q26-47"></script>
+<script src="data/textbook-references.js?v=20261011-q26-47"></script>
+<script src="scripts/textbook-reference.js?v=20261011-q26-47"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -7640,7 +7640,7 @@ questions = parseText(PRELOADED_TEXT).concat(ROUND_2025_2.map(q => ({
 })), window.ROUND_2025_3.map(q => ({
   ...q, id: `2025-3-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
   subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 3, yearLabel: "2025년 3회",
-  yearSort: yearRoundSortKey("2025년 3회"), title: "", image: "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 3회"), title: "", image: q.image || "", explanation: ""
 })));
 
 // ✅ 키워드 기반 유사문제 태깅 + 통계용 히트 기록

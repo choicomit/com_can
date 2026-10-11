@@ -344,9 +344,7 @@ window.ROUND_2025_3 = [
       "계산 결과는 그룹별로 각 그룹의 위쪽에 표시된다."
     ],
     "answerIndex": 3,
-    "diagram": {
-      "kind": "subtotal"
-    }
+    "image": "images/2025-3/q26.svg"
   },
   {
     "no": 27,
