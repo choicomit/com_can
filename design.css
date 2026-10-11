@@ -466,7 +466,8 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #studyNotes[data-color=pink]{--notes-color:#ffe5ef;}
 .study-theme #studyNotes[data-color=green]{--notes-color:#e7f5df;}
 .study-theme #studyNotes[data-color=blue]{--notes-color:#e1f0ff;}
-.study-theme #studyNotes[data-color=redwhite]{--notes-color:#fff0ed;}
+.study-theme #studyNotes[data-color=red]{--notes-color:#ffe2e2;}
+.study-theme #studyNotes[data-color=gray]{--notes-color:#ededed;}
 .study-theme #studyNotes button{padding:5px 9px;font-size:13px;color:#292929;background:#ffffffa8;border:1px solid #0002;border-radius:6px;min-height:30px;}
 .study-theme .notes-titlebar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-bottom:1px solid #0002;cursor:move;touch-action:none;user-select:none;flex:none;}
 .study-theme .notes-window-buttons{display:flex;gap:4px;}
