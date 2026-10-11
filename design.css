@@ -514,8 +514,8 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #quizMenuBtn{background:#ece4ff;border:1px solid #b8a0dd;color:#513479;white-space:nowrap;font-weight:700;}
 .study-theme #quizMenuBtn:hover{background:#e0d3fa;border-color:#9676c5;}
 
-/* A quiet five-minute reminder occupies space below the question controls. */
-.study-theme #idleStudyMascot{display:flex;flex-direction:column;align-items:center;gap:8px;width:fit-content;max-width:100%;margin:24px auto 0;padding:12px 30px 0;background:transparent;border:0;box-shadow:none;cursor:pointer;color:#41594d;}
+/* An unanswered question gets a one-minute reminder above its text. */
+.study-theme #idleStudyMascot{display:flex;flex-direction:column;align-items:center;gap:8px;width:fit-content;max-width:100%;margin:8px auto 18px;padding:12px 30px 0;background:transparent;border:0;box-shadow:none;cursor:pointer;color:#41594d;}
 .study-theme #idleStudyMascot[hidden]{display:none!important;}
 .study-theme .idle-mascot-bubble{position:relative;background:#fff6d8;border:1px solid #d6bd87;border-radius:20px;padding:13px 18px;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:16px;line-height:1.6;}
 .study-theme .idle-mascot-bubble::after{content:'';position:absolute;bottom:-7px;left:calc(50% - 7px);width:12px;height:12px;background:#fff6d8;border-right:1px solid #d6bd87;border-bottom:1px solid #d6bd87;transform:rotate(45deg);}
