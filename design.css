@@ -435,7 +435,7 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 /* Keep the new dialog and chart readable on narrow screens. */
 .qimg-wrap:has(img[src*="images/2025-5/"]){overflow-x:auto;}
 @media(max-width:600px){
- .qimg-wrap img[src*="images/2025-5/q21.svg"]{min-width:610px;max-width:none;}
+ .qimg-wrap img[src*="images/2025-5/q21.svg"]{min-width:510px;max-width:none;}
  .qimg-wrap img[src*="images/2025-5/q32.svg"]{min-width:419px;max-width:none;}
 }
 
