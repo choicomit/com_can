@@ -525,3 +525,5 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 @keyframes idle-mascot-step{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
 @media(prefers-reduced-motion:reduce){.study-theme .idle-mascot-character,.study-theme .idle-mascot-legs{animation:none;}}
 @media(max-width:600px){.study-theme #idleStudyMascot{padding:12px 12px 0;}.study-theme .idle-mascot-bubble{font-size:14px;padding:11px 13px;}}
+
+.study-theme #quizMenuBtn .quiz-daily-caption{display:block;font-size:11px;line-height:1.5;margin-top:3px;font-weight:500;}
