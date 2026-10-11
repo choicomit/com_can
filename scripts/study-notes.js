@@ -44,7 +44,6 @@
       return false;
     } finally { saving = false; }
   }
-  initializeTemplate();
   openButton.addEventListener('click', () => {
     initializeTemplate();
     panel.hidden = false; if (panel.classList.contains('notes-minimized')) restore();
