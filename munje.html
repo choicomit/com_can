@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-round4-50">
+<link rel="stylesheet" href="design.css?v=20261011-grid-51">
 </head>
 
 <body class="study-theme">
@@ -1025,10 +1025,10 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-4.js?v=20261011-round4-50"></script>
-<script src="data/round-2025-3.js?v=20261011-round4-50"></script>
-<script src="data/textbook-references.js?v=20261011-round4-50"></script>
-<script src="scripts/textbook-reference.js?v=20261011-round4-50"></script>
+<script src="data/round-2025-4.js?v=20261011-grid-51"></script>
+<script src="data/round-2025-3.js?v=20261011-grid-51"></script>
+<script src="data/textbook-references.js?v=20261011-grid-51"></script>
+<script src="scripts/textbook-reference.js?v=20261011-grid-51"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -6008,6 +6008,7 @@ function applyEnded(isEnded){
   }
 
   optionsEl.innerHTML = "";
+  optionsEl.classList.toggle("diagram-options-grid", q.id === "2025-4-12-컴퓨터 일반");
   const saved = userAnswers[q.id];
 
   q.options.forEach((t,i)=>{
@@ -6443,6 +6444,7 @@ function renderSimilarBatch(baseQ, scored){
 
     const opts = document.createElement("div");
     opts.className = "sim-opts";
+    opts.classList.toggle("diagram-options-grid", q.id === "2025-4-12-컴퓨터 일반");
 
     const groupName = `sim_${q.id}`;
 
