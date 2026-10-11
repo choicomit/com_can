@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-round2026-58">
+<link rel="stylesheet" href="design.css?v=20261011-q23-59">
 </head>
 
 <body class="study-theme">
@@ -1025,12 +1025,12 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2026-1.js?v=20261011-round2026-58"></script>
-<script src="data/round-2025-5.js?v=20261011-round2026-58"></script>
-<script src="data/round-2025-4.js?v=20261011-round2026-58"></script>
-<script src="data/round-2025-3.js?v=20261011-round2026-58"></script>
-<script src="data/textbook-references.js?v=20261011-round2026-58"></script>
-<script src="scripts/textbook-reference.js?v=20261011-round2026-58"></script>
+<script src="data/round-2026-1.js?v=20261011-q23-59"></script>
+<script src="data/round-2025-5.js?v=20261011-q23-59"></script>
+<script src="data/round-2025-4.js?v=20261011-q23-59"></script>
+<script src="data/round-2025-3.js?v=20261011-q23-59"></script>
+<script src="data/textbook-references.js?v=20261011-q23-59"></script>
+<script src="scripts/textbook-reference.js?v=20261011-q23-59"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5998,7 +5998,7 @@ function applyEnded(isEnded){
   imgBox.style.display = (q.image || q.diagram) ? "block" : "none";
   if(q.diagram) appendQuestionDiagram(imgBox, q.diagram);
   if(q.image){
-    if(/^images\/2026-1\/q(?:28|35|37)\.svg$/.test(q.image) || /^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
+    if(/^images\/2026-1\/q(?:23|28|35|37)\.svg$/.test(q.image) || /^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
       const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imgBox.appendChild(hint);
     }
     const img = document.createElement("img");
@@ -6536,7 +6536,7 @@ function renderSimilarBatch(baseQ, scored){
     if(q.image){
       const imageBox = document.createElement("div");
       imageBox.className = "qimg-wrap";
-      if(/^images\/2026-1\/q(?:28|35|37)\.svg$/.test(q.image) || /^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
+      if(/^images\/2026-1\/q(?:23|28|35|37)\.svg$/.test(q.image) || /^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
         const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imageBox.appendChild(hint);
       }
       const img = document.createElement("img");
