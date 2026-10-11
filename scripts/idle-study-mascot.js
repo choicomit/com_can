@@ -29,7 +29,7 @@
   </svg></span>`;
   description.before(mascot);
   let trackedId=null,started=0,dismissed=false;
-  const wait=60*1000;
+  const wait=3*60*1000;
   function canShow(){return !document.hidden&&screen.style.display!=='none'&&!document.getElementById('quizOverlay')?.classList.contains('show');}
   function sync(){
     const id=typeof currentQ==='function'?currentQ()?.id:null;
