@@ -16,7 +16,7 @@
       <g class="idle-mascot-writing-arm"><path d="M66 81Q53 88 53 106L62 124L75 117L66 102L72 85" fill="#796b84"/><path d="M63 116Q71 111 76 115L82 119L80 125L71 126L65 123" fill="#dfb699"/><path d="M76 115L87 99" stroke="#c8a96b" stroke-width="3"/><path d="M86 100L89 96" stroke="#3d4942" stroke-width="2"/></g>
       <g class="idle-mascot-reading-arm"><path d="M108 79Q118 80 122 91L126 113L115 117L106 95" fill="#65566f"/><g transform="rotate(-9 117 118)"><rect x="105" y="97" width="24" height="37" rx="2" fill="url(#idle-paper)" stroke="#bdb7a9"/><path d="M109 98V133M114 108H124M114 113H124M114 118H122" stroke="#b0b8ac" stroke-width="1"/></g><path d="M118 113Q129 109 129 115L128 121Q119 126 115 121" fill="#dfb699"/></g>
       <g class="idle-mascot-head">
-      <path d="M72 30Q71 13 91 13Q111 12 114 32L117 84Q112 92 103 87L101 52L79 52L78 88Q67 89 65 82L69 42Z" fill="#433b3b"/><path d="M72 52L71 81M109 49L112 81" fill="none" stroke="#6d5e58" stroke-width="1.2"/>
+      <path d="M69 32Q67 12 91 11Q114 11 117 33Q119 53 118 71Q116 91 122 111Q116 119 106 112L103 66L101 48L80 47L77 66L75 114Q64 119 59 110Q66 94 65 76Q63 52 69 32Z" fill="#433b3b"/><path d="M70 56Q68 81 67 105M74 72L71 111M112 55Q110 82 115 107M108 73L111 110" fill="none" stroke="#79665e" stroke-width="1.2" opacity=".65"/>
       <path d="M74 39Q73 24 89 21Q106 20 107 39L104 55Q100 66 91 70Q81 66 77 55Z" fill="#e4bda0"/>
       <path d="M73 43Q65 29 73 21Q80 11 93 14Q109 14 112 30L109 54L102 48L101 31Q89 38 78 32L77 49Z" fill="#433b3b"/><path d="M80 23Q90 18 102 24" fill="none" stroke="#6d5e58" stroke-width="1.5"/>
       <path d="M73 43Q67 41 69 49Q70 54 75 53M105 42Q111 41 109 48Q108 52 105 52" fill="#dfb498"/>
