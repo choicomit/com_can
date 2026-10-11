@@ -483,3 +483,13 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .notes-close-confirm p{margin:0;font-weight:700;}
 .study-theme .notes-close-confirm div{display:flex;gap:8px;}
 @media(max-width:600px){.study-theme #studyNotes{left:12px;top:110px;width:calc(100vw - 24px);height:390px;}.study-theme .notes-titlebar{padding:8px;}.study-theme #studyNotes .notes-titlebar strong{font-size:14px;}.study-theme #studyNotes .notes-window-buttons button{padding:4px 7px;}.study-theme .study-header-actions{gap:6px;}}
+
+/* A handwritten guide points to the notebook button. */
+.study-theme .study-header-actions{display:grid;grid-template-columns:auto auto auto;gap:10px;width:330px;max-width:100%;align-items:center;}
+.study-theme .notes-button-guide{grid-column:1 / -1;position:relative;padding-top:26px;}
+.study-theme .notes-guide-arrow{position:absolute;top:-10px;left:32px;color:#b47732;font-size:38px;font-family:Arial,sans-serif;font-weight:700;line-height:1;animation:notes-arrow-blink 1.4s ease-in-out infinite;}
+.study-theme .notes-button-guide p{font-family:ChoiCalligraphy,'Malgun Gothic',sans-serif;font-size:24px;line-height:1.1;color:#537265;font-weight:400;margin:0;letter-spacing:0;}
+@keyframes notes-arrow-blink{0%,100%{opacity:1;transform:translateY(0);}50%{opacity:.25;transform:translateY(4px);}}
+@media(prefers-reduced-motion:reduce){.study-theme .notes-guide-arrow{animation:none;}}
+@media(max-width:600px){.study-theme .study-header-actions{width:330px;gap:8px;}.study-theme .notes-button-guide p{font-size:23px;}}
+@media(max-width:600px){.study-theme header{display:flex;flex-direction:column;align-items:flex-start;}.study-theme header>div:first-child{width:100%;min-width:0;}.study-theme header>.study-header-actions:last-child{display:grid!important;grid-template-columns:auto auto auto;gap:8px!important;flex-direction:row;align-self:flex-end;}}

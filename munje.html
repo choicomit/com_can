@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-notes-colors-67">
+<link rel="stylesheet" href="design.css?v=20261011-notes-guide-68">
 </head>
 
 <body class="study-theme">
@@ -862,9 +862,10 @@ h1{margin:0;font-size:22px}
       </div>
     </div>
     <div class="study-header-actions">
-      <button id="studyNotesBtn" type="button" class="quizMenuBtn">정리노트</button>
+      <button id="studyNotesBtn" aria-describedby="notesGuideText" type="button" class="quizMenuBtn">정리노트</button>
       <button id="quizMenuBtn" type="button" class="quizMenuBtn" aria-label="QUIZ 열기" title="QUIZ">QUIZ</button>
       <div class="pill" id="progress">진행 0 / 0</div>
+      <div class="notes-button-guide" id="notesGuideText"><span class="notes-guide-arrow" aria-hidden="true">↑</span><p>핵심 내용과 오답을 문제별로 적어 보세요.<br>창을 옮겨 필기하고 TXT로 저장하세요.</p></div>
     </div>
   </header>
 
@@ -1026,12 +1027,12 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2026-1.js?v=20261011-notes-colors-67"></script>
-<script src="data/round-2025-5.js?v=20261011-notes-colors-67"></script>
-<script src="data/round-2025-4.js?v=20261011-notes-colors-67"></script>
-<script src="data/round-2025-3.js?v=20261011-notes-colors-67"></script>
-<script src="data/textbook-references.js?v=20261011-notes-colors-67"></script>
-<script src="scripts/textbook-reference.js?v=20261011-notes-colors-67"></script>
+<script src="data/round-2026-1.js?v=20261011-notes-guide-68"></script>
+<script src="data/round-2025-5.js?v=20261011-notes-guide-68"></script>
+<script src="data/round-2025-4.js?v=20261011-notes-guide-68"></script>
+<script src="data/round-2025-3.js?v=20261011-notes-guide-68"></script>
+<script src="data/textbook-references.js?v=20261011-notes-guide-68"></script>
+<script src="scripts/textbook-reference.js?v=20261011-notes-guide-68"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -8074,6 +8075,6 @@ render();
   </div>
 </div>
 
-<script src="scripts/study-notes.js?v=20261011-notes-colors-67"></script>
+<script src="scripts/study-notes.js?v=20261011-notes-guide-68"></script>
 </body>
 </html>
