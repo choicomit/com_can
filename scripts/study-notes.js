@@ -45,6 +45,7 @@
     } finally { saving = false; }
   }
   openButton.addEventListener('click', () => {
+    document.querySelector('.notes-guide-arrow')?.classList.add('notes-guide-stopped');
     initializeTemplate();
     panel.hidden = false; if (panel.classList.contains('notes-minimized')) restore();
     editor.focus();

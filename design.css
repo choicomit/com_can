@@ -508,3 +508,5 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #quizOpts.diagram-options-grid .quizOpt{display:block;padding:12px;}.study-theme #quizOpts .optImg{max-width:100%;height:auto;}
 @media(max-width:600px){.study-theme #quizOverlay{padding:10px;}.study-theme #quizCard{max-height:calc(100dvh - 20px);}.study-theme #quizQ{font-size:20px;}.study-theme .quizOpt{font-size:17px;}.study-theme #dailyQuizDiagram .qimg-wrap img{max-width:none;min-width:0;}.study-theme #quizHead h3{font-size:14px;}}
 .study-theme #quizMeta{color:#53665b;}.study-theme #quizNext:disabled,.study-theme #dailyQuizPrevious:disabled{opacity:.5;cursor:default;}
+
+.study-theme .notes-guide-arrow.notes-guide-stopped{animation:none;opacity:1;transform:none;}
