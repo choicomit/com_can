@@ -374,3 +374,27 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #gradeBtn:hover{background:#542d93;border-color:#542d93;}
 .study-theme #resetBtn{background:#c0392b;border:1px solid #c0392b;color:#fff;}
 .study-theme #resetBtn:hover{background:#9d2f23;border-color:#9d2f23;}
+/* Question tables retain the site's font and stay readable on phones. */
+.study-theme .exam-diagram{max-width:100%;overflow-x:auto;padding:10px 0;font-family:inherit;color:#292c2b;}
+.study-theme .exam-table{border-collapse:collapse;background:#fff;font-size:18px;line-height:1.5;min-width:300px;}
+.study-theme .exam-table th,.study-theme .exam-table td{border:1px solid #aeb5b0;padding:7px 12px;min-width:45px;text-align:center;white-space:nowrap;height:32px;}
+.study-theme .exam-table th{background:#edf0ed;font-weight:600;}
+.study-theme .exam-table.selection{min-width:300px;}
+.study-theme .exam-table .selected-cell{background:#c9cdca;}
+.study-theme .exam-table .active-cell{background:#fff;}
+.study-theme .exam-table .selection-top{border-top:2px solid #444b47;}
+.study-theme .exam-table .selection-bottom{border-bottom:2px solid #444b47;}
+.study-theme .exam-table .selection-left{border-left:2px solid #444b47;}
+.study-theme .exam-table .selection-right{border-right:2px solid #444b47;}
+.study-theme .exam-table.conditions{min-width:220px;font-size:20px;}
+.study-theme .optBody,.study-theme .sim-opt .t{min-width:0;max-width:100%;}
+.study-theme .exam-filter{border:1px solid #adb5ae;border-radius:7px;background:#f1f2ef;width:290px;max-width:100%;padding:15px;font-size:17px;box-sizing:border-box;}
+.study-theme .exam-filter-title{font-weight:600;padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #cbd1cb;}
+.study-theme .exam-filter-fields{display:grid;grid-template-columns:1.3fr .8fr 1.3fr;gap:9px;margin:8px 0 18px;}
+.study-theme .exam-filter-fields span{background:#fff;border:1px solid #a7b0a8;text-align:right;height:30px;padding:0 5px;}
+.study-theme .exam-filter-buttons{display:flex;justify-content:flex-end;gap:8px;}
+.study-theme .exam-filter-buttons span{border:1px solid #a7b0a8;background:#fff;border-radius:4px;padding:3px 18px;}
+@media(max-width:600px){.study-theme .exam-table{font-size:17px;}.study-theme .exam-table th,.study-theme .exam-table td{padding:7px 8px;}.study-theme .exam-table.conditions{min-width:190px;font-size:18px;}}
+
+.study-theme .exam-table-hint{display:none;}
+@media(max-width:600px){.study-theme .exam-table-hint{display:block;font-size:14px;color:#606663;margin-bottom:10px;}}
