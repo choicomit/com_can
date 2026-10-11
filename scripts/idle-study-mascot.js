@@ -12,16 +12,17 @@
       <path d="M80 63V76L99 78V59" fill="#d8ad91"/><path d="M73 77L88 71L104 77L110 132Q91 144 69 132Z" fill="#f2ece0"/>
       <path d="M79 73L67 77Q58 83 59 100L64 139L85 137L88 79Z" fill="url(#idle-jacket)"/><path d="M97 73L109 77Q115 84 115 101L111 139L91 137L89 80Z" fill="url(#idle-jacket)"/>
       <path d="M79 75L75 89L83 94L85 133M99 76L103 89L96 96L94 135" fill="none" stroke="#95aaa0" stroke-width="1.2"/><circle cx="91" cy="119" r="1.6" fill="#c6c4ae"/>
-      <path d="M66 81Q53 88 53 106L62 124L75 117L66 102L72 85" fill="#526d62"/><path d="M108 79Q118 80 122 91L126 113L115 117L106 95" fill="#405d51"/>
-      <g transform="rotate(-9 117 118)"><rect x="105" y="97" width="24" height="37" rx="2" fill="url(#idle-paper)" stroke="#bdb7a9"/><path d="M109 98V133M114 108H124M114 113H124M114 118H122" stroke="#b0b8ac" stroke-width="1"/></g>
-      <path d="M118 113Q129 109 129 115L128 121Q119 126 115 121" fill="#dfb699"/><path d="M63 116Q71 111 76 115L82 119L80 125L71 126L65 123" fill="#dfb699"/>
-      <path d="M76 115L87 99" stroke="#c8a96b" stroke-width="3"/><path d="M86 100L89 96" stroke="#3d4942" stroke-width="2"/>
+      <g class="idle-mascot-writing-arm"><path d="M66 81Q53 88 53 106L62 124L75 117L66 102L72 85" fill="#526d62"/><path d="M63 116Q71 111 76 115L82 119L80 125L71 126L65 123" fill="#dfb699"/><path d="M76 115L87 99" stroke="#c8a96b" stroke-width="3"/><path d="M86 100L89 96" stroke="#3d4942" stroke-width="2"/></g>
+      <g class="idle-mascot-reading-arm"><path d="M108 79Q118 80 122 91L126 113L115 117L106 95" fill="#405d51"/><g transform="rotate(-9 117 118)"><rect x="105" y="97" width="24" height="37" rx="2" fill="url(#idle-paper)" stroke="#bdb7a9"/><path d="M109 98V133M114 108H124M114 113H124M114 118H122" stroke="#b0b8ac" stroke-width="1"/></g><path d="M118 113Q129 109 129 115L128 121Q119 126 115 121" fill="#dfb699"/></g>
+      <g class="idle-mascot-head">
       <path d="M72 39Q70 23 88 20Q108 19 108 40L105 57Q100 70 90 70Q78 68 74 57Z" fill="#e4bda0"/>
       <path d="M74 43Q66 32 73 23Q78 12 91 14Q102 13 110 24L107 44L102 41L100 30Q87 35 77 31L76 45Z" fill="#35413b"/><path d="M79 24Q88 19 100 24" fill="none" stroke="#56635a" stroke-width="1.5"/>
       <path d="M73 43Q67 41 69 49Q70 54 75 53M105 42Q111 41 109 48Q108 52 105 52" fill="#dfb498"/>
       <g fill="none" stroke="#46554f" stroke-width="1.3"><rect x="76" y="41" width="12" height="9" rx="3"/><rect x="93" y="41" width="12" height="9" rx="3"/><path d="M88 44H93M73 42L76 43"/></g>
-      <path d="M81 44H84M96 44H99" stroke="#343f38" stroke-width="1.6"/><path d="M91 47L90 54L94 54M86 60Q91 62 96 59" fill="none" stroke="#aa7b62" stroke-width="1.2"/>
+      <path class="idle-mascot-eyes" d="M81 44H84M96 44H99" stroke="#343f38" stroke-width="1.6"/><path d="M91 47L90 54L94 54M86 60Q91 62 96 59" fill="none" stroke="#aa7b62" stroke-width="1.2"/>
+      </g>
     </g>
+    <text class="idle-mascot-thought" x="130" y="40" fill="#8a9b91" font-family="Arial,sans-serif" font-size="20">…</text>
   </svg>`;
   description.before(mascot);
   let trackedId=null,started=0,dismissed=false;

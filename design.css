@@ -533,3 +533,20 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .idle-mascot-person{animation:idle-mascot-breathe 4s ease-in-out infinite;transform-origin:90px 210px;}
 @keyframes idle-mascot-breathe{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.5px);}}
 @media(prefers-reduced-motion:reduce){.study-theme .idle-mascot-person{animation:none;}}
+
+/* Walk, pause to read, think with a pencil, then look back up. */
+.study-theme .idle-mascot-character{width:162px;height:198px;animation:idle-mascot-story-walk 16s ease-in-out infinite;}
+.study-theme .idle-mascot-person{animation:idle-mascot-story-body 16s ease-in-out infinite;}
+.study-theme .idle-mascot-head{transform-origin:90px 65px;animation:idle-mascot-story-head 16s ease-in-out infinite;}
+.study-theme .idle-mascot-writing-arm{transform-origin:66px 82px;animation:idle-mascot-story-pencil 16s ease-in-out infinite;}
+.study-theme .idle-mascot-reading-arm{transform-origin:111px 82px;animation:idle-mascot-story-book 16s ease-in-out infinite;}
+.study-theme .idle-mascot-eyes{transform-origin:90px 44px;animation:idle-mascot-blink 5.3s linear infinite;}
+.study-theme .idle-mascot-thought{animation:idle-mascot-story-thought 16s ease-in-out infinite;opacity:0;}
+@keyframes idle-mascot-story-walk{0%,100%{transform:translateX(-20px);}18%,27%{transform:translateX(18px);}52%,76%{transform:translateX(4px);}90%{transform:translateX(-20px);}}
+@keyframes idle-mascot-story-body{0%,18%,90%,100%{transform:translateY(0) rotate(0);}10%,85%{transform:translateY(-2px) rotate(1deg);}35%,48%{transform:rotate(2deg);}60%,74%{transform:rotate(-1deg);}}
+@keyframes idle-mascot-story-head{0%,18%,90%,100%{transform:rotate(0);}30%,48%{transform:rotate(11deg) translateY(2px);}60%,68%{transform:rotate(-7deg);}74%{transform:rotate(3deg);}82%{transform:rotate(-3deg);}}
+@keyframes idle-mascot-story-pencil{0%,18%,90%,100%{transform:rotate(0);}30%,48%{transform:rotate(-27deg);}58%,74%{transform:rotate(-68deg);}64%{transform:rotate(-62deg);}80%{transform:rotate(-10deg);}}
+@keyframes idle-mascot-story-book{0%,18%,85%,100%{transform:rotate(0);}30%,48%{transform:rotate(-19deg) translateY(-3px);}60%,74%{transform:rotate(-8deg);}}
+@keyframes idle-mascot-blink{0%,44%,48%,92%,96%,100%{transform:scaleY(1);}46%,94%{transform:scaleY(.12);}}
+@keyframes idle-mascot-story-thought{0%,50%,82%,100%{opacity:0;transform:translateY(2px);}58%,72%{opacity:.8;transform:translateY(-2px);}}
+@media(prefers-reduced-motion:reduce){.study-theme .idle-mascot-character,.study-theme .idle-mascot-person,.study-theme .idle-mascot-head,.study-theme .idle-mascot-writing-arm,.study-theme .idle-mascot-reading-arm,.study-theme .idle-mascot-eyes,.study-theme .idle-mascot-thought{animation:none;}}
