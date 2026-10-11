@@ -450,7 +450,7 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .diagram-options-grid img[src*="2026-1/q36-"]{width:64px;}
 @media(max-width:600px){
  .qimg-wrap img[src*="images/2026-1/q28.svg"]{min-width:420px;max-width:none;}
- .qimg-wrap img[src*="images/2026-1/q35.svg"]{min-width:460px;max-width:none;}
+ .qimg-wrap img[src*="images/2026-1/q35.svg"]{min-width:499px;max-width:none;}
  .qimg-wrap img[src*="images/2026-1/q37.svg"]{min-width:325px;max-width:none;}
 }
 
