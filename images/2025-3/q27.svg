@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="364" height="213" viewBox="0 0 364 213" role="img" aria-labelledby="title">
+<title id="title">사원코드와 기말수당. A101 50, B101 40, C101 30. 수당단위는 천원임.</title>
+<rect width="364" height="213" fill="#d5d5d5"/><rect x="39" y="24" width="323" height="188" fill="#fff"/>
+<g stroke="#bebebe"><path d="M39 0v212M165 0v24M289 0v212M362 0v212M6 23h356M6 56h356M6 89h356M6 122h356M6 155h356M6 188h356M6 211h356M165 188v23"/></g>
+<g stroke="#111"><path d="M39 23h250v132H39zM165 23v132M39 56h250M39 89h250M39 122h250" fill="none"/></g>
+<path d="M22 19h14V5z" fill="#999"/>
+<g font-family="Arial, Malgun Gothic, sans-serif" fill="#000">
+<g text-anchor="middle" font-size="12"><text x="102" y="15">A</text><text x="228" y="15">B</text><text x="326" y="15">C</text><text x="22" y="50">1</text><text x="22" y="83">2</text><text x="22" y="116">3</text><text x="22" y="149">4</text><text x="22" y="181">5</text><text x="22" y="207">6</text></g>
+<g font-size="20" font-weight="700"><text x="102" y="47" text-anchor="middle">사원코드</text><text x="228" y="47" text-anchor="middle">기말수당</text><text x="102" y="80" text-anchor="middle">A101</text><text x="102" y="113" text-anchor="middle">B101</text><text x="102" y="146" text-anchor="middle">C101</text><text x="278" y="80" text-anchor="end">50</text><text x="278" y="113" text-anchor="end">40</text><text x="278" y="146" text-anchor="end">30</text><text x="43" y="179">*수당단위는 천원임</text></g>
+</g></svg>

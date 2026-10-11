@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="141" viewBox="0 0 176 141" role="img" aria-labelledby="title">
+<title id="title">A1의 값 10, A2의 값 8. A1:A2 범위가 선택되어 오른쪽 아래에 채우기 핸들이 표시됨.</title>
+<rect width="176" height="141" fill="#d5d5d5"/><rect x="31" y="29" width="145" height="112" fill="#fff"/><rect x="31" y="7" width="73" height="21" fill="#bebebe"/>
+<rect x="32" y="51" width="71" height="21" fill="#aaa"/>
+<g stroke="#bdbdbd"><path d="M31 7v134M104 7v134M175 7v134M0 28h176M0 50h176M0 73h176M0 95h176M0 117h176M0 139h176"/></g>
+<rect x="31" y="28" width="73" height="45" fill="none" stroke="#555" stroke-width="2"/><rect x="101" y="70" width="5" height="5" fill="#555" stroke="#fff"/>
+<path d="M14 24h14V10z" fill="#999"/>
+<g font-family="Arial, Malgun Gothic, sans-serif" font-size="12" fill="#111" text-anchor="middle"><text x="67" y="20">A</text><text x="140" y="20">B</text><text x="17" y="44">1</text><text x="17" y="67">2</text><text x="17" y="89">3</text><text x="17" y="111">4</text><text x="17" y="134">5</text></g>
+<g font-family="Arial, Malgun Gothic, sans-serif" font-size="14" fill="#111" text-anchor="end"><text x="100" y="45">10</text><text x="100" y="68">8</text></g>
+</svg>
