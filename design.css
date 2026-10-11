@@ -440,3 +440,5 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 }
 
 @media(max-width:600px){.qimg-wrap img[src*="images/2025-5/q31.svg"]{min-width:369px;max-width:none;}}
+
+@media(max-width:600px){.qimg-wrap img[src*="images/2025-5/q29.svg"]{min-width:327px;max-width:none;}}
