@@ -43,14 +43,10 @@
   };
   window.appendTextbookReference = function(container,q){
     const ref = window.getTextbookReference(q);
-    if(!ref) return;
+    if(!ref || ref.status !== 'matched' || !ref.pages.length) return;
     const box = document.createElement('div');
     box.className = 'textbook-reference';
-    if(ref.status === 'pending'){
-      box.textContent = ref.pages.length ? `교재 PDF ${ref.pages.join('·')}쪽 (페이지 확인 필요)` : '교재 페이지 확인 필요';
-    }else{
-      box.textContent = ref.pages.length ? `교재 PDF ${ref.pages.join('·')}쪽` : '교재에 해당 내용 없음';
-    }
+    box.textContent = `교재 PDF ${ref.pages.join('·')}쪽`;
     container.appendChild(box);
   };
 })();

@@ -13,7 +13,9 @@ Before publishing questions, add a reviewed entry keyed by the stable question I
 Confirm the tested concept is actually in the reference pages. Do not match distractor
 keywords or infer that a page covers a concept just because it shares a broad topic.
 If the PDF is unavailable and the concept cannot be confirmed using reviewed duplicate
-questions, leave the automatic `pending` status visible and report that limitation.
+questions, keep the automatic `pending` status internal and report that limitation.
+Only display confirmed `matched` references with nonempty page lists. Display nothing
+for `not-covered` or `pending` questions; do not show missing-content notices.
 `scripts/textbook-reference.js` handles future questions conservatively; suggestions
 must not be treated as verified references. Keep references visible in both the
 single-question view and similar-question cards. Verify that spreadsheet views omit them.
