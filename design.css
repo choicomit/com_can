@@ -455,3 +455,5 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 }
 
 @media(max-width:600px){.qimg-wrap img[src*="images/2026-1/q23.svg"]{min-width:371px;max-width:none;}}
+
+.study-theme .optImg[src*="2026-1/q33-"]{display:inline-block;width:24px;height:24px;max-width:24px;min-width:0;margin:0 0 0 6px;border:0;vertical-align:middle;}

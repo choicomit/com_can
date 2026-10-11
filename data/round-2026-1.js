@@ -398,10 +398,10 @@ window.ROUND_2026_1 = [
     "no": 33,
     "desc": "다음 중 [데이터 유효성] 기능의 오류 메시지 스타일에 해당하지 않는 것은?",
     "options": [
-      "경고 ⚠",
-      "중지 ⛔",
-      "정보 ℹ",
-      "확인 ✓"
+      "경고 IMAGE: images/2026-1/q33-1.svg",
+      "중지 IMAGE: images/2026-1/q33-2.svg",
+      "정보 IMAGE: images/2026-1/q33-3.svg",
+      "확인 IMAGE: images/2026-1/q33-4.svg"
     ],
     "answerIndex": 3
   },
