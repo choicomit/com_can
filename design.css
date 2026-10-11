@@ -560,8 +560,8 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 /* Choi wordmark alongside the existing handwritten classroom name. */
 .study-theme .study-brand{align-items:center;}
 .study-theme .study-brand-main{display:inline-flex;align-items:center;gap:12px;max-width:100%;min-width:0;}
-.study-theme .choi-brand-logo{width:132px;height:66px;object-fit:contain;flex:none;display:block;}
-@media(max-width:600px){.study-theme .study-brand-main{gap:8px;}.study-theme .choi-brand-logo{width:96px;height:48px;}.study-theme .study-brand-main .teacher-brand{font-size:clamp(20px,6vw,27px);}}
+.study-theme .choi-brand-logo{width:156px;height:78px;object-fit:contain;flex:none;display:block;}
+@media(max-width:600px){.study-theme .study-brand-main{gap:8px;}.study-theme .choi-brand-logo{width:104px;height:52px;}.study-theme .study-brand-main .teacher-brand{font-size:clamp(20px,6vw,27px);}}
 
 .study-theme .choi-logo-button{display:block;flex:none;padding:0;background:transparent;border:0;border-radius:6px;box-shadow:none;cursor:zoom-in;}
 .study-theme .choi-logo-button:focus-visible{outline:2px solid #7d9986;outline-offset:4px;}
