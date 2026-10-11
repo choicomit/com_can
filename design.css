@@ -526,4 +526,6 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 @media(prefers-reduced-motion:reduce){.study-theme .idle-mascot-character,.study-theme .idle-mascot-legs{animation:none;}}
 @media(max-width:600px){.study-theme #idleStudyMascot{padding:12px 12px 0;}.study-theme .idle-mascot-bubble{font-size:14px;padding:11px 13px;}}
 
-.study-theme #quizMenuBtn .quiz-daily-caption{display:block;font-size:11px;line-height:1.5;margin-top:3px;font-weight:500;}
+.study-theme .quiz-button-caption-wrap{position:relative;}
+.study-theme .quiz-button-caption-wrap #quizMenuBtn{width:100%;}
+.study-theme .quiz-button-caption-wrap .quiz-daily-caption{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;line-height:1.5;font-weight:500;color:#513479;}
