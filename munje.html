@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-images-42">
+<link rel="stylesheet" href="design.css?v=20261011-textbook-43">
 </head>
 
 <body class="study-theme">
@@ -887,6 +887,7 @@ h1{margin:0;font-size:22px}
 
       <div class="qtitle" id="qTitle"></div>
       <p class="qdesc" id="qDesc"></p>
+      <div id="textbookReference" aria-live="polite"></div>
       <div id="duplicateQuestions" class="duplicate-questions" hidden></div>
 
       <div id="imgBox" class="qimg-wrap" style="display:none;">
@@ -1025,6 +1026,8 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
+<script src="data/textbook-references.js?v=20261011-textbook-43"></script>
+<script src="scripts/textbook-reference.js?v=20261011-textbook-43"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5967,6 +5970,9 @@ function applyEnded(isEnded){
   qTitle.textContent = q.title || "";
   qDesc.textContent = `${q.no}. ${q.desc || ""}`;
   showDuplicateQuestions(q);
+  const textbookBox=document.getElementById("textbookReference");
+  textbookBox.replaceChildren();
+  appendTextbookReference(textbookBox,q);
 
   imgBox.replaceChildren();
   imgBox.style.display = (q.image || q.diagram) ? "block" : "none";
@@ -6500,6 +6506,7 @@ function renderSimilarBatch(baseQ, scored){
     card.appendChild(head);
     card.appendChild(qTitle);
     card.appendChild(desc);
+    appendTextbookReference(card,q);
     if(q.diagram) appendQuestionDiagram(card, q.diagram);
     if(q.image){
       const imageBox = document.createElement("div");
