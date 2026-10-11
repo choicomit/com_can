@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-images-48">
+<link rel="stylesheet" href="design.css?v=20261011-q35-49">
 </head>
 
 <body class="study-theme">
@@ -1025,9 +1025,9 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-3.js?v=20261011-images-48"></script>
-<script src="data/textbook-references.js?v=20261011-images-48"></script>
-<script src="scripts/textbook-reference.js?v=20261011-images-48"></script>
+<script src="data/round-2025-3.js?v=20261011-q35-49"></script>
+<script src="data/textbook-references.js?v=20261011-q35-49"></script>
+<script src="scripts/textbook-reference.js?v=20261011-q35-49"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5994,6 +5994,9 @@ function applyEnded(isEnded){
   imgBox.style.display = (q.image || q.diagram) ? "block" : "none";
   if(q.diagram) appendQuestionDiagram(imgBox, q.diagram);
   if(q.image){
+    if(q.image.endsWith("/q35.svg")){
+      const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imgBox.appendChild(hint);
+    }
     const img = document.createElement("img");
     img.id = "qImg";
     img.className = "qimg";
@@ -6527,6 +6530,9 @@ function renderSimilarBatch(baseQ, scored){
     if(q.image){
       const imageBox = document.createElement("div");
       imageBox.className = "qimg-wrap";
+      if(q.image.endsWith("/q35.svg")){
+        const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imageBox.appendChild(hint);
+      }
       const img = document.createElement("img");
       img.className = "qimg";
       img.src = q.image;

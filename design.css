@@ -411,3 +411,5 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .exam-dialog-check{margin:6px 0;}
 .study-theme .exam-subtotal .exam-filter-buttons{margin-top:14px;gap:6px;flex-wrap:wrap;}
 .study-theme .exam-subtotal .exam-filter-buttons span{font-size:14px;padding:4px 10px;}
+
+@media(max-width:600px){.study-theme .qimg-wrap:has(img[src$="/q35.svg"]){overflow-x:auto;}.study-theme .qimg[src$="/q35.svg"]{width:570px;min-width:570px;max-width:none;height:auto;}}
