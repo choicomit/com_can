@@ -442,3 +442,14 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 @media(max-width:600px){.qimg-wrap img[src*="images/2025-5/q31.svg"]{min-width:369px;max-width:none;}}
 
 @media(max-width:600px){.qimg-wrap img[src*="images/2025-5/q29.svg"]{min-width:327px;max-width:none;}}
+
+/* 2026 round 1 diagrams and two-column answer tables. */
+.qimg-wrap:has(img[src*="images/2026-1/"]){overflow-x:auto;}
+.study-theme .diagram-options-grid .exam-table{min-width:0;width:100%;table-layout:fixed;}
+.study-theme .diagram-options-grid .exam-table th,.study-theme .diagram-options-grid .exam-table td{white-space:normal;overflow-wrap:anywhere;padding:8px 3px;font-size:15px;}
+.study-theme .diagram-options-grid img[src*="2026-1/q36-"]{width:64px;}
+@media(max-width:600px){
+ .qimg-wrap img[src*="images/2026-1/q28.svg"]{min-width:420px;max-width:none;}
+ .qimg-wrap img[src*="images/2026-1/q35.svg"]{min-width:460px;max-width:none;}
+ .qimg-wrap img[src*="images/2026-1/q37.svg"]{min-width:325px;max-width:none;}
+}

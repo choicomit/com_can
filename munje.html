@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-q32-57">
+<link rel="stylesheet" href="design.css?v=20261011-round2026-58">
 </head>
 
 <body class="study-theme">
@@ -1025,11 +1025,12 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-5.js?v=20261011-q32-57"></script>
-<script src="data/round-2025-4.js?v=20261011-q32-57"></script>
-<script src="data/round-2025-3.js?v=20261011-q32-57"></script>
-<script src="data/textbook-references.js?v=20261011-q32-57"></script>
-<script src="scripts/textbook-reference.js?v=20261011-q32-57"></script>
+<script src="data/round-2026-1.js?v=20261011-round2026-58"></script>
+<script src="data/round-2025-5.js?v=20261011-round2026-58"></script>
+<script src="data/round-2025-4.js?v=20261011-round2026-58"></script>
+<script src="data/round-2025-3.js?v=20261011-round2026-58"></script>
+<script src="data/textbook-references.js?v=20261011-round2026-58"></script>
+<script src="scripts/textbook-reference.js?v=20261011-round2026-58"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5997,7 +5998,7 @@ function applyEnded(isEnded){
   imgBox.style.display = (q.image || q.diagram) ? "block" : "none";
   if(q.diagram) appendQuestionDiagram(imgBox, q.diagram);
   if(q.image){
-    if(/^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
+    if(/^images\/2026-1\/q(?:28|35|37)\.svg$/.test(q.image) || /^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
       const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imgBox.appendChild(hint);
     }
     const img = document.createElement("img");
@@ -6010,7 +6011,7 @@ function applyEnded(isEnded){
   }
 
   optionsEl.innerHTML = "";
-  optionsEl.classList.toggle("diagram-options-grid", q.id === "2025-4-12-컴퓨터 일반");
+  optionsEl.classList.toggle("diagram-options-grid", ["2025-4-12-컴퓨터 일반","2026-1-36-스프레드시트","2026-1-38-스프레드시트"].includes(q.id));
   const saved = userAnswers[q.id];
 
   q.options.forEach((t,i)=>{
@@ -6446,7 +6447,7 @@ function renderSimilarBatch(baseQ, scored){
 
     const opts = document.createElement("div");
     opts.className = "sim-opts";
-    opts.classList.toggle("diagram-options-grid", q.id === "2025-4-12-컴퓨터 일반");
+    opts.classList.toggle("diagram-options-grid", ["2025-4-12-컴퓨터 일반","2026-1-36-스프레드시트","2026-1-38-스프레드시트"].includes(q.id));
 
     const groupName = `sim_${q.id}`;
 
@@ -6535,7 +6536,7 @@ function renderSimilarBatch(baseQ, scored){
     if(q.image){
       const imageBox = document.createElement("div");
       imageBox.className = "qimg-wrap";
-      if(/^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
+      if(/^images\/2026-1\/q(?:28|35|37)\.svg$/.test(q.image) || /^images\/2025-5\/q(?:21|29|31|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
         const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imageBox.appendChild(hint);
       }
       const img = document.createElement("img");
@@ -7660,6 +7661,10 @@ questions = parseText(PRELOADED_TEXT).concat(ROUND_2025_2.map(q => ({
   ...q, id: `2025-5-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
   subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 5, yearLabel: "2025년 5회",
   yearSort: yearRoundSortKey("2025년 5회"), title: "", image: q.image || "", explanation: ""
+})), window.ROUND_2026_1.map(q => ({
+  ...q,id:`2026-1-${q.no}-${q.no<=20?"컴퓨터 일반":"스프레드시트"}`,number:q.no,
+  subject:q.no<=20?"컴퓨터 일반":"스프레드시트",year:2026,round:1,yearLabel:"2026년 1회",
+  yearSort:yearRoundSortKey("2026년 1회"),title:"",image:q.image||"",explanation:""
 })));
 
 // ✅ 키워드 기반 유사문제 태깅 + 통계용 히트 기록

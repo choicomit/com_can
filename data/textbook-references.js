@@ -1407,6 +1407,109 @@ window.TEXTBOOK_REFERENCES = {
         18
       ],
       "status": "matched"
+    },
+    "2026-1-1-컴퓨터 일반": {
+      "pages": [
+        16
+      ],
+      "status": "matched"
+    },
+    "2026-1-2-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-3-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-4-컴퓨터 일반": {
+      "pages": [
+        24
+      ],
+      "status": "matched"
+    },
+    "2026-1-5-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-6-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-7-컴퓨터 일반": {
+      "pages": [
+        19
+      ],
+      "status": "matched"
+    },
+    "2026-1-8-컴퓨터 일반": {
+      "pages": [
+        6,
+        27
+      ],
+      "status": "matched"
+    },
+    "2026-1-9-컴퓨터 일반": {
+      "pages": [
+        27
+      ],
+      "status": "matched"
+    },
+    "2026-1-10-컴퓨터 일반": {
+      "pages": [
+        22
+      ],
+      "status": "matched"
+    },
+    "2026-1-11-컴퓨터 일반": {
+      "pages": [
+        15
+      ],
+      "status": "matched"
+    },
+    "2026-1-12-컴퓨터 일반": {
+      "pages": [
+        28
+      ],
+      "status": "matched"
+    },
+    "2026-1-13-컴퓨터 일반": {
+      "pages": [
+        13
+      ],
+      "status": "matched"
+    },
+    "2026-1-14-컴퓨터 일반": {
+      "pages": [
+        14
+      ],
+      "status": "matched"
+    },
+    "2026-1-15-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-16-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-17-컴퓨터 일반": {
+      "pages": [
+        24
+      ],
+      "status": "matched"
+    },
+    "2026-1-18-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-19-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2026-1-20-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
     }
   }
 };
