@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-q35-61">
+<link rel="stylesheet" href="design.css?v=20261011-notes-62">
 </head>
 
 <body class="study-theme">
@@ -861,7 +861,8 @@ h1{margin:0;font-size:22px}
         정답 확인 후 번호 색상: 정답(초록) / 오답(빨강). 미응답만 보기 체크 가능.
       </div>
     </div>
-    <div style="display:flex; gap:10px; align-items:center;">
+    <div class="study-header-actions">
+      <button id="studyNotesBtn" type="button" class="quizMenuBtn">정리노트</button>
       <button id="quizMenuBtn" type="button" class="quizMenuBtn" aria-label="QUIZ 열기" title="QUIZ">QUIZ</button>
       <div class="pill" id="progress">진행 0 / 0</div>
     </div>
@@ -1025,12 +1026,12 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2026-1.js?v=20261011-q35-61"></script>
-<script src="data/round-2025-5.js?v=20261011-q35-61"></script>
-<script src="data/round-2025-4.js?v=20261011-q35-61"></script>
-<script src="data/round-2025-3.js?v=20261011-q35-61"></script>
-<script src="data/textbook-references.js?v=20261011-q35-61"></script>
-<script src="scripts/textbook-reference.js?v=20261011-q35-61"></script>
+<script src="data/round-2026-1.js?v=20261011-notes-62"></script>
+<script src="data/round-2025-5.js?v=20261011-notes-62"></script>
+<script src="data/round-2025-4.js?v=20261011-notes-62"></script>
+<script src="data/round-2025-3.js?v=20261011-notes-62"></script>
+<script src="data/textbook-references.js?v=20261011-notes-62"></script>
+<script src="scripts/textbook-reference.js?v=20261011-notes-62"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -8073,5 +8074,6 @@ render();
   </div>
 </div>
 
+<script src="scripts/study-notes.js?v=20261011-notes-62"></script>
 </body>
 </html>

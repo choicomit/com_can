@@ -457,3 +457,29 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 @media(max-width:600px){.qimg-wrap img[src*="images/2026-1/q23.svg"]{min-width:371px;max-width:none;}}
 
 .study-theme .optImg[src*="2026-1/q33-"]{display:inline-block;width:24px;height:24px;max-width:24px;min-width:0;margin:0 0 0 6px;border:0;vertical-align:middle;}
+
+/* Floating, plain-text study notebook. */
+.study-theme .study-header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.study-theme #studyNotesBtn{background:#fff4c9;border:1px solid #d2bd79;color:#564616;white-space:nowrap;font-weight:700;}
+.study-theme #studyNotes{--notes-color:#fff7cf;position:fixed;z-index:15000;left:max(12px,calc(100vw - 550px));top:150px;width:510px;height:420px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);min-width:280px;min-height:200px;display:flex;flex-direction:column;background:var(--notes-color);border:1px solid #b7aa8d;border-radius:12px;box-shadow:0 12px 40px #0003;resize:both;overflow:hidden;color:#292929;}
+.study-theme #studyNotes[hidden],.study-theme #studyNotes [hidden]{display:none!important;}
+.study-theme #studyNotes[data-color=pink]{--notes-color:#ffe5ef;}
+.study-theme #studyNotes[data-color=green]{--notes-color:#e7f5df;}
+.study-theme #studyNotes[data-color=blue]{--notes-color:#e1f0ff;}
+.study-theme #studyNotes[data-color=redwhite]{--notes-color:#fff0ed;}
+.study-theme #studyNotes button{padding:5px 9px;font-size:13px;color:#292929;background:#ffffffa8;border:1px solid #0002;border-radius:6px;min-height:30px;}
+.study-theme .notes-titlebar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;border-bottom:1px solid #0002;cursor:move;touch-action:none;user-select:none;flex:none;}
+.study-theme .notes-window-buttons{display:flex;gap:4px;}
+.study-theme .notes-content{display:flex;flex-direction:column;gap:8px;padding:10px 12px;flex:1;min-height:0;}
+.study-theme .notes-help{font-size:12px;line-height:1.5;margin:0;}
+.study-theme .notes-toolbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;}
+.study-theme .notes-toolbar select{font-size:12px;padding:5px;border:1px solid #0002;border-radius:5px;background:#ffffffaa;color:#292929;}
+.study-theme #studyNotes textarea{font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:13pt;line-height:1.6;background:#ffffff8a;color:#222;border:1px solid #0002;border-radius:5px;padding:10px;width:100%;box-sizing:border-box;flex:1;min-height:60px;resize:none;}
+.study-theme .notes-status{margin:0;font-size:11px;line-height:1.4;}
+.study-theme #studyNotes.notes-maximized{left:12px!important;top:12px!important;width:calc(100vw - 24px)!important;height:calc(100dvh - 24px)!important;resize:none;}
+.study-theme #studyNotes.notes-minimized{height:auto!important;min-height:0;resize:none;width:340px!important;}
+.study-theme .notes-minimized .notes-content{display:none;}
+.study-theme .notes-close-confirm{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--notes-color);padding:20px;}
+.study-theme .notes-close-confirm p{margin:0;font-weight:700;}
+.study-theme .notes-close-confirm div{display:flex;gap:8px;}
+@media(max-width:600px){.study-theme #studyNotes{left:12px;top:110px;width:calc(100vw - 24px);height:390px;}.study-theme .notes-titlebar{padding:8px;}.study-theme #studyNotes .notes-titlebar strong{font-size:14px;}.study-theme #studyNotes .notes-window-buttons button{padding:4px 7px;}.study-theme .study-header-actions{gap:6px;}}
