@@ -463,7 +463,6 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #studyNotesBtn{background:#fff4c9;border:1px solid #d2bd79;color:#564616;white-space:nowrap;font-weight:700;}
 .study-theme #studyNotes{--notes-color:#fff7cf;position:fixed;z-index:15000;left:max(12px,calc(100vw - 550px));top:150px;width:510px;height:420px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);min-width:280px;min-height:200px;display:flex;flex-direction:column;background:var(--notes-color);border:1px solid #b7aa8d;border-radius:12px;box-shadow:0 12px 40px #0003;resize:both;overflow:hidden;color:#292929;}
 .study-theme #studyNotes[hidden],.study-theme #studyNotes [hidden]{display:none!important;}
-.study-theme #studyNotes[data-color=pink]{--notes-color:#ffe5ef;}
 .study-theme #studyNotes[data-color=green]{--notes-color:#e7f5df;}
 .study-theme #studyNotes[data-color=blue]{--notes-color:#e1f0ff;}
 .study-theme #studyNotes[data-color=red]{--notes-color:#ffe2e2;}
