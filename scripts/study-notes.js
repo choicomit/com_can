@@ -11,10 +11,9 @@
   <div class="notes-close-confirm" hidden role="alertdialog" aria-label="정리노트 저장 확인"><p>저장하시겠습니까?</p><div><button type="button" data-action="save-close">저장</button><button type="button" data-action="discard">저장 안 함</button><button type="button" data-action="cancel-close">취소</button></div></div>`;
   document.body.append(panel);
   const editor = panel.querySelector('textarea'), status = panel.querySelector('.notes-status'), confirmation = panel.querySelector('.notes-close-confirm');
-  let savedText = '', saving = false, initialized = false;
+  let savedText = '', saving = false;
   function initializeTemplate() {
-    if (initialized) return;
-    initialized = true;
+    if (editor.value.trim()) return;
     const visible = typeof getVisibleQuestions === 'function' ? getVisibleQuestions() : [];
     const numbers = [...new Set(visible.map(q => q.number))].filter(Number.isFinite).sort((a,b) => a-b);
     editor.value = (numbers.length ? numbers : Array.from({length:20},(_,i)=>i+1)).map(n => `${n}번문제\n\n\n\n`).join('');
@@ -45,6 +44,7 @@
       return false;
     } finally { saving = false; }
   }
+  initializeTemplate();
   openButton.addEventListener('click', () => {
     initializeTemplate();
     panel.hidden = false; if (panel.classList.contains('notes-minimized')) restore();
