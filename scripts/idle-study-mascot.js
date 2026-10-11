@@ -4,6 +4,7 @@
   const mascot=document.createElement('button');mascot.type='button';mascot.id='idleStudyMascot';mascot.hidden=true;
   mascot.setAttribute('aria-label','푸는중일까요? 찍는중일까요? 클릭하면 안내가 사라집니다.');
   mascot.innerHTML=`<span class="idle-mascot-bubble">푸는중일까요? 찍는중일까요?</span>
+  <span class="idle-mascot-scene"><svg class="idle-mascot-board" viewBox="0 0 340 225" aria-hidden="true"><rect x="15" y="20" width="310" height="159" rx="5" fill="#95795d"/><rect x="22" y="27" width="296" height="145" rx="2" fill="#34564b"/><path d="M28 34H310" stroke="#ffffff0d"/><path d="M48 61H151M48 79H129M48 97H143" stroke="#c7d9cc" stroke-width="2" opacity=".6" stroke-linecap="round"/><path d="M224 65L234 75L256 52" fill="none" stroke="#e5dfb4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="11" y="176" width="318" height="8" rx="2" fill="#aa8a65"/><rect x="269" y="171" width="23" height="5" rx="2" fill="#e9e6d8"/><path d="M41 184L33 219M299 184L307 219" stroke="#95795d" stroke-width="7" stroke-linecap="round"/></svg>
   <svg class="idle-mascot-character" viewBox="0 0 180 220" width="144" height="176" aria-hidden="true">
     <defs><linearGradient id="idle-jacket" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#85788f"/><stop offset="1" stop-color="#5e5269"/></linearGradient><linearGradient id="idle-paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf5e9"/><stop offset="1" stop-color="#e8dfcc"/></linearGradient></defs>
     <ellipse cx="90" cy="211" rx="43" ry="5" fill="#304b4212"/>
@@ -25,7 +26,7 @@
       </g>
     </g>
     <text class="idle-mascot-thought" x="130" y="40" fill="#8a9b91" font-family="Arial,sans-serif" font-size="20">…</text>
-  </svg>`;
+  </svg></span>`;
   description.before(mascot);
   let trackedId=null,started=0,dismissed=false;
   const wait=60*1000;
