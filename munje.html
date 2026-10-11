@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-duplicate-45">
+<link rel="stylesheet" href="design.css?v=20261011-round3-46">
 </head>
 
 <body class="study-theme">
@@ -1025,8 +1025,9 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/textbook-references.js?v=20261011-duplicate-45"></script>
-<script src="scripts/textbook-reference.js?v=20261011-duplicate-45"></script>
+<script src="data/round-2025-3.js?v=20261011-round3-46"></script>
+<script src="data/textbook-references.js?v=20261011-round3-46"></script>
+<script src="scripts/textbook-reference.js?v=20261011-round3-46"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5905,15 +5906,32 @@ function appendQuestionDiagram(container, diagram){
     const buttons = document.createElement("div"); buttons.className = "exam-filter-buttons";
     ["확인", "취소"].forEach(text => {const item=document.createElement("span");item.textContent=text;buttons.appendChild(item);});
     panel.appendChild(buttons);wrap.appendChild(panel);
+  }else if(diagram.kind === "subtotal"){
+    const panel=document.createElement("div");panel.className="exam-subtotal";
+    const add=(text,cls)=>{const el=document.createElement("div");el.className=cls||"";el.textContent=text;panel.appendChild(el);};
+    add("부분합", "exam-filter-title");add("그룹화할 항목(A):");add("직급　⌄", "exam-dialog-field");
+    add("사용할 함수(U):");add("합계　⌄", "exam-dialog-field");add("부분합 계산 항목(D):");
+    const fields=document.createElement("div");fields.className="exam-subtotal-list";
+    ["☐ 사원번호", "☐ 성명", "☐ 직급", "☐ 부서명", "☑ 급여", "☐ 입사일"].forEach(text=>{const el=document.createElement("div");el.textContent=text;fields.appendChild(el);});panel.appendChild(fields);
+    ["☑ 새로운 값으로 대치(C)", "☑ 그룹 사이에서 페이지 나누기(P)", "☑ 데이터 아래에 요약 표시(S)"].forEach(text=>add(text,"exam-dialog-check"));
+    const controls=document.createElement("div");controls.className="exam-filter-buttons";
+    ["모두 제거(R)","확인","취소"].forEach(text=>{const el=document.createElement("span");el.textContent=text;controls.appendChild(el);});panel.appendChild(controls);wrap.appendChild(panel);
   }else{
     const table=document.createElement("table");table.className="exam-table " + diagram.kind;
     table.setAttribute("aria-label",diagram.kind === "conditions" ? "고급 필터 조건 범위" : "문제에 제시된 워크시트");
-    if(diagram.kind === "sheet" && diagram.rows[0].length > 5){
+    if(diagram.kind === "sheet"){
       const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표가 잘리면 좌우로 밀어 확인하세요.";wrap.appendChild(hint);
     }
     diagram.rows.forEach((row,r)=>{const tr=document.createElement("tr");row.forEach((value,c)=>{
+      if(diagram.merges?.some(m=>m.row===r && c>m.col && c<m.col+m.span)) return;
+      const merged=diagram.merges?.find(m=>m.row===r && m.col===c);
       const cell=document.createElement(r===0 || (diagram.kind!=="conditions" && c===0) ? "th" : "td");
       cell.textContent=value;
+      if(merged) cell.colSpan=merged.span;
+      if(diagram.selection){
+        const [top,bottom,left,right]=diagram.selection;
+        if(r>=top&&r<=bottom&&c>=left&&c<=right){cell.classList.add("selected-cell");if(r===top&&c===left)cell.classList.add("active-cell");if(r===top)cell.classList.add("selection-top");if(r===bottom)cell.classList.add("selection-bottom");if(c===left)cell.classList.add("selection-left");if(c===right)cell.classList.add("selection-right");}
+      }
       if(diagram.kind==="selection" && r>=3 && r<=6 && c>=2 && c<=3){cell.classList.add("selected-cell");if(r===3&&c===2)cell.classList.add("active-cell");if(r===3)cell.classList.add("selection-top");if(r===6)cell.classList.add("selection-bottom");if(c===2)cell.classList.add("selection-left");if(c===3)cell.classList.add("selection-right");}
       tr.appendChild(cell);
     });table.appendChild(tr);});wrap.appendChild(table);
@@ -6765,7 +6783,7 @@ document.getElementById("subjectSheetAll").addEventListener("click", ()=>showAll
 
 function exactQuestionKey(q){
   const normalize = text => String(text || "").normalize("NFC").replace(/\s+/g, "").replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
-  return JSON.stringify([q.subject, normalize(q.desc), q.image || "", q.options.map(normalize).sort()]);
+  return JSON.stringify([q.subject, normalize(q.desc), q.image || "", q.diagram || null, q.optionDiagrams || null, q.options.map(normalize).sort()]);
 }
 function renderQuestionDescription(container, q, prefix = ""){
   container.replaceChildren();
@@ -7619,6 +7637,10 @@ questions = parseText(PRELOADED_TEXT).concat(ROUND_2025_2.map(q => ({
   ...q, id: `2025-2-${q.no}-스프레드시트`, number: q.no,
   subject: "스프레드시트", year: 2025, round: 2, yearLabel: "2025년 2회",
   yearSort: yearRoundSortKey("2025년 2회"), title: "", image: q.image || "", explanation: ""
+})), window.ROUND_2025_3.map(q => ({
+  ...q, id: `2025-3-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
+  subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 3, yearLabel: "2025년 3회",
+  yearSort: yearRoundSortKey("2025년 3회"), title: "", image: "", explanation: ""
 })));
 
 // ✅ 키워드 기반 유사문제 태깅 + 통계용 히트 기록

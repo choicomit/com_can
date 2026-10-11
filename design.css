@@ -405,3 +405,9 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .duplicate-inline{font-size:18px;font-weight:400;color:#59665f;line-height:1.7;}
 .study-theme .duplicate-inline button{display:inline;padding:0;border:0;background:transparent;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:normal;}
 @media(max-width:600px){.study-theme .duplicate-inline{font-size:17px;}}
+.study-theme .exam-subtotal{width:310px;max-width:100%;box-sizing:border-box;padding:16px;border:1px solid #aab2ac;border-radius:7px;background:#f1f2ef;font-size:16px;line-height:1.5;}
+.study-theme .exam-dialog-field{padding:4px 8px;margin:4px 0 6px;background:#fff;border:1px solid #aab2ac;}
+.study-theme .exam-subtotal-list{padding:5px 8px;background:#fff;border:1px solid #aab2ac;margin:5px 0 12px;}
+.study-theme .exam-dialog-check{margin:6px 0;}
+.study-theme .exam-subtotal .exam-filter-buttons{margin-top:14px;gap:6px;flex-wrap:wrap;}
+.study-theme .exam-subtotal .exam-filter-buttons span{font-size:14px;padding:4px 10px;}
