@@ -1,7 +1,7 @@
 (() => {
   const button=document.getElementById('choiLogoZoom');if(!button)return;
   const dialog=document.createElement('dialog');dialog.id='choiLogoDialog';dialog.setAttribute('aria-labelledby','choiLogoZoomTitle');
-  dialog.innerHTML='<div class="logo-zoom-head"><h2 id="choiLogoZoomTitle">초이 로고</h2><button type="button">닫기</button></div><img src="assets/logos/choi-character-logo-50s.png" alt="안경과 긴 머리의 여성 선생님 웹툰 초상과 초이 손글씨"><p>안경과 긴 머리의 선생님 캐릭터에 ‘초이’ 손글씨를 담았습니다.</p>';
+  dialog.innerHTML='<div class="logo-zoom-head"><h2 id="choiLogoZoomTitle">초이쌤 로고</h2><button type="button">닫기</button></div><img src="assets/logos/choi-ssaem-logo.png" alt="안경과 긴 머리의 여성 선생님 웹툰 초상과 초이쌤 손글씨"><p>안경과 긴 머리의 선생님 캐릭터에 ‘초이쌤’ 손글씨를 담았습니다.</p>';
   document.body.append(dialog);
   button.addEventListener('click',()=>dialog.showModal());
   dialog.querySelector('button').addEventListener('click',()=>dialog.close());
