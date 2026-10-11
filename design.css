@@ -510,3 +510,6 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme #quizMeta{color:#53665b;}.study-theme #quizNext:disabled,.study-theme #dailyQuizPrevious:disabled{opacity:.5;cursor:default;}
 
 .study-theme .notes-guide-arrow.notes-guide-stopped{animation:none;opacity:1;transform:none;}
+
+.study-theme #quizMenuBtn{background:#ece4ff;border:1px solid #b8a0dd;color:#513479;white-space:nowrap;font-weight:700;}
+.study-theme #quizMenuBtn:hover{background:#e0d3fa;border-color:#9676c5;}
