@@ -493,3 +493,18 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 @media(prefers-reduced-motion:reduce){.study-theme .notes-guide-arrow{animation:none;}}
 @media(max-width:600px){.study-theme .study-header-actions{width:330px;gap:8px;}.study-theme .notes-button-guide p{font-size:23px;}}
 @media(max-width:600px){.study-theme header{display:flex;flex-direction:column;align-items:flex-start;}.study-theme header>div:first-child{width:100%;min-width:0;}.study-theme header>.study-header-actions:last-child{display:grid!important;grid-template-columns:auto auto auto;gap:8px!important;flex-direction:row;align-self:flex-end;}}
+
+/* Daily spreadsheet quiz uses the full exam bank, including diagrams. */
+.study-theme #quizCard{width:min(760px,100%);max-height:calc(100dvh - 36px);overflow-y:auto;background:#faf9f5;color:#293b35;border:1px solid #d6ded7;border-radius:18px;}
+.study-theme #quizHead{position:sticky;top:0;z-index:1;background:#faf9f5;border-bottom:1px solid #d6ded7;}
+.study-theme #quizHead .sub,.study-theme #quizNote{color:#606e67;}
+.study-theme #quizClose,.study-theme #quizNext,.study-theme #dailyQuizPrevious{background:white;border:1px solid #b7c8be;color:#344e40;padding:9px 14px;border-radius:9px;}
+.study-theme #quizQ{font-size:21px;line-height:1.7;white-space:pre-line;font-weight:700;}
+.study-theme .quizOpt{color:#293b35;background:white;border:1px solid #ccd6ce;text-align:left;font-size:18px;line-height:1.6;display:flex;gap:10px;align-items:flex-start;width:100%;}
+.study-theme .quizOpt strong{flex:none;}.study-theme .quizOpt .optBody{min-width:0;flex:1;}
+.study-theme .quizOpt:disabled{opacity:1;cursor:default;}.study-theme .quizOpt.correct{background:#e2f3e4;border-color:#61a66c;}.study-theme .quizOpt.wrong{background:#ffe7e4;border-color:#cc776d;}
+.study-theme #quizFooter{flex-wrap:wrap;}.study-theme #quizMeta{font-size:13px;margin-right:auto;}.study-theme #quizResult{font-size:15px;line-height:1.7;}
+.study-theme #dailyQuizDiagram{overflow-x:auto;margin-bottom:14px;}.study-theme #dailyQuizDiagram img{max-width:100%;height:auto;}
+.study-theme #quizOpts.diagram-options-grid .quizOpt{display:block;padding:12px;}.study-theme #quizOpts .optImg{max-width:100%;height:auto;}
+@media(max-width:600px){.study-theme #quizOverlay{padding:10px;}.study-theme #quizCard{max-height:calc(100dvh - 20px);}.study-theme #quizQ{font-size:20px;}.study-theme .quizOpt{font-size:17px;}.study-theme #dailyQuizDiagram .qimg-wrap img{max-width:none;min-width:0;}.study-theme #quizHead h3{font-size:14px;}}
+.study-theme #quizMeta{color:#53665b;}.study-theme #quizNext:disabled,.study-theme #dailyQuizPrevious:disabled{opacity:.5;cursor:default;}

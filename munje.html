@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-notes-guide-68">
+<link rel="stylesheet" href="design.css?v=20261011-daily-quiz-69">
 </head>
 
 <body class="study-theme">
@@ -1027,12 +1027,12 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2026-1.js?v=20261011-notes-guide-68"></script>
-<script src="data/round-2025-5.js?v=20261011-notes-guide-68"></script>
-<script src="data/round-2025-4.js?v=20261011-notes-guide-68"></script>
-<script src="data/round-2025-3.js?v=20261011-notes-guide-68"></script>
-<script src="data/textbook-references.js?v=20261011-notes-guide-68"></script>
-<script src="scripts/textbook-reference.js?v=20261011-notes-guide-68"></script>
+<script src="data/round-2026-1.js?v=20261011-daily-quiz-69"></script>
+<script src="data/round-2025-5.js?v=20261011-daily-quiz-69"></script>
+<script src="data/round-2025-4.js?v=20261011-daily-quiz-69"></script>
+<script src="data/round-2025-3.js?v=20261011-daily-quiz-69"></script>
+<script src="data/textbook-references.js?v=20261011-daily-quiz-69"></script>
+<script src="scripts/textbook-reference.js?v=20261011-daily-quiz-69"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -7967,83 +7967,6 @@ render();
 })();
 
 
-/* =========================
-   QUIZ 메뉴: 별도 창(팝업)으로 실행 + 닫기 시 연결된 창 닫기
-   - QUIZ 버튼: 컴활_2급_quiz.html 을 새 창으로 열기
-   - 퀴즈 창(닫기 버튼): BroadcastChannel 로 "closeAll" 신호 전송
-   - 이 페이지: 신호를 받으면 열려있는 팝업들을 모두 닫기
-========================= */
-(() => {
-  const CHANNEL_NAME = "quiz_close_all_v1";
-  const bc = ("BroadcastChannel" in window) ? new BroadcastChannel(CHANNEL_NAME) : null;
-
-  let quizWin = null;
-
-  function openQuizPopup(){
-    // 이미 열려있으면 포커스만
-    if(quizWin && !quizWin.closed){
-      try{ quizWin.focus(); }catch(e){}
-      return;
-    }
-
-    // 같은 폴더 기준 파일명
-    const url = "컴활_2급_quiz.html";
-
-    // 팝업 옵션 (모바일에서는 새 탭으로 열릴 수 있음)
-    const features = [
-      "popup=yes",
-      "width=560",
-      "height=840",
-      "left=120",
-      "top=80",
-      "resizable=yes",
-      "scrollbars=yes"
-    ].join(",");
-
-    quizWin = window.open(url, "excelShortcutQuiz", features);
-
-    // 팝업 차단 시 안내
-    if(!quizWin){
-      alert("팝업이 차단되어 QUIZ 창을 열 수 없습니다.\n브라우저에서 팝업 허용 후 다시 시도해 주세요.");
-      return;
-    }
-    try{ quizWin.focus(); }catch(e){}
-  }
-
-  function closeAllLinkedWindows(){
-    // 1) 팝업 닫기
-    if(quizWin && !quizWin.closed){
-      try{ quizWin.close(); }catch(e){}
-    }
-
-    // 2) 이 창도 닫기 시도 (스크립트로 열린 창일 때만 가능)
-    try{ window.close(); }catch(e){}
-  }
-
-  // 퀴즈 창에서 "닫기" 누르면 이 신호를 보냄
-  if(bc){
-    bc.onmessage = (ev) => {
-      if(ev && ev.data && ev.data.type === "closeAll"){
-        closeAllLinkedWindows();
-      }
-    };
-  }
-
-  // 페이지를 떠날 때 열려있는 팝업 정리
-  window.addEventListener("beforeunload", () => {
-    if(quizWin && !quizWin.closed){
-      try{ quizWin.close(); }catch(e){}
-    }
-    if(bc){ try{ bc.close(); }catch(e){} }
-  });
-
-  // QUIZ 버튼 클릭 → 팝업 열기
-  window.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("quizMenuBtn");
-    if(!btn) return;
-    btn.addEventListener("click", openQuizPopup);
-  });
-})();
 
 
 </script>
@@ -8075,6 +7998,7 @@ render();
   </div>
 </div>
 
-<script src="scripts/study-notes.js?v=20261011-notes-guide-68"></script>
+<script src="scripts/daily-spreadsheet-quiz.js?v=20261011-daily-quiz-69"></script>
+<script src="scripts/study-notes.js?v=20261011-daily-quiz-69"></script>
 </body>
 </html>
