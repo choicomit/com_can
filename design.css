@@ -517,15 +517,19 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 /* An unanswered question gets a one-minute reminder above its text. */
 .study-theme #idleStudyMascot{display:flex;flex-direction:column;align-items:center;gap:8px;width:fit-content;max-width:100%;margin:8px auto 18px;padding:12px 30px 0;background:transparent;border:0;box-shadow:none;cursor:pointer;color:#41594d;}
 .study-theme #idleStudyMascot[hidden]{display:none!important;}
-.study-theme .idle-mascot-bubble{position:relative;background:#fff6d8;border:1px solid #d6bd87;border-radius:20px;padding:13px 18px;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:16px;line-height:1.6;}
-.study-theme .idle-mascot-bubble::after{content:'';position:absolute;bottom:-7px;left:calc(50% - 7px);width:12px;height:12px;background:#fff6d8;border-right:1px solid #d6bd87;border-bottom:1px solid #d6bd87;transform:rotate(45deg);}
-.study-theme .idle-mascot-character{flex:none;animation:idle-mascot-walk 8s ease-in-out infinite;}
-.study-theme .idle-mascot-legs{transform-origin:65px 91px;animation:idle-mascot-step 1.8s ease-in-out infinite;}
-@keyframes idle-mascot-walk{0%,100%{transform:translateX(-22px);}50%{transform:translateX(22px);}}
-@keyframes idle-mascot-step{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+.study-theme .idle-mascot-bubble{position:relative;background:#f3f5f1;border:1px solid #bac9be;border-radius:13px;padding:13px 18px;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:16px;line-height:1.6;}
+.study-theme .idle-mascot-bubble::after{content:'';position:absolute;bottom:-7px;left:calc(50% - 7px);width:12px;height:12px;background:#f3f5f1;border-right:1px solid #bac9be;border-bottom:1px solid #bac9be;transform:rotate(45deg);}
+.study-theme .idle-mascot-character{flex:none;animation:idle-mascot-walk 12s ease-in-out infinite;}
+.study-theme .idle-mascot-legs{transform-origin:90px 135px;animation:idle-mascot-step 2.8s ease-in-out infinite;}
+@keyframes idle-mascot-walk{0%,100%{transform:translateX(-16px);}50%{transform:translateX(16px);}}
+@keyframes idle-mascot-step{0%,100%{transform:rotate(-2deg);}50%{transform:rotate(2deg);}}
 @media(prefers-reduced-motion:reduce){.study-theme .idle-mascot-character,.study-theme .idle-mascot-legs{animation:none;}}
 @media(max-width:600px){.study-theme #idleStudyMascot{padding:12px 12px 0;}.study-theme .idle-mascot-bubble{font-size:14px;padding:11px 13px;}}
 
 .study-theme .quiz-button-caption-wrap{position:relative;}
 .study-theme .quiz-button-caption-wrap #quizMenuBtn{width:100%;}
 .study-theme .quiz-button-caption-wrap .quiz-daily-caption{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;line-height:1.5;font-weight:500;color:#513479;}
+
+.study-theme .idle-mascot-person{animation:idle-mascot-breathe 4s ease-in-out infinite;transform-origin:90px 210px;}
+@keyframes idle-mascot-breathe{0%,100%{transform:translateY(0);}50%{transform:translateY(-1.5px);}}
+@media(prefers-reduced-motion:reduce){.study-theme .idle-mascot-person{animation:none;}}
