@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="324" height="122" viewBox="0 0 324 122" role="img" aria-labelledby="title">
+<title id="title">A1:C4 워크시트. 바나나 7 2500, 오렌지 6 1500, 사과 5 1200, 배 3 1300</title>
+<rect width="324" height="122" fill="#d5d5d5"/><rect x="3" y="33" width="318" height="87" fill="#fff"/>
+<g stroke="#bfbfbf" stroke-width="1"><path d="M36 11v109M108 11v109M180 11v109M252 11v109M321 33v87M3 33h318M3 55h318M3 77h318M3 99h318M3 120h318"/></g>
+<path d="M19 29h14V15z" fill="#999"/>
+<g font-family="Arial, Malgun Gothic, sans-serif" fill="#111" font-size="14">
+<g text-anchor="middle" font-size="12"><text x="72" y="25">A</text><text x="144" y="25">B</text><text x="216" y="25">C</text><text x="288" y="25">D</text><text x="20" y="49">1</text><text x="20" y="71">2</text><text x="20" y="93">3</text><text x="20" y="115">4</text></g>
+<text x="40" y="49">바나나</text><text x="40" y="71">오렌지</text><text x="40" y="93">사과</text><text x="40" y="115">배</text>
+<g text-anchor="end"><text x="177" y="49">7</text><text x="177" y="71">6</text><text x="177" y="93">5</text><text x="177" y="115">3</text><text x="249" y="49">2500</text><text x="249" y="71">1500</text><text x="249" y="93">1200</text><text x="249" y="115">1300</text></g>
+</g></svg>

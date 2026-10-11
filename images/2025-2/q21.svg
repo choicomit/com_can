@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="293" height="140" viewBox="0 0 293 140" role="img" aria-labelledby="title">
+<title id="title">상위 10 자동 필터 대화 상자</title>
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f1f1f1"/><stop offset="1" stop-color="#e7e7e7"/></linearGradient></defs>
+<rect x=".5" y=".5" width="289" height="139" rx="8" fill="url(#bg)" stroke="#999"/>
+<g font-family="Arial, Malgun Gothic, sans-serif" font-size="12" fill="#111">
+<text x="10" y="20">상위 10 자동 필터</text><text x="218" y="20">?</text><path d="M262 10l9 9m0-9l-9 9" fill="none" stroke="#111"/>
+<text x="8" y="50">표시</text><path d="M36 46H283" stroke="#ccc"/>
+<g fill="#fff" stroke="#999"><rect x="16" y="63" width="91" height="23"/><rect x="117" y="63" width="64" height="23"/><rect x="192" y="63" width="90" height="23"/></g>
+<g stroke="#bbb"><path d="M90 64v21M265 64v21"/></g><g fill="none" stroke="#555"><path d="M94 73l4 4 4-4M269 73l4 4 4-4"/></g>
+<g fill="#eee" stroke="#999"><rect x="166" y="65" width="13" height="9"/><rect x="166" y="74" width="13" height="9"/></g><g fill="#222"><path d="M169 71l3-4 3 4zM169 77l3 4 3-4z"/></g>
+<rect x="124" y="106" width="74" height="26" rx="3" fill="#fafafa" stroke="#555"/><rect x="127" y="109" width="68" height="20" fill="none" stroke="#333" stroke-dasharray="1 1"/>
+<rect x="208" y="106" width="74" height="26" rx="3" fill="#fafafa" stroke="#aaa"/>
+<text x="161" y="123" text-anchor="middle">확인</text><text x="245" y="123" text-anchor="middle">취소</text>
+</g></svg>

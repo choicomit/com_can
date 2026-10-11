@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-sheet-41">
+<link rel="stylesheet" href="design.css?v=20261011-images-42">
 </head>
 
 <body class="study-theme">
@@ -7589,6 +7589,13 @@ const ROUND_2025_2_SHEET = [
     "answerIndex": 2
   }
 ];
+// Diagrams reproduced from the supplied screenshots as local scalable images.
+for(const q of ROUND_2025_2_SHEET){
+  if(q.no === 21 || q.no === 23){
+    q.image = `images/2025-2/q${q.no}.svg`;
+    delete q.diagram;
+  }
+}
 questions = parseText(PRELOADED_TEXT).concat(ROUND_2025_2.map(q => ({
   ...q, id: `2025-2-${q.no}-컴퓨터 일반`, number: q.no,
   subject: "컴퓨터 일반", year: 2025, round: 2, yearLabel: "2025년 2회",
@@ -7596,7 +7603,7 @@ questions = parseText(PRELOADED_TEXT).concat(ROUND_2025_2.map(q => ({
 })), ROUND_2025_2_SHEET.map(q => ({
   ...q, id: `2025-2-${q.no}-스프레드시트`, number: q.no,
   subject: "스프레드시트", year: 2025, round: 2, yearLabel: "2025년 2회",
-  yearSort: yearRoundSortKey("2025년 2회"), title: "", image: "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 2회"), title: "", image: q.image || "", explanation: ""
 })));
 
 // ✅ 키워드 기반 유사문제 태깅 + 통계용 히트 기록
