@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-textbook-44">
+<link rel="stylesheet" href="design.css?v=20261011-duplicate-45">
 </head>
 
 <body class="study-theme">
@@ -888,7 +888,6 @@ h1{margin:0;font-size:22px}
       <div class="qtitle" id="qTitle"></div>
       <p class="qdesc" id="qDesc"></p>
       <div id="textbookReference" aria-live="polite"></div>
-      <div id="duplicateQuestions" class="duplicate-questions" hidden></div>
 
       <div id="imgBox" class="qimg-wrap" style="display:none;">
         <img id="qImg" class="qimg" alt="문제 이미지" />
@@ -1026,8 +1025,8 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/textbook-references.js?v=20261011-textbook-44"></script>
-<script src="scripts/textbook-reference.js?v=20261011-textbook-44"></script>
+<script src="data/textbook-references.js?v=20261011-duplicate-45"></script>
+<script src="scripts/textbook-reference.js?v=20261011-duplicate-45"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5968,8 +5967,7 @@ function applyEnded(isEnded){
   subjectTag.value = activeTab;
 
   qTitle.textContent = q.title || "";
-  qDesc.textContent = `${q.no}. ${q.desc || ""}`;
-  showDuplicateQuestions(q);
+  renderQuestionDescription(qDesc, q, `${q.no}. `);
   const textbookBox=document.getElementById("textbookReference");
   textbookBox.replaceChildren();
   appendTextbookReference(textbookBox,q);
@@ -6419,7 +6417,7 @@ function renderSimilarBatch(baseQ, scored){
 
     const desc = document.createElement("p");
     desc.className = "sim-desc";
-    desc.textContent = q.desc || "";
+    renderQuestionDescription(desc, q);
 
     const opts = document.createElement("div");
     opts.className = "sim-opts";
@@ -6769,24 +6767,34 @@ function exactQuestionKey(q){
   const normalize = text => String(text || "").normalize("NFC").replace(/\s+/g, "").replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
   return JSON.stringify([q.subject, normalize(q.desc), q.image || "", q.options.map(normalize).sort()]);
 }
-function showDuplicateQuestions(q){
-  const box = document.getElementById("duplicateQuestions");
-  box.replaceChildren();
+function renderQuestionDescription(container, q, prefix = ""){
+  container.replaceChildren();
+  const text = q.desc || "";
+  const questionEnd = text.lastIndexOf("?");
+  const splitAt = questionEnd >= 0 ? questionEnd + 1 : text.length;
+  container.appendChild(document.createTextNode(prefix + text.slice(0, splitAt)));
   const key = exactQuestionKey(q);
   const duplicates = questions.filter(other => other.id !== q.id && exactQuestionKey(other) === key);
-  box.hidden = duplicates.length === 0;
-  if(!duplicates.length) return;
-  box.appendChild(document.createTextNode("같은 문제 출제 이력: "));
-  for(const other of duplicates){
-    const link = document.createElement("button");
-    link.type = "button";
-    link.textContent = `${other.yearLabel} ${other.no}번에도 출제`;
-    link.addEventListener("click", ()=>{
-      showAllSubject(other.subject === "컴퓨터 일반" ? "GENERAL" : "SHEET");
-      goToId(other.id);
+  if(duplicates.length){
+    const note = document.createElement("span");
+    note.className = "duplicate-inline";
+    note.appendChild(document.createTextNode(" ("));
+    duplicates.forEach((other,i)=>{
+      if(i) note.appendChild(document.createTextNode(", "));
+      const link = document.createElement("button");
+      link.type = "button";
+      link.textContent = `${other.yearLabel} ${other.no}번에도 출제`;
+      link.addEventListener("click", ()=>{
+        closeSimilarBatch();
+        showAllSubject(other.subject === "컴퓨터 일반" ? "GENERAL" : "SHEET");
+        goToId(other.id);
+      });
+      note.appendChild(link);
     });
-    box.appendChild(link);
+    note.appendChild(document.createTextNode(")"));
+    container.appendChild(note);
   }
+  container.appendChild(document.createTextNode(text.slice(splitAt)));
 }
 
 subjectTag.addEventListener("change", ()=>{

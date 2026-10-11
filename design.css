@@ -401,3 +401,7 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 
 .study-theme .textbook-reference{font-family:inherit;font-size:17px;font-weight:600;color:#40594c;line-height:1.6;margin:0 0 20px;padding:10px 14px;border-left:3px solid #698778;background:#f3f6f3;border-radius:0 6px 6px 0;}
 @media(max-width:600px){.study-theme .textbook-reference{font-size:16px;padding:10px 12px;}}
+
+.study-theme .duplicate-inline{font-size:18px;font-weight:400;color:#59665f;line-height:1.7;}
+.study-theme .duplicate-inline button{display:inline;padding:0;border:0;background:transparent;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:normal;}
+@media(max-width:600px){.study-theme .duplicate-inline{font-size:17px;}}
