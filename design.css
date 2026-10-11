@@ -560,5 +560,16 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 /* Choi wordmark alongside the existing handwritten classroom name. */
 .study-theme .study-brand{align-items:center;}
 .study-theme .study-brand-main{display:inline-flex;align-items:center;gap:12px;max-width:100%;min-width:0;}
-.study-theme .choi-brand-logo{width:88px;height:44px;object-fit:contain;flex:none;display:block;}
-@media(max-width:600px){.study-theme .study-brand-main{gap:8px;}.study-theme .choi-brand-logo{width:66px;height:33px;}.study-theme .study-brand-main .teacher-brand{font-size:clamp(20px,6vw,27px);}}
+.study-theme .choi-brand-logo{width:132px;height:66px;object-fit:contain;flex:none;display:block;}
+@media(max-width:600px){.study-theme .study-brand-main{gap:8px;}.study-theme .choi-brand-logo{width:96px;height:48px;}.study-theme .study-brand-main .teacher-brand{font-size:clamp(20px,6vw,27px);}}
+
+.study-theme .choi-logo-button{display:block;flex:none;padding:0;background:transparent;border:0;border-radius:6px;box-shadow:none;cursor:zoom-in;}
+.study-theme .choi-logo-button:focus-visible{outline:2px solid #7d9986;outline-offset:4px;}
+.study-theme #choiLogoDialog{width:min(960px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:22px;border:1px solid #c8d5ca;border-radius:18px;background:#f8f7f2;color:#344e40;box-shadow:0 20px 70px #0004;}
+.study-theme #choiLogoDialog::backdrop{background:#18281f99;}
+.study-theme .logo-zoom-head{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.study-theme .logo-zoom-head h2{font-size:20px;margin:0;}
+.study-theme .logo-zoom-head button{padding:8px 14px;background:white;border:1px solid #b8cabc;border-radius:8px;color:#344e40;}
+.study-theme #choiLogoDialog img{display:block;width:100%;height:auto;max-height:65dvh;object-fit:contain;margin:16px 0;}
+.study-theme #choiLogoDialog p{font-size:14px;line-height:1.6;margin:0;color:#607369;}
+@media(max-width:600px){.study-theme .study-brand-main .teacher-brand{font-size:clamp(18px,5.3vw,23px);}.study-theme #choiLogoDialog{padding:16px;}}
