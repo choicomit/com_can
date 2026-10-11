@@ -61,6 +61,12 @@
     initializeTemplate();
     panel.hidden = false; if (panel.classList.contains('notes-minimized')) restore();
     editor.focus();
+    const heading = /(?:^|\n)1번문제[^\n]*\n/.exec(editor.value) || /(?:^|\n)\d+번문제[^\n]*\n/.exec(editor.value);
+    if (heading) {
+      const position = heading.index + heading[0].length;
+      editor.setSelectionRange(position, position);
+      editor.scrollTop = 0;
+    }
   });
   panel.querySelector('select').addEventListener('change', event => {
     panel.dataset.color = event.target.value;
