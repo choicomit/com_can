@@ -431,3 +431,10 @@ body.home-theme:not(.quiz-mode) .study-summary{border-radius:14px!important;box-
 .study-theme .diagram-options-grid .optImg{width:200px;max-width:100%;height:auto;border:0;margin:16px auto 0;}
 .study-theme .diagram-options-grid .sim-opt input{margin:0;}
 @media(max-width:600px){.study-theme .diagram-options-grid{gap:8px;}.study-theme .diagram-options-grid .opt,.study-theme .diagram-options-grid .sim-opt{padding:12px 8px;}.study-theme .diagram-options-grid .opt input{left:10px;top:10px;}.study-theme .diagram-options-grid .optText strong{margin-left:28px;}.study-theme .diagram-options-grid .optImg{margin-top:14px;}}
+
+/* Keep the new dialog and chart readable on narrow screens. */
+.qimg-wrap:has(img[src*="images/2025-5/"]){overflow-x:auto;}
+@media(max-width:600px){
+ .qimg-wrap img[src*="images/2025-5/q21.svg"]{min-width:610px;max-width:none;}
+ .qimg-wrap img[src*="images/2025-5/q32.svg"]{min-width:490px;max-width:none;}
+}

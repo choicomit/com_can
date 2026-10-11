@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-grid-51">
+<link rel="stylesheet" href="design.css?v=20261011-round5-52">
 </head>
 
 <body class="study-theme">
@@ -1025,10 +1025,11 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-4.js?v=20261011-grid-51"></script>
-<script src="data/round-2025-3.js?v=20261011-grid-51"></script>
-<script src="data/textbook-references.js?v=20261011-grid-51"></script>
-<script src="scripts/textbook-reference.js?v=20261011-grid-51"></script>
+<script src="data/round-2025-5.js?v=20261011-round5-52"></script>
+<script src="data/round-2025-4.js?v=20261011-round5-52"></script>
+<script src="data/round-2025-3.js?v=20261011-round5-52"></script>
+<script src="data/textbook-references.js?v=20261011-round5-52"></script>
+<script src="scripts/textbook-reference.js?v=20261011-round5-52"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -5928,6 +5929,7 @@ function appendQuestionDiagram(container, diagram){
       const merged=diagram.merges?.find(m=>m.row===r && m.col===c);
       const cell=document.createElement(r===0 || (diagram.kind!=="conditions" && c===0) ? "th" : "td");
       cell.textContent=value;
+      if(diagram.multiline) cell.style.whiteSpace="pre-line";
       if(merged) cell.colSpan=merged.span;
       for(const range of diagram.selections || (diagram.selection ? [diagram.selection] : [])){
         const [top,bottom,left,right]=range;
@@ -5995,7 +5997,7 @@ function applyEnded(isEnded){
   imgBox.style.display = (q.image || q.diagram) ? "block" : "none";
   if(q.diagram) appendQuestionDiagram(imgBox, q.diagram);
   if(q.image){
-    if(q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
+    if(/^images\/2025-5\/q(?:21|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
       const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imgBox.appendChild(hint);
     }
     const img = document.createElement("img");
@@ -6533,7 +6535,7 @@ function renderSimilarBatch(baseQ, scored){
     if(q.image){
       const imageBox = document.createElement("div");
       imageBox.className = "qimg-wrap";
-      if(q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
+      if(/^images\/2025-5\/q(?:21|32)\.svg$/.test(q.image) || q.image.endsWith("/q35.svg") || /^images\/2025-4\/q(?:28|31|32)\.svg$/.test(q.image)){
         const hint=document.createElement("div");hint.className="exam-table-hint";hint.textContent="표를 좌우로 밀어 확인하세요.";imageBox.appendChild(hint);
       }
       const img = document.createElement("img");
@@ -7654,6 +7656,10 @@ questions = parseText(PRELOADED_TEXT).concat(ROUND_2025_2.map(q => ({
   ...q, id: `2025-4-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
   subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 4, yearLabel: "2025년 4회",
   yearSort: yearRoundSortKey("2025년 4회"), title: "", image: q.image || "", explanation: ""
+})), window.ROUND_2025_5.map(q => ({
+  ...q, id: `2025-5-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
+  subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 5, yearLabel: "2025년 5회",
+  yearSort: yearRoundSortKey("2025년 5회"), title: "", image: q.image || "", explanation: ""
 })));
 
 // ✅ 키워드 기반 유사문제 태깅 + 통계용 히트 기록

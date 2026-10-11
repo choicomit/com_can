@@ -1303,6 +1303,110 @@ window.TEXTBOOK_REFERENCES = {
         20
       ],
       "status": "matched"
+    },
+    "2025-5-1-컴퓨터 일반": {
+      "pages": [
+        8
+      ],
+      "status": "matched"
+    },
+    "2025-5-2-컴퓨터 일반": {
+      "pages": [
+        15
+      ],
+      "status": "matched"
+    },
+    "2025-5-3-컴퓨터 일반": {
+      "pages": [
+        20
+      ],
+      "status": "matched"
+    },
+    "2025-5-4-컴퓨터 일반": {
+      "pages": [
+        16
+      ],
+      "status": "matched"
+    },
+    "2025-5-5-컴퓨터 일반": {
+      "pages": [
+        28
+      ],
+      "status": "matched"
+    },
+    "2025-5-6-컴퓨터 일반": {
+      "pages": [
+        21
+      ],
+      "status": "matched"
+    },
+    "2025-5-7-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-8-컴퓨터 일반": {
+      "pages": [
+        16
+      ],
+      "status": "matched"
+    },
+    "2025-5-9-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-10-컴퓨터 일반": {
+      "pages": [
+        24
+      ],
+      "status": "matched"
+    },
+    "2025-5-11-컴퓨터 일반": {
+      "pages": [
+        27
+      ],
+      "status": "matched"
+    },
+    "2025-5-12-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-13-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-14-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-15-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-16-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-17-컴퓨터 일반": {
+      "pages": [
+        18
+      ],
+      "status": "matched"
+    },
+    "2025-5-18-컴퓨터 일반": {
+      "pages": [
+        24
+      ],
+      "status": "matched"
+    },
+    "2025-5-19-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2025-5-20-컴퓨터 일반": {
+      "pages": [
+        18
+      ],
+      "status": "matched"
     }
   }
 };
