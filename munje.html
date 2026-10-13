@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261011-ssaem-logo-96">
+<link rel="stylesheet" href="design.css?v=20261013-round-picker-97">
 </head>
 
 <body class="study-theme">
@@ -1027,12 +1027,12 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2026-1.js?v=20261011-ssaem-logo-96"></script>
-<script src="data/round-2025-5.js?v=20261011-ssaem-logo-96"></script>
-<script src="data/round-2025-4.js?v=20261011-ssaem-logo-96"></script>
-<script src="data/round-2025-3.js?v=20261011-ssaem-logo-96"></script>
-<script src="data/textbook-references.js?v=20261011-ssaem-logo-96"></script>
-<script src="scripts/textbook-reference.js?v=20261011-ssaem-logo-96"></script>
+<script src="data/round-2026-1.js?v=20261013-round-picker-97"></script>
+<script src="data/round-2025-5.js?v=20261013-round-picker-97"></script>
+<script src="data/round-2025-4.js?v=20261013-round-picker-97"></script>
+<script src="data/round-2025-3.js?v=20261013-round-picker-97"></script>
+<script src="data/textbook-references.js?v=20261013-round-picker-97"></script>
+<script src="scripts/textbook-reference.js?v=20261013-round-picker-97"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -6767,7 +6767,7 @@ function updateQuestionPicker(){
   all.value = "__ALL__";
   all.textContent = "전체 회차";
   numTag.appendChild(all);
-  const labels = [...new Set(questions.filter(inTabQ).map(q => q.yearLabel))];
+  const labels = [...new Set(questions.map(q => q.yearLabel).filter(Boolean))];
   labels.sort((a,b)=>yearRoundSortKey(a)-yearRoundSortKey(b));
   for(const label of labels){
     const option = document.createElement("option");
@@ -6779,6 +6779,13 @@ function updateQuestionPicker(){
 }
 numTag.addEventListener("change", ()=>{
   const round = numTag.value;
+  if(round !== "__ALL__" && !questions.some(q => q.yearLabel === round && inTabQ(q))){
+    const available = questions.find(q => q.yearLabel === round);
+    if(available){
+      activeTab = available.subject === "컴퓨터 일반" ? "GENERAL" : "SHEET";
+      updateTabUI();
+    }
+  }
   onlyUnanswered.checked = false;
   setYearRound(round);
   const first = getVisibleQuestions()[0];
@@ -7998,9 +8005,9 @@ render();
   </div>
 </div>
 
-<script src="scripts/daily-spreadsheet-quiz.js?v=20261011-ssaem-logo-96"></script>
-<script src="scripts/study-notes.js?v=20261011-ssaem-logo-96"></script>
-<script src="scripts/idle-study-mascot.js?v=20261011-ssaem-logo-96"></script>
-<script src="scripts/logo-zoom.js?v=20261011-ssaem-logo-96"></script>
+<script src="scripts/daily-spreadsheet-quiz.js?v=20261013-round-picker-97"></script>
+<script src="scripts/study-notes.js?v=20261013-round-picker-97"></script>
+<script src="scripts/idle-study-mascot.js?v=20261013-round-picker-97"></script>
+<script src="scripts/logo-zoom.js?v=20261013-round-picker-97"></script>
 </body>
 </html>
