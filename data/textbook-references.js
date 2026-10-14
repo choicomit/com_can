@@ -1613,6 +1613,111 @@ window.TEXTBOOK_REFERENCES = {
     "2026-2-20-컴퓨터 일반": {
       "pages": [],
       "status": "not-covered"
+    },
+    "2024-4-1-컴퓨터 일반": {
+      "pages": [
+        27
+      ],
+      "status": "matched"
+    },
+    "2024-4-2-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-3-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-4-컴퓨터 일반": {
+      "pages": [
+        14
+      ],
+      "status": "matched"
+    },
+    "2024-4-5-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-6-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-7-컴퓨터 일반": {
+      "pages": [
+        19
+      ],
+      "status": "matched"
+    },
+    "2024-4-8-컴퓨터 일반": {
+      "pages": [
+        2
+      ],
+      "status": "matched"
+    },
+    "2024-4-9-컴퓨터 일반": {
+      "pages": [
+        24
+      ],
+      "status": "matched"
+    },
+    "2024-4-10-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-11-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-12-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-13-컴퓨터 일반": {
+      "pages": [],
+      "status": "not-covered"
+    },
+    "2024-4-14-컴퓨터 일반": {
+      "pages": [
+        21
+      ],
+      "status": "matched"
+    },
+    "2024-4-15-컴퓨터 일반": {
+      "pages": [
+        20
+      ],
+      "status": "matched"
+    },
+    "2024-4-16-컴퓨터 일반": {
+      "pages": [
+        3
+      ],
+      "status": "matched"
+    },
+    "2024-4-17-컴퓨터 일반": {
+      "pages": [
+        13
+      ],
+      "status": "matched"
+    },
+    "2024-4-18-컴퓨터 일반": {
+      "pages": [
+        22
+      ],
+      "status": "matched"
+    },
+    "2024-4-19-컴퓨터 일반": {
+      "pages": [
+        6,
+        27
+      ],
+      "status": "matched"
+    },
+    "2024-4-20-컴퓨터 일반": {
+      "pages": [
+        10
+      ],
+      "status": "matched"
     }
   }
 };
