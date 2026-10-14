@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261015-explanation-cleanup-102">
+<link rel="stylesheet" href="design.css?v=20261015-2025-explanations-103">
 </head>
 
 <body class="study-theme">
@@ -1027,14 +1027,15 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-1-sheet.js?v=20261015-explanation-cleanup-102"></script>
-<script src="data/round-2026-2.js?v=20261015-explanation-cleanup-102"></script>
-<script src="data/round-2026-1.js?v=20261015-explanation-cleanup-102"></script>
-<script src="data/round-2025-5.js?v=20261015-explanation-cleanup-102"></script>
-<script src="data/round-2025-4.js?v=20261015-explanation-cleanup-102"></script>
-<script src="data/round-2025-3.js?v=20261015-explanation-cleanup-102"></script>
-<script src="data/textbook-references.js?v=20261015-explanation-cleanup-102"></script>
-<script src="scripts/textbook-reference.js?v=20261015-explanation-cleanup-102"></script>
+<script src="data/round-2025-1-sheet.js?v=20261015-2025-explanations-103"></script>
+<script src="data/explanations-2025.js?v=20261015-2025-explanations-103"></script>
+<script src="data/round-2026-2.js?v=20261015-2025-explanations-103"></script>
+<script src="data/round-2026-1.js?v=20261015-2025-explanations-103"></script>
+<script src="data/round-2025-5.js?v=20261015-2025-explanations-103"></script>
+<script src="data/round-2025-4.js?v=20261015-2025-explanations-103"></script>
+<script src="data/round-2025-3.js?v=20261015-2025-explanations-103"></script>
+<script src="data/textbook-references.js?v=20261015-2025-explanations-103"></script>
+<script src="scripts/textbook-reference.js?v=20261015-2025-explanations-103"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -7662,28 +7663,33 @@ questions = parseText(PRELOADED_TEXT).concat(window.ROUND_2026_2.map(q => ({
 })),ROUND_2025_2.map(q => ({
   ...q, id: `2025-2-${q.no}-컴퓨터 일반`, number: q.no,
   subject: "컴퓨터 일반", year: 2025, round: 2, yearLabel: "2025년 2회",
-  yearSort: yearRoundSortKey("2025년 2회"), title: "", image: "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 2회"), title: "", image: "", explanation: q.explanation || ""
 })), ROUND_2025_2_SHEET.map(q => ({
   ...q, id: `2025-2-${q.no}-스프레드시트`, number: q.no,
   subject: "스프레드시트", year: 2025, round: 2, yearLabel: "2025년 2회",
-  yearSort: yearRoundSortKey("2025년 2회"), title: "", image: q.image || "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 2회"), title: "", image: q.image || "", explanation: q.explanation || ""
 })), window.ROUND_2025_3.map(q => ({
   ...q, id: `2025-3-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
   subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 3, yearLabel: "2025년 3회",
-  yearSort: yearRoundSortKey("2025년 3회"), title: "", image: q.image || "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 3회"), title: "", image: q.image || "", explanation: q.explanation || ""
 })), window.ROUND_2025_4.map(q => ({
   ...q, id: `2025-4-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
   subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 4, yearLabel: "2025년 4회",
-  yearSort: yearRoundSortKey("2025년 4회"), title: "", image: q.image || "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 4회"), title: "", image: q.image || "", explanation: q.explanation || ""
 })), window.ROUND_2025_5.map(q => ({
   ...q, id: `2025-5-${q.no}-${q.no <= 20 ? "컴퓨터 일반" : "스프레드시트"}`, number: q.no,
   subject: q.no <= 20 ? "컴퓨터 일반" : "스프레드시트", year: 2025, round: 5, yearLabel: "2025년 5회",
-  yearSort: yearRoundSortKey("2025년 5회"), title: "", image: q.image || "", explanation: ""
+  yearSort: yearRoundSortKey("2025년 5회"), title: "", image: q.image || "", explanation: q.explanation || ""
 })), window.ROUND_2026_1.map(q => ({
   ...q,id:`2026-1-${q.no}-${q.no<=20?"컴퓨터 일반":"스프레드시트"}`,number:q.no,
   subject:q.no<=20?"컴퓨터 일반":"스프레드시트",year:2026,round:1,yearLabel:"2026년 1회",
   yearSort:yearRoundSortKey("2026년 1회"),title:"",image:q.image||"",explanation:q.explanation||""
 })));
+
+// Keep imported explanations and supplement older rounds by stable question ID.
+for(const q of questions){
+  if(window.EXPLANATIONS_2025[q.id]) q.explanation = window.EXPLANATIONS_2025[q.id];
+}
 
 // ✅ 키워드 기반 유사문제 태깅 + 통계용 히트 기록
 buildKeywordTags();
@@ -8014,9 +8020,9 @@ render();
   </div>
 </div>
 
-<script src="scripts/daily-spreadsheet-quiz.js?v=20261015-explanation-cleanup-102"></script>
-<script src="scripts/study-notes.js?v=20261015-explanation-cleanup-102"></script>
-<script src="scripts/idle-study-mascot.js?v=20261015-explanation-cleanup-102"></script>
-<script src="scripts/logo-zoom.js?v=20261015-explanation-cleanup-102"></script>
+<script src="scripts/daily-spreadsheet-quiz.js?v=20261015-2025-explanations-103"></script>
+<script src="scripts/study-notes.js?v=20261015-2025-explanations-103"></script>
+<script src="scripts/idle-study-mascot.js?v=20261015-2025-explanations-103"></script>
+<script src="scripts/logo-zoom.js?v=20261015-2025-explanations-103"></script>
 </body>
 </html>
