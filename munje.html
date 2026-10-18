@@ -840,7 +840,7 @@ h1{margin:0;font-size:22px}
 
 </style>
 
-<link rel="stylesheet" href="design.css?v=20261015-round2024-5-105">
+<link rel="stylesheet" href="design.css?v=20261018-lookup-group-106">
 </head>
 
 <body class="study-theme">
@@ -1027,17 +1027,17 @@ h1{margin:0;font-size:22px}
   </div>
 </div>
 
-<script src="data/round-2025-1-sheet.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2024-5.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2024-4.js?v=20261015-round2024-5-105"></script>
-<script src="data/explanations-2025.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2026-2.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2026-1.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2025-5.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2025-4.js?v=20261015-round2024-5-105"></script>
-<script src="data/round-2025-3.js?v=20261015-round2024-5-105"></script>
-<script src="data/textbook-references.js?v=20261015-round2024-5-105"></script>
-<script src="scripts/textbook-reference.js?v=20261015-round2024-5-105"></script>
+<script src="data/round-2025-1-sheet.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2024-5.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2024-4.js?v=20261018-lookup-group-106"></script>
+<script src="data/explanations-2025.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2026-2.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2026-1.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2025-5.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2025-4.js?v=20261018-lookup-group-106"></script>
+<script src="data/round-2025-3.js?v=20261018-lookup-group-106"></script>
+<script src="data/textbook-references.js?v=20261018-lookup-group-106"></script>
+<script src="scripts/textbook-reference.js?v=20261018-lookup-group-106"></script>
 <script>
 /* =========================
    TTS (정답입니다)
@@ -6949,8 +6949,24 @@ function hasPortNumberWord(q){
     .normalize("NFC").replace(/[\s\u200B-\u200D\uFEFF]/g, "");
   return text.includes("포트번호");
 }
+function isLookupFunctionQuestion(q){
+  if(q.subject !== "스프레드시트") return false;
+  const text = [q.title || "", q.desc || "", ...(q.options || []),
+    JSON.stringify(q.diagram || ""), JSON.stringify(q.optionDiagrams || "")]
+    .join(" ").normalize("NFC").replace(/[\u200B-\u200D\uFEFF]/g, "");
+  return /\b(?:vlookup|hlookup)\b/i.test(text);
+}
 function findSimilarQuestions(baseQ, candidates = questions){
   if(!baseQ) return [];
+  if(isLookupFunctionQuestion(baseQ)){
+    const baseWords = questionWords(baseQ);
+    return candidates.filter(q => q.id !== baseQ.id && isLookupFunctionQuestion(q)).map(q => {
+      const candidateWords = questionWords(q);
+      const shared = [...baseWords].filter(word => candidateWords.has(word));
+      const total = Math.max(baseWords.size, candidateWords.size);
+      return {q, sim: total ? shared.length / total : 0, shared, total, lookupMatch: true};
+    }).sort((a,b) => a.q.yearSort - b.q.yearSort || a.q.no - b.q.no);
+  }
   const malwareOnly = baseQ.id === "2023-1-8-컴퓨터 일반";
   const baseWords = questionWords(baseQ);
   if(!baseWords.size) return [];
@@ -8030,9 +8046,9 @@ render();
   </div>
 </div>
 
-<script src="scripts/daily-spreadsheet-quiz.js?v=20261015-round2024-5-105"></script>
-<script src="scripts/study-notes.js?v=20261015-round2024-5-105"></script>
-<script src="scripts/idle-study-mascot.js?v=20261015-round2024-5-105"></script>
-<script src="scripts/logo-zoom.js?v=20261015-round2024-5-105"></script>
+<script src="scripts/daily-spreadsheet-quiz.js?v=20261018-lookup-group-106"></script>
+<script src="scripts/study-notes.js?v=20261018-lookup-group-106"></script>
+<script src="scripts/idle-study-mascot.js?v=20261018-lookup-group-106"></script>
+<script src="scripts/logo-zoom.js?v=20261018-lookup-group-106"></script>
 </body>
 </html>
